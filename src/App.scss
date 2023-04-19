@@ -1,0 +1,92 @@
+body {
+  background-color: #000000;
+}
+
+p,
+span {
+  color: white;
+}
+
+.page {
+  min-height: 95vh;
+}
+
+.border {
+  border: 2px ridge white;
+  margin: 3px;
+  padding: 3px;
+}
+
+.inlineBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alertBox {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  background-color: #9b9b9b;
+  padding: 10px;
+}
+
+.alertText {
+  font-size: 18pt;
+  color: #000000;
+}
+
+.alertButton {
+  width: 100%;
+  background: none;
+  color: #000000;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.alertButton:hover {
+  background: white;
+}
+
+input {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  caret-shape: block;
+  caret-color: white;
+}
+
+input:active {
+  border: 1px solid white;
+}
+
+.panels {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.panel {
+  min-height: 67vh;
+}
+
+.sidePanel {
+  flex-grow: 0;
+  min-width: 20%;
+}
+
+.centrePanel {
+  flex-grow: 4;
+}
+
+button {
+  background: none;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+}
+
+.scroll {
+    max-height:10px;
+    overflow: scroll;
+}
