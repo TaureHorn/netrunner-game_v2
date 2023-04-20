@@ -13,10 +13,10 @@ function CommandHistory(props) {
         return (
             <div key={crypto.randomUUID()}>
             <p style={{fontWeight: "bold"}}>{cmd?.cmd}</p>
-            <p style={{fontStyle: "italic"}}>{cmd?.return1}</p>
-            <p style={{fontStyle: "italic"}}>{cmd?.return2}</p>
-            <p style={{fontStyle: "italic"}}>{cmd?.return3}</p>
-            <p style={{fontStyle: "italic"}}>{cmd?.return4}</p>
+            <p style={{fontStyle: "italic"}}>{cmd?.result}</p>
+            <p style={{fontStyle: "italic"}}>{cmd?.result2}</p>
+            <p style={{fontStyle: "italic"}}>{cmd?.result3}</p>
+            <p style={{fontStyle: "italic"}}>{cmd?.result4}</p>
             </div>
         );
       })}
