@@ -16,6 +16,19 @@ export function cmdParser(command, username) {
           result: "data goes here",
         };
       }
+    //// CD //////////////////////////////////////////////////////////
+    case "cd":
+      if (cmd[1] === "--help" || cmd[1] === "-h") {
+        return {
+          cmd: prependReturn,
+          result: "Navigates to a directory. Append with directory name",
+        };
+      } else {
+        return {
+          cmd: prependReturn,
+          result: "data goes here",
+        };
+      }
     //// CLEAR  //////////////////////////////////////////////////////////
     case "clear":
       if (cmd[1] === "--help" || cmd[1] === "-h") {
@@ -36,7 +49,7 @@ export function cmdParser(command, username) {
       } else {
         return {
           cmd: prependReturn,
-          result: "cat, clear, cmds, exit, file, irc, ls, scp, ssh, steghide",
+          result: "cat, cd, clear, cmds, exit, file, irc, ls, scp, ssh, steghide",
           result2:
             "Append any of these commands with --help or -h to learn what it does",
         };

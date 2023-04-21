@@ -36,10 +36,9 @@ function Bootup(props) {
         <p>hostname: {ueid}</p>
         <p>please enter a username</p>
         <form onSubmit={(e) => userHandler(e)}>
-          <input type="text" autoFocus name="username" placeholder="username" />
+          <input type="text" autoFocus name="username"/>
         </form>
       </div>
-      <div></div>
     </div>
   );
 }

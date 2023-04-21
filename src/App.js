@@ -11,6 +11,8 @@ import Terminal from "./components/terminal";
 import SoftwareSidebar from "./components/softwareSidebar";
 import Footer from "./components/footer";
 
+import { toggleElement } from "./functions/toggleElement";
+
 function App() {
   // username setting
   const [username, setUserName] = useState(
@@ -21,23 +23,47 @@ function App() {
 
   return !username ? (
     <>
-      <div className="border page">
+      <div className="page welcome">
         <Bootup alert={(alert) => setAlert(alert)} />
         {alert ? <Alert alert={alert} setAlert={() => setAlert()} /> : <></>}
       </div>
     </>
   ) : (
     <>
+      <button
+        onClick={() => toggleElement("helpSidebar")}
+        className="toggler helpToggler"
+      >
+        {" "}
+        help{" "}
+      </button>
+
+      <button
+        onClick={() => toggleElement("softwareSidebar")}
+        className="toggler softwareToggler"
+      >
+        {" "}
+        software{" "}
+      </button>
+
       <div className="border page">
         <Header />
         <div className="inlineBox panels">
           <HelpSidebar />
           <Routes>
-            <Route path="/" element={<Terminal username={username} alert={(alert) => setAlert(alert)}/>} />
+            <Route
+              path="/"
+              element={
+                <Terminal
+                  username={username}
+                  alert={(alert) => setAlert(alert)}
+                />
+              }
+            />
           </Routes>
           <SoftwareSidebar />
         </div>
-        <Footer alert={(alert) => setAlert(alert)}/>
+        <Footer alert={(alert) => setAlert(alert)} />
       </div>
       {alert ? <Alert alert={alert} setAlert={() => setAlert()} /> : <></>}
     </>
