@@ -14,7 +14,6 @@ import Footer from "./components/footer";
 import { toggleElement } from "./functions/toggleElement";
 
 function App() {
-  // username setting
   const [username, setUserName] = useState(
     window.localStorage.getItem("username")
   );
@@ -69,5 +68,4 @@ function App() {
     </>
   );
 }
-
 export default App;

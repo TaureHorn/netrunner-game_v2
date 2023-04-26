@@ -2,8 +2,8 @@ export class Directory {
   constructor(dirName, parentDirName) {
     this._dirName = dirName;
     this._parentDirName = parentDirName;
-    this._linkedDirs = {};
-    this._fileDirLink = {};
+    this._linkedDirs = [];
+    this._fileDirLink = [];
   }
     set dirName(value) {
         if (typeof value != String){
@@ -28,6 +28,9 @@ export class Directory {
     linkDirectories(direction, directoryToLink){
         this._linkedDirs[direction] = directoryToLink
     }
+    linkFiles(index, file){
+        this._fileDirLink[index] = file
+    }
 
     ls(){
         const entries = Object.entries(this._fileDirLink);
@@ -43,6 +46,18 @@ export class Directory {
         } else {
             return "No such directory"
         }
+    }
+
+}
+
+export class File {
+    constructor(fileName, fileType, fileAccess, fileOwner, fileCreator, fileInfo, fileHiddenInfo) {
+        this._fileName = fileName;
+        this._fileType = fileType;
+        this._fileOwner = fileOwner;
+        this._fileCreator = fileCreator;
+        this._fileInfo = fileInfo;
+        this._fileHidenInfo = fileHiddenInfo;
     }
 
 }
