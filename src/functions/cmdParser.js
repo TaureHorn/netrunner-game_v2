@@ -1,174 +1,90 @@
-export function cmdParser(command, username) {
-  const cmd = command.split(" ");
-  const prependReturn = (username + command).toString();
+export function commandParser(command) {
+  const input = command.toLowerCase()
+  const cmd = command.split(" ")
+  const program = cmd[0].toLowerCase()
+  let output = "";
 
-  switch (cmd[0]) {
-    //// CAT //////////////////////////////////////////////////////////
-    case "cat":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "Print content of a file",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// CD //////////////////////////////////////////////////////////
-    case "cd":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "Navigates to a directory. Append with directory name",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// CLEAR  //////////////////////////////////////////////////////////
-    case "clear":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "Clear the terminal",
-        };
-      } else {
-        return {};
-      }
-    //// CMDS  //////////////////////////////////////////////////////////
-    case "cmds":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "lists available terminal commands",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "cat, cd, clear, cmds, exit, file, irc, ls, scp, ssh, steghide",
-          result2:
-            "Append any of these commands with --help or -h to learn what it does",
-        };
-      }
-    //// EXIT  //////////////////////////////////////////////////////////
-    case "exit":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "Exits session. erases all virtual machine environment data",
-        };
-      } else {
-        shutDown();
-        return {
-          cmd: prependReturn,
-          result: "Erasing Virtual Machine Environment",
-        };
-      }
-    //// FILE  //////////////////////////////////////////////////////////
-    case "file":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "Prints metadata of file. Append with file name",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// IRC  //////////////////////////////////////////////////////////
-    case "irc":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result:
-            "Moves session to Internet Relay Chat. Append with IRC server IP address",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// LS  //////////////////////////////////////////////////////////
-    case "ls":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result: "List files in current directory",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// SCP  //////////////////////////////////////////////////////////
-    case "scp":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result:
-            "Copies a file to a networked location. Append with file name and network IP address.",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: (
-            "moved file " +
-            cmd[1] +
-            " to location " +
-            cmd[2]
-          ).toString(),
-        };
-      }
-    //// SSH  //////////////////////////////////////////////////////////
-    case "ssh":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result:
-            "Securely spawn shell session on remote system. Append with remote system IP address",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "...attempting to migrate tty session to shell @" + cmd[1],
-        };
-      }
-    //// STEGHIDE  //////////////////////////////////////////////////////////
-    case "steghide":
-      if (cmd[1] === "--help" || cmd[1] === "-h") {
-        return {
-          cmd: prependReturn,
-          result:
-            "Prints any infomation hidden in a file using steganography. Append with filename.",
-        };
-      } else {
-        return {
-          cmd: prependReturn,
-          result: "data goes here",
-        };
-      }
-    //// DEFAULT  //////////////////////////////////////////////////////////
-    default:
-      const err = (cmd[0] + ": command not found ...").toString();
-      return {
-        cmd: prependReturn,
-        result: err,
-      };
+  if (cmd[1] === "--help" || cmd[1] === "-h") {
+    switch (program) {
+      case "cat":
+        output = helpAssembler(input, "Print the contents of a file");
+            break;
+      case "cd":
+        output = helpAssembler(input, "Navigates to a directory. Append with a valid directory name");
+            break;
+      case "clear":
+        output = helpAssembler(input, "Clear the terminal");
+            break;
+      case "cmds":
+        output = helpAssembler(input, "Lists available terminal commands");
+            break;
+      case "exit":
+        output = helpAssembler(input, "Exits session. All virtual machine environment data is erased!");
+            break;
+      case "file":
+        output = helpAssembler(input, "Prints metadata of file. Append with a valid file name");
+            break;
+      case "irc":
+        output = helpAssembler(input, "Moves session to Internet Relay Chat client. Append with a valid IRC server IP address");
+            break;
+      case "ls":
+        output = helpAssembler(input, "List files in current directory");
+            break;
+      case "scp":
+        output = helpAssembler(input, "Copies a file to a networked location. Append with a valid file name and IP address");
+            break;
+      case "ssh":
+        output = helpAssembler(input, "Securely spawn a shell session on a remote system. Append with a valid remote IP address");
+            break;
+      case "steghide":
+        output = helpAssembler(input, "Prints any information that was hidden in a file using steganography tools. Append with a valid filename");
+            break;
+    }
+  } else {
+    switch (program) {
+      case "clear":
+      case "cmds":
+      case "exit":
+      case "ls":
+        output = argumentsChecker(cmd, 1);
+        break;
+      case "cat":
+      case "cd":
+      case "file":
+      case "irc":
+      case "ssh":
+      case "steghide":
+        output = argumentsChecker(cmd, 2);
+        break;
+      case "scp":
+        output = argumentsChecker(cmd, 3);
+        break;
+      default:
+        output = helpAssembler(input, "command not found");
+    }
   }
+  return output;
+}
 
-  function shutDown() {
-    window.localStorage.removeItem("username");
-    window.localStorage.removeItem("gameState");
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+function argumentsChecker(command, number) {
+  // check for correct number of arguments
+  if (command[command.length - 1] === "") {
+    return helpAssembler(command, `"" is not a valid argument`);
+  } else if (command.length < number) {
+    return helpAssembler(command, "too few arguments");
+  } else if (command.length > number) {
+    return helpAssembler(command, "too many arguments");
   }
+  // if arguments number is correct, output cmd and arguments as object
+  if (number === 1) {
+    return { cmd: command[0] };
+  } else if (number === 2) {
+    return { cmd: command[0], arg1: command[1] };
+  } else if (number === 3) {
+    return { cmd: command[0], arg1: command[1], arg2: command[2] };
+  }
+}
+
+function helpAssembler(command, statement) {
+  return { cmd: command, helpStatement: statement };
 }

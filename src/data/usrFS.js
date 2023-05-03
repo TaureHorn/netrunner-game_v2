@@ -19,7 +19,16 @@ export const usrFS = {
       "storage",
       username,
       "root",
-      "print and concatenate files",
+      "print the contents of a file",
+      "n/a"
+    ),
+    cd: new File(
+      "cd",
+      "bash script",
+      "term storage",
+      username,
+      "root",
+      "navigate to a directory",
       "n/a"
     ),
     clear: new File(
@@ -29,6 +38,24 @@ export const usrFS = {
       username,
       "root",
       "clear the terminal",
+      "n/a"
+    ),
+    cmds: new File(
+      "cmds",
+      "bash script",
+      "term storage",
+      username,
+      "root",
+      "list available terminal commands",
+      "n/a"
+    ),
+    exit: new File(
+      "exit",
+      "bash script",
+      "term session storage root",
+      username,
+      "root",
+      "exit session",
       "n/a"
     ),
     file: new File(
