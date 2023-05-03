@@ -75,7 +75,7 @@ export const reso = {
       "text",
       "storage network",
       "root tiNeptune",
-      "tiNepture",
+      "tiNeptune",
       "static ip: 251.45.27.176",
       "n/a"
     ),
@@ -93,7 +93,7 @@ export const reso = {
       "text",
       "storage network",
       "root tiNeptune",
-      "tiNepture",
+      "tiNeptune",
       "static ip: 68.225.7.23",
       "n/a"
     ),
@@ -111,7 +111,7 @@ export const reso = {
       "text",
       "storage network",
       "root tiNeptune",
-      "tiNepture",
+      "tiNeptune",
       "static ip: 226.126.32.203",
       "n/a"
     ),
@@ -120,7 +120,7 @@ export const reso = {
       "text",
       "storage network",
       "root tiNeptune",
-      "tiNepture",
+      "tiNeptune",
       "static ip: 211.98.124.26",
       "n/a"
     ),
@@ -129,7 +129,7 @@ export const reso = {
       "text",
       "storage network",
       "root tiNeptune",
-      "tiNepture",
+      "tiNeptune",
       "static ip: 36.155.4.191",
       "n/a"
     ),
