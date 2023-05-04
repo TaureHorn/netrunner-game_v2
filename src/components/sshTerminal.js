@@ -11,6 +11,7 @@ import { ResoAgweBBS } from "../data/resoAgwe";
 import { edgeDirs } from "../data/dirsEdgerunnerFTP";
 import { edgeFS } from "../data/filesEdgerunnerFTP";
 import { angryDir, angryFS } from "../data/angryDaemon";
+import { passwdParser } from "../functions/passwdParser";
 
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -152,18 +153,40 @@ function SshTerminal(props) {
 
   ////////////// COMMANDS INPUT HANDLING /////////////////////////////////////////////////////////
   const [cmdHistory, setCmdHistory] = useState([{}]);
+  const [passwdReq, setPasswdReq] = useState(true);
   const username = props.username.split("@");
   const uname = username[0] + "@" + props.sshLoc + " $: ";
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (cmdHistory[0].cmd != uname.toString()) {
+      cmdLogger({ cmd: "", result: "enter password for " + props.sshLoc });
+    }
+  }, [passwdReq === true]);
+
   const inputHandler = (e) => {
     e.preventDefault();
     const input = e.target.cmd.value.toString();
-    document.getElementById("commandInput").value = "";
+    document.getElementById("commandInput").value = ""; // reset command input field
+      // input interpreter
     if (input.length === 0) {
-      return props.alert("cmd empty");
+      return cmdLogger
     } else if (input.length > 100) {
       return props.alert("cmd too long");
+    } else if (passwdReq === true) {
+      const judgePass = passwdParser(currentNetworkLocation, input);
+      if (judgePass === true) {
+        setPasswdReq(false);
+        cmdLogger({
+          cmd: uname,
+          result: "authentication successful!",
+        });
+      } else {
+        cmdLogger({
+          cmd: uname,
+          result: "authentication unsuccessful. please try again",
+        });
+      }
     } else {
       const parsedCmd = commandParser(input);
       commandHandler(parsedCmd, input);
@@ -171,7 +194,6 @@ function SshTerminal(props) {
   };
 
   function commandHandler(instr, command) {
-    const input = command.toLowerCase();
     let result = " ";
     let result2 = "";
     let result3 = "";
@@ -228,7 +250,7 @@ function SshTerminal(props) {
       }
     }
     const output = {
-      cmd: uname + input,
+      cmd: uname + command,
       result: result,
       result2: result2,
       result3: result3,
@@ -246,7 +268,6 @@ function SshTerminal(props) {
 
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
   const [currentNetworkLocation, setCurrentNetworkLocation] = useState("");
-  console.log(props.sshLoc);
   function assignNetLoc(loc) {
     switch (loc) {
       case "reso_agweBBS":
@@ -259,13 +280,17 @@ function SshTerminal(props) {
         setCurrentNetworkLocation(net.angryDaemons);
         break;
       default:
-        props.alert("Secure shell failed to spawn at specified ip address. Returning to host shell session");
+        props.alert(
+          "Secure shell failed to spawn at specified ip address. Returning to host shell session"
+        );
         navigate("/");
     }
   }
 
   useEffect(() => {
-    assignNetLoc(props.sshLoc);
+    if (currentNetworkLocation === "") {
+      assignNetLoc(props.sshLoc);
+    }
   }, [props.sshLoc]);
 
   const [currentDirectory, setCurrentDirectory] = useState("");
@@ -274,9 +299,13 @@ function SshTerminal(props) {
     if (currentNetworkLocation !== "") {
       setCurrentDirectory(currentNetworkLocation._linkedNetworkDirectories);
     }
+    if (currentNetworkLocation._password === " ") {
+      setPasswdReq(false);
+    }
   }, [currentNetworkLocation]);
 
   const [childDirs, setChildDirs] = useState([]);
+
   useEffect(() => {
     if (currentDirectory !== "") {
       setChildDirs(Object.entries(currentDirectory._linkedDirs));
