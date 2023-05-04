@@ -2,6 +2,7 @@ import { NetworkLocation } from "../functions/classes";
 
 export const resoagwePass = "z${4_U<enWo//;]y6dx5iEHD:7PDK]e!";
 export const edgerunnerPass = "qG&;k<n'a}&{F;WY";
+export const daemonPass = "*@{mipJO|liSnQVbe~=C";
 
 let zombieInstance = "";
 const getZombieID = () => {
@@ -25,5 +26,9 @@ export const net = {
     edgerunnerPass
   ),
   seventhCircle: new NetworkLocation("7th-Circle", "81.125.191.122", " "),
-  angryDaemons: new NetworkLocation("AngryDaemons", "239.149.68.33"),
+  angryDaemons: new NetworkLocation(
+    "AngryDaemons",
+    "239.149.68.33",
+    daemonPass
+  ),
 };
