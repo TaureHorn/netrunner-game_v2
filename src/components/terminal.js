@@ -1,14 +1,15 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
+import { dnsTransfer } from "../functions/dnsTransfer";
 import { shutDown } from "../functions/shutDown";
 
+import { net } from "../data/network";
 import { rootFS } from "../data/rootFS";
 import { usrFS } from "../data/usrFS";
-import { reso } from "../data/reso";
-import { ResoAgweBBS } from "../data/resoAgwe";
 import { zetaTechVM } from "../data/zetatechVM";
 
 function Terminal(props) {
@@ -17,6 +18,9 @@ function Terminal(props) {
   // -- DIRECTORY LINKING
   //
   //VM
+
+  net.zombie.linkNetworkedDirectories(zetaTechVM.homeDir);
+
   zetaTechVM.rootDir.linkDirectories("boot", zetaTechVM.bootDir);
   zetaTechVM.rootDir.linkDirectories("etc", zetaTechVM.etcDir);
   zetaTechVM.rootDir.linkDirectories("home", zetaTechVM.homeDir);
@@ -36,72 +40,6 @@ function Terminal(props) {
   zetaTechVM.filesDir.linkParentDirectory(zetaTechVM.homeDir);
   zetaTechVM.sshDir.linkParentDirectory(zetaTechVM.homeDir);
   zetaTechVM.ircHome.linkParentDirectory(zetaTechVM.homeDir);
-
-  //RESO AGWE BBS
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_2mGUUHfQIk0t",
-    ResoAgweBBS.bbs_mask_2mGUUHfQIk0t
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_9SOCqTxfm2Zi",
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_XpPkmHxDgPfn",
-    ResoAgweBBS.bbs_mask_XpPkmHxDgPfN
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_hMlMhTNGxi05",
-    ResoAgweBBS.bbs_mask_hMlMhTNGxi05
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories("root", ResoAgweBBS.resoRoot);
-
-  ResoAgweBBS.bbs_mask_2mGUUHfQIk0t.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_XpPkmHxDgPfN.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_hMlMhTNGxi05.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.resoRoot.linkParentDirectory(ResoAgweBBS.resoAgwe);
-
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "91E0C5NMg5xE",
-    ResoAgweBBS.p91E0C5NMg5xE
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "HjTESlk7aw4b",
-    ResoAgweBBS.HjTESlk7aw4b
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "M9KFZKULring",
-    ResoAgweBBS.M9KFZKUlring
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "p7FzTKa13OhG",
-    ResoAgweBBS.p7FzTKa13OhG
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "saoXGjvToAlh",
-    ResoAgweBBS.saoXGjvToAlh
-  );
-
-  ResoAgweBBS.p91E0C5NMg5xE.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.HjTESlk7aw4b.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.M9KFZKUlring.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.p7FzTKa13OhG.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.saoXGjvToAlh.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-
-  ResoAgweBBS.p7FzTKa13OhG.linkDirectories("whitelist", ResoAgweBBS.whitelist);
-  ResoAgweBBS.whitelist.linkParentDirectory(ResoAgweBBS.p7FzTKa13OhG);
-
   //
   // -- FILE LINKING
   //
@@ -122,8 +60,6 @@ function Terminal(props) {
   zetaTechVM.commandsDir.linkFiles("ssh", usrFS.cmds.ssh);
   zetaTechVM.commandsDir.linkFiles("steghide", usrFS.cmds.steghide);
 
-
-
   zetaTechVM.filesDir.linkFiles(
     "bbs_mask_9SOCqTxfm2Zi.dat",
     usrFS.files.bbsMaskPayload
@@ -138,41 +74,12 @@ function Terminal(props) {
   zetaTechVM.sshDir.linkFiles("reso-agwe", usrFS.ssh.resoAgweBBS);
   zetaTechVM.sshDir.linkFiles("zetatech-vm-manager", usrFS.ssh.zetatechVM);
 
-  //RESO AGWE BBS
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkFiles(
-    "91EOC5NMg5xE",
-    reso.bbs_mask.a91EOC5NMg5xE
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkFiles(
-    "HjTRSLk7aw4b",
-    reso.bbs_mask.bHjTRSlk7aw4b
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkFiles(
-    "M9KFZKUlring",
-    reso.bbs_mask.cM9KFZKUlring
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkFiles(
-    "saoXGjvToAlh",
-    reso.bbs_mask.esaoXGjvToAlh
-  );
-
-  ResoAgweBBS.p7FzTKa13OhG.linkFiles("ruleset", reso.p7FzTKa13Ohg.ruleset);
-  ResoAgweBBS.p7FzTKa13OhG.linkFiles("ufw.conf.d", reso.p7FzTKa13Ohg.ufwConf);
-
-  ResoAgweBBS.whitelist.linkFiles("jeon-kiri", reso.whitelist.jeonKiri);
-  ResoAgweBBS.whitelist.linkFiles("leon", reso.whitelist.leon);
-  ResoAgweBBS.whitelist.linkFiles(
-    "maman-briggite",
-    reso.whitelist.mamanBriggite
-  );
-  ResoAgweBBS.whitelist.linkFiles("moseley", reso.whitelist.moseley);
-  ResoAgweBBS.whitelist.linkFiles("mr-hands", reso.whitelist.mrHands);
-  ResoAgweBBS.whitelist.linkFiles("placide", reso.whitelist.placide);
-  ResoAgweBBS.whitelist.linkFiles("ti-neptune", reso.whitelist.tiNeptune);
+  zetaTechVM.ircHome.linkFiles("7th-Circle", usrFS.irc.seventhCircle);
 
   ////////////// COMMANDS INPUT HANDLING /////////////////////////////////////////////////////////
   const [cmdHistory, setCmdHistory] = useState([{}]);
   const uname = props.username + " $: ";
+  const navigate = useNavigate();
 
   const inputHandler = (e) => {
     e.preventDefault();
@@ -194,6 +101,7 @@ function Terminal(props) {
     let result2 = "";
     let result3 = "";
     let result4 = "";
+    let result5 = "";
     if (Object.keys(instr)[1] === "helpStatement") {
       result = instr.helpStatement;
     } else {
@@ -214,15 +122,16 @@ function Terminal(props) {
           result = "cat cd clear cmds exit file irc ls scp ssh steghide";
           break;
         case "exit":
-          result = "Exiting virtual machine environment session";
+          result = "Exiting virtual machine environment session...";
           shutDown();
           break;
         case "file":
           const file = currentDirectory.file(instr.arg1);
           result = "name: " + file._fileName;
           result2 = "type: " + file._fileType;
-          result3 = "owner: " + file._fileOwner;
-          result4 = "creator: " + file._fileCreator;
+          result3 = "access: " + file._fileAccess;
+          result4 = "owner: " + file._fileOwner;
+          result5 = "creator: " + file._fileCreator;
           break;
         case "irc":
         case "ls":
@@ -230,6 +139,17 @@ function Terminal(props) {
           break;
         case "scp":
         case "ssh":
+          const ipLoc = dnsTransfer(instr.arg1);
+          if (typeof ipLoc != "object") {
+            result = ipLoc;
+          } else {
+            props.sshLoc(ipLoc._netLocName);
+            result = "Spawning secure shell in remote location...";
+            setTimeout(() => {
+              navigate("/ssh");
+            }, 2000);
+          }
+          break;
         case "steghide":
           result = currentDirectory.steghide(instr.arg1);
           break;
@@ -245,6 +165,7 @@ function Terminal(props) {
       result2: result2,
       result3: result3,
       result4: result4,
+      result5: result5,
     };
     cmdLogger(output);
   }
@@ -258,6 +179,7 @@ function Terminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
   const [currentDirectory, setCurrentDirectory] = useState(zetaTechVM.homeDir);
   const childDirs = Object.entries(currentDirectory._linkedDirs);
+
   return (
     <>
       <div className="border centrePanel panel scroll centreImage hover">

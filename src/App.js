@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // component imports
@@ -12,11 +12,14 @@ import SoftwareSidebar from "./components/softwareSidebar";
 import Footer from "./components/footer";
 
 import { toggleElement } from "./functions/toggleElement";
+import SshTerminal from "./components/sshTerminal";
 
 function App() {
   const [username, setUserName] = useState(
     window.localStorage.getItem("username")
   );
+
+  const [sshLoc, setSshLoc] = useState({});
 
   const [alert, setAlert] = useState("");
 
@@ -55,6 +58,17 @@ function App() {
               element={
                 <Terminal
                   username={username}
+                  alert={(alert) => setAlert(alert)}
+                  sshLoc={(sshLoc) => setSshLoc(sshLoc)}
+                />
+              }
+            />
+            <Route
+              path="/ssh"
+              element={
+                <SshTerminal
+                  username={username}
+                  sshLoc={sshLoc}
                   alert={(alert) => setAlert(alert)}
                 />
               }

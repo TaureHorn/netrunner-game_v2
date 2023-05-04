@@ -97,3 +97,15 @@ export class File {
 
     }
 }
+
+export class NetworkLocation{
+    constructor(netLocName, ipAddress, password){
+        this._netLocName = netLocName;
+        this._ipAddress = ipAddress;
+        this._password = password;
+        this._linkedNetworkDirectories = {}
+    }
+    linkNetworkedDirectories(directories){
+        this._linkedNetworkDirectories = directories
+    }
+}

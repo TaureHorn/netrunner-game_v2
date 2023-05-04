@@ -17,6 +17,7 @@ function CommandHistory(props) {
             <p style={{fontStyle: "italic"}}>{cmd?.result2}</p>
             <p style={{fontStyle: "italic"}}>{cmd?.result3}</p>
             <p style={{fontStyle: "italic"}}>{cmd?.result4}</p>
+            <p style={{fontStyle: "italic"}}>{cmd?.result5}</p>
             </div>
         );
       })}

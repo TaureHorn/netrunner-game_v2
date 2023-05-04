@@ -1,4 +1,5 @@
 import { File } from "../functions/classes";
+import { resoagwePass } from "./network";
 
 let username = "";
 const getUsername = () => {
@@ -130,7 +131,7 @@ export const usrFS = {
       "shade",
       "shade",
       "See map in help section of the interface. Data too precious to have just sitting in a live environment here",
-      "reso-agwe ssh pass CEnlgPPRUS9thKxOHBXijSi3WQI3n3B69zzoJt8J"
+      "reso-agwe ssh pass " + resoagwePass
     ),
     task: new File(
       "task",
@@ -149,8 +150,8 @@ export const usrFS = {
       "storage",
       username + " shade",
       "shade",
-      "253.209.6.253",
-      "n/a"
+      "Shade is not to be trusted. Find me in the 7th circle. - a friend",
+      "253.209.6.253"
     ),
     resoAgweBBS: new File(
       "reso-agwe",
@@ -158,8 +159,8 @@ export const usrFS = {
       "storage",
       username + " shade",
       "shade",
-      "47.227.191.100",
-      "n/a"
+      "The server I need you to get onto. Peep the task if you haven't yet - shade",
+      "47.227.191.100"
     ),
     zetatechVM: new File(
       "zetatech-vm-manager",
@@ -167,8 +168,19 @@ export const usrFS = {
       "storage",
       username + " shade",
       "shade",
-      "100.216.236.215",
-      "n/a"
+      "This is the zombie VME you're currently using - shade",
+      "100.216.236.215"
+    ),
+  },
+  irc: {
+    seventhCircle: new File(
+      "7th-Circle",
+      "text",
+      "storage",
+      username + " shade",
+      "shade",
+      "A few netrunners hang out here sometimes. No monochromers thankfully, though that doesn't mean no danger! - shade",
+      "81.125.191.122"
     ),
   },
 };
