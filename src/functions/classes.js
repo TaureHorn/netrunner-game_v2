@@ -1,5 +1,49 @@
 import { isArrayEmpty, isObjectEmpty } from "./isEmpty";
 
+export class Character {
+    constructor(name, alias, pronoun, greeting, advice, resoAgweAdvice, status, connectionStatus, pfp) {
+        this._name = name;
+        this._alias = alias;
+        this._pronoun = pronoun;
+        this._greeting = greeting;
+        this._advice = advice;
+        this._resoAgweAdvice = resoAgweAdvice;
+        this._status = status;
+        this._connectionStatus = connectionStatus;
+        this._pfp = pfp;
+        this._ircChannel = {}
+    }
+    linkToIRC(netLoc){
+        this._ircChannel = netLoc
+    }
+    set name(value){
+        if (value.length < 2 || value.length > 30) {
+            alert("name is too short / too long")
+        } this._name = value
+    }
+    set alias(value){
+        if (value.length < 2 || value.length > 30){
+            alert(this._name + ": alias is too short/ too long")
+        } this._alias = value
+    }
+    set pronoun(value){
+        if (value === "he/him" || value === "she/her" || value === "they/them"){
+            this._pronoun = value
+        } alert(this._name + ": that pronoun is not accepted")
+    }
+    set status(value){
+        if (value.length > 100){
+            alert(this._name + ": status cannot be more than 100 characters")
+        }
+    }
+    set connectionStatus(value){
+        if (value !== "online" || value !== "offline"){
+            alert (this._name + ": connectionStatus must be either online or offline")
+        } this._connectionStatus = value 
+    }
+
+}
+
 export class Directory {
   constructor(dirName) {
     this._dirName = dirName;
@@ -8,7 +52,7 @@ export class Directory {
     this._fileDirLink = {};
   }
     set dirName(value) {
-        if (typeof value != String){
+        if (typeof value !== String){
             return console.log(value + " is not a string")
         } else if (value.length === 0) {
             return console.log("cannot set dirName to empty value")
@@ -87,14 +131,23 @@ export class File {
         this._fileInfo = fileInfo;
         this._fileHiddenInfo = fileHiddenInfo;
     }
-
-    get data(){
-        return this._fileInfo
+}
+export class IRC {
+    constructor(name, tagline){
+        this._name = name;
+        this._tagline = tagline
+        this._network = {}
+        this._members = {}
+        this._messageHistory = []
     }
-
-    get metadata(){
-        // command: file "fileName"
-
+    linkMember(member){
+        this._members = member
+    }
+    assignNetwork(net){
+        this._network = net
+    }
+    appendMessage(user, message){
+        this._messageHistory.push("[" + user + "]: " + message)
     }
 }
 

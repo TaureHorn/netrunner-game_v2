@@ -55,6 +55,11 @@ hr {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+.hoverRed:hover {
+  background-color: rgba(255, 0, 85, 0.1);
+  outline: 1px solid rgb(255,0,85);
+}
+
 .toggler {
   background: grey;
   color: black;
@@ -153,6 +158,11 @@ input:focus,
 input:focus-visible {
   border: none !important;
   outline: none !important;
+}
+
+.inputRed {
+  background-color: rgb(255, 0, 85) !important;
+  color: white;
 }
 
 .panels {
