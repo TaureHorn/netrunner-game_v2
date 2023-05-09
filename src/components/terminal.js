@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
-import { dnsTransfer } from "../functions/dnsTransfer";
+import { dnsTransfer, ircTransfer } from "../functions/dnsTransfer";
 import { shutDown } from "../functions/shutDown";
 
 import { net } from "../data/network";
@@ -86,9 +86,12 @@ function Terminal(props) {
     const input = e.target.cmd.value.toString();
     document.getElementById("commandInput").value = "";
     if (input.length === 0) {
-      return props.alert("cmd empty");
+      return cmdLogger({ cmd: uname, result: "cmd empty" });
     } else if (input.length > 100) {
-      return props.alert("cmd too long");
+      return cmdLogger({
+        cmd: uname,
+        result: "command cannot be more than 100 characters in length",
+      });
     } else {
       const parsedCmd = commandParser(input);
       commandHandler(parsedCmd, input);
@@ -134,6 +137,17 @@ function Terminal(props) {
           result5 = "creator: " + file._fileCreator;
           break;
         case "irc":
+          const ircLoc = ircTransfer(instr.arg1);
+          if (typeof ircLoc != "object") {
+            result = ircLoc;
+          } else {
+            props.ircLoc(ircLoc._netLocName);
+            result = "Migrating to irc system...";
+            setTimeout(() => {
+              navigate("irc");
+            }, 2000);
+          }
+          break;
         case "ls":
           result = currentDirectory.ls();
           break;

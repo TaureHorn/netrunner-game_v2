@@ -168,11 +168,14 @@ function SshTerminal(props) {
     e.preventDefault();
     const input = e.target.cmd.value.toString();
     document.getElementById("commandInput").value = ""; // reset command input field
-      // input interpreter
+    // input interpreter
     if (input.length === 0) {
-      return cmdLogger
+      return cmdLogger({ cmd: uname, result: "cmd empty" });
     } else if (input.length > 100) {
-      return props.alert("cmd too long");
+      return cmdLogger({
+        cmd: uname,
+        result: "command cannot be more than 100 characters in length",
+      });
     } else if (passwdReq === true) {
       const judgePass = passwdParser(currentNetworkLocation, input);
       if (judgePass === true) {

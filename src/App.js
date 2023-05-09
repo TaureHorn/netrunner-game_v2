@@ -8,11 +8,12 @@ import Bootup from "./components/boot";
 import Header from "./components/header";
 import HelpSidebar from "./components/helpSidebar";
 import Terminal from "./components/terminal";
+import SshTerminal from "./components/sshTerminal";
+import IrcTerminal from "./components/ircTerminal";
 import SoftwareSidebar from "./components/softwareSidebar";
 import Footer from "./components/footer";
 
 import { toggleElement } from "./functions/toggleElement";
-import SshTerminal from "./components/sshTerminal";
 
 function App() {
   const [username, setUserName] = useState(
@@ -20,6 +21,7 @@ function App() {
   );
 
   const [sshLoc, setSshLoc] = useState({});
+  const [ircLoc, setIrcLoc] = useState({});
 
   const [alert, setAlert] = useState("");
 
@@ -60,6 +62,7 @@ function App() {
                   username={username}
                   alert={(alert) => setAlert(alert)}
                   sshLoc={(sshLoc) => setSshLoc(sshLoc)}
+                  ircLoc={(ircLoc) => setIrcLoc(ircLoc)}
                 />
               }
             />
@@ -70,6 +73,16 @@ function App() {
                   username={username}
                   sshLoc={sshLoc}
                   alert={(alert) => setAlert(alert)}
+                />
+              }
+            />
+            <Route
+              path="/irc"
+              element={
+                <IrcTerminal
+                  username={username}
+                  alert={(alert) => setAlert(alert)}
+                  ircLoc={ircLoc}
                 />
               }
             />
