@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
-import { File } from "../functions/classes";
+import { passwdParser } from "../functions/passwdParser";
+import { scpParser } from "../functions/scpParser";
 
 import { net } from "../data/network";
 import { reso } from "../data/reso";
@@ -12,7 +13,6 @@ import { ResoAgweBBS } from "../data/resoAgwe";
 import { edgeDirs } from "../data/dirsEdgerunnerFTP";
 import { edgeFS } from "../data/filesEdgerunnerFTP";
 import { angryDir, angryFS } from "../data/angryDaemon";
-import { passwdParser } from "../functions/passwdParser";
 
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -109,6 +109,10 @@ function SshTerminal(props) {
   // -- FILE LINKING
   //
   //RESO AGWE BBS
+
+  ResoAgweBBS.resoAgwe.linkFiles("connections-logs_0", reso.root.userLog0);
+  ResoAgweBBS.resoAgwe.linkFiles("connections-logs_1", reso.root.userLog1);
+
   ResoAgweBBS.p91E0C5NMg5xE.linkFiles(
     "91EOC5NMg5xE",
     reso.bbs_mask.a91EOC5NMg5xE
@@ -324,28 +328,17 @@ function SshTerminal(props) {
     }
   }, [currentDirectory]);
 
-  const [connectionLogs, setConnectionLogs] = useState("");
-  ResoAgweBBS.resoAgwe.linkFiles("connection-logs", connectionLogs);
-
   useEffect(() => {
-    // create a log file when user ssh into the reso agwe server for the first time
-    if (currentNetworkLocation === net.resoAgwe && connectionLogs === "") {
-      const userLog = new File(
-        "connection-logs",
-        "text",
-        "storage",
-        username[0] + " tiNeptune",
-        "tiNeptune",
-        "New user " +
-          username[0] +
-          " spawned shell from 100.216.236.215. Latency geolocation cache connection location: Palo Alto, California. | " +
-          username[0] +
-          ": password authenticated successfully",
-        "n/a"
-      );
-      setConnectionLogs(userLog);
+    // creating assignment of scp transferred file to ssh directories
+    if (
+      typeof props.scp === "object" &&
+      props.scp.loc._netLocName === currentNetworkLocation._netLocName
+    ) {
+      const dirLoc = scpParser(props.scp);
+      const file = props.scp.file;
+      return dirLoc.linkFiles(file._fileName, file); // file linking
     }
-  }, [currentNetworkLocation]);
+  }, [passwdReq]);
 
   return (
     <>

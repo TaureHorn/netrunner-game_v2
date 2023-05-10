@@ -1,4 +1,17 @@
-import { File } from "../functions/classes"
+import { File } from "../functions/classes";
+import { net } from "./network";
+
+let username = "";
+const getUsername = () => {
+  if (!window.localStorage.getItem("username")) {
+    return "";
+  } else {
+    const userID = window.localStorage.getItem("username").split("@");
+    return (username = userID[0]);
+  }
+};
+
+getUsername();
 
 export const reso = {
   multi: {
@@ -9,6 +22,29 @@ export const reso = {
       "root",
       "you do not have permission to access this directory",
       "n/a"
+    ),
+  },
+  root: {
+    userLog0: new File(
+      "connections-logs_0",
+      "text",
+      "storage",
+      "tiNeptune",
+      "tiNeptune",
+      "New user " +
+        username +
+        " spawned shell from " +
+        net.zombie._ipAddress +
+        ". Latency geolocation cache connection location: Pallo Alto, California",
+      "n/a"
+    ),
+    userLog1: new File(
+      "connections-logs_1",
+      "text",
+      "storage",
+      "tiNeptune",
+      "tiNeptune",
+      username + "@" + net.zombie._ipAddress + ": password authenticated successfully"
     ),
   },
   bbs_mask: {
@@ -134,4 +170,4 @@ export const reso = {
       "n/a"
     ),
   },
-}
+};
