@@ -106,17 +106,26 @@ export function ircCommandParser(command) {
           "Exits irc session and returns to host terminal session"
         );
         break;
+      case "messages":
+        output = helpAssembler(input, "Displays window for channel messages");
+        break;
       case "pm":
         output = helpAssembler(
           input,
           "start a private chat with a user. append with user alias"
         );
         break;
+      case "private":
+        output = helpAssembler(input, "Displays window for private messages");
+        break;
       case "t":
         output = helpAssembler(
           input,
           "Send a message to the channel/user. Append with message content"
         );
+        break;
+      case "users":
+        output = helpAssembler(input, "Displays window for channel users");
         break;
       default:
         output = helpAssembler(input, "command not found");
@@ -127,11 +136,55 @@ export function ircCommandParser(command) {
       case "exit":
         output = argumentsChecker(cmd, 1);
         break;
+      case "messages":
+        output = argumentsChecker(cmd, 1);
+        break;
       case "pm":
         output = argumentsChecker(cmd, 2);
         break;
+      case "private":
+        output = argumentsChecker(cmd, 1);
+        break;
       case "t":
         output = argumentsChecker(cmd, 100);
+        break;
+      case "users":
+        output = argumentsChecker(cmd, 1);
+        break;
+      default:
+        output = helpAssembler(input, "command not found");
+    }
+  }
+  return output;
+}
+
+export function convoParser(command) {
+  const input = command.toLowerCase();
+  const cmd = command.split(" ");
+  const program = cmd[0].toLowerCase();
+
+  let output = "";
+  if (cmd[1] === "--help" || cmd[1] === "-h") {
+    switch (program) {
+      case "cmds":
+        output = helpAssembler(input, "Lists available terminal commands");
+        break;
+      case "option":
+        output = helpAssembler(
+          input,
+          "Select conversation option. Append with number"
+        );
+        break;
+      default:
+        output = helpAssembler(input, "command not found");
+    }
+  } else {
+    switch (program) {
+      case "cmds":
+        output = argumentsChecker(cmd, 1);
+        break;
+      case "option":
+        output = argumentsChecker(cmd, 2);
         break;
       default:
         output = helpAssembler(input, "command not found");

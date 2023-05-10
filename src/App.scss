@@ -57,7 +57,7 @@ hr {
 
 .hoverRed:hover {
   background-color: rgba(255, 0, 85, 0.1);
-  outline: 1px solid rgb(255,0,85);
+  outline: 1px solid rgb(255, 0, 85);
 }
 
 .toggler {
@@ -203,6 +203,19 @@ input:focus-visible {
   font-style: italic;
   text-transform: capitalize;
   margin: 0px;
+}
+
+.headerButton {
+  font-size: 22pt;
+  color: rgb(255, 0, 85);
+  outline: 1px solid rgb(255, 0, 85);
+  padding: 1%;
+}
+
+.headerButton:active,
+.headerButton:hover {
+  color: white;
+  outline: 2px solid white;
 }
 
 .terminalText {
