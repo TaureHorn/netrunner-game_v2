@@ -1,4 +1,5 @@
 import { File } from "../functions/classes";
+import { daemonPass } from "./network";
 
 let username = "";
 const getUsername = () => {
@@ -62,7 +63,7 @@ export const edgeFS = {
       username + " kiwi root",
       "kiwi",
       "we've had eyes on shade some time now. they've set you up to clash with the Voodoo Boys 'thout realising. Lose - lose sitch. choom, for your own sake, abandon the task they set you. drop the dat file shade wants you to upload  on the ip hidden in this file - not the Reso Agwe BSS server like shade asked. i'll take care of the rest and you peace the fuck out, k?",
-      "239.149.68.33"
+      "239.149.68.33, pass: " + daemonPass
     ),
   },
 };

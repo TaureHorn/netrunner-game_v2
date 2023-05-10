@@ -42,7 +42,7 @@ export const charsSeventhCircle = {
   shade: new Character(
     "shade",
     "shade",
-    "Hey newbie",
+    "Yo " + username + "!",
     "steghide is a really useful tool",
     "i gave you everything you need, read the help section",
     "wtf choom.... i try to help you and this is the thanks I get!",

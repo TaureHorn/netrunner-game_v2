@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
+import { File } from "../functions/classes";
 
 import { net } from "../data/network";
 import { reso } from "../data/reso";
@@ -159,7 +160,7 @@ function SshTerminal(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (cmdHistory[0].cmd != uname.toString()) {
+    if (cmdHistory[0].cmd !== uname.toString()) {
       cmdLogger({ cmd: "", result: "enter password for " + props.sshLoc });
     }
   }, [passwdReq === true]);
@@ -178,7 +179,15 @@ function SshTerminal(props) {
       });
     } else if (passwdReq === true) {
       const judgePass = passwdParser(currentNetworkLocation, input);
-      if (judgePass === true) {
+      if (input === "exit") {
+        cmdLogger({
+          cmd: uname,
+          result: "Exiting SSH session and returning to host session",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else if (judgePass === true) {
         setPasswdReq(false);
         cmdLogger({
           cmd: uname,
@@ -314,6 +323,29 @@ function SshTerminal(props) {
       setChildDirs(Object.entries(currentDirectory._linkedDirs));
     }
   }, [currentDirectory]);
+
+  const [connectionLogs, setConnectionLogs] = useState("");
+  ResoAgweBBS.resoAgwe.linkFiles("connection-logs", connectionLogs);
+
+  useEffect(() => {
+    // create a log file when user ssh into the reso agwe server for the first time
+    if (currentNetworkLocation === net.resoAgwe && connectionLogs === "") {
+      const userLog = new File(
+        "connection-logs",
+        "text",
+        "storage",
+        username[0] + " tiNeptune",
+        "tiNeptune",
+        "New user " +
+          username[0] +
+          " spawned shell from 100.216.236.215. Latency geolocation cache connection location: Palo Alto, California. | " +
+          username[0] +
+          ": password authenticated successfully",
+        "n/a"
+      );
+      setConnectionLogs(userLog);
+    }
+  }, [currentNetworkLocation]);
 
   return (
     <>
