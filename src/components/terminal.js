@@ -6,6 +6,7 @@ import CommandHistory from "./commandHistory";
 import { commandParser } from "../functions/cmdParser";
 import { dnsTransfer, ircTransfer } from "../functions/dnsTransfer";
 import { shutDown } from "../functions/shutDown";
+import { passwdParser } from "../functions/passwdParser";
 
 import { net } from "../data/network";
 import { rootFS } from "../data/rootFS";
@@ -82,6 +83,7 @@ function Terminal(props) {
   const navigate = useNavigate();
 
   const inputHandler = (e) => {
+    // takes input from command line
     e.preventDefault();
     const input = e.target.cmd.value.toString();
     document.getElementById("commandInput").value = "";
@@ -93,8 +95,8 @@ function Terminal(props) {
         result: "command cannot be more than 100 characters in length",
       });
     } else {
-      const parsedCmd = commandParser(input);
-      commandHandler(parsedCmd, input);
+      const parsedCmd = commandParser(input); // checks input commands for correct number of arguments and outputs an object
+      commandHandler(parsedCmd, input); // logic of handling commands and arguments based on object states
     }
   };
 
@@ -138,7 +140,7 @@ function Terminal(props) {
           break;
         case "irc":
           const ircLoc = ircTransfer(instr.arg1);
-          if (typeof ircLoc != "object") {
+          if (typeof ircLoc !== "object") {
             result = ircLoc;
           } else {
             props.ircLoc(ircLoc._netLocName);
@@ -152,6 +154,27 @@ function Terminal(props) {
           result = currentDirectory.ls();
           break;
         case "scp":
+          const fileToCopy = currentDirectory.file(instr.arg1);
+          const serverLocation = dnsTransfer(instr.arg2);
+          const passwordCorrect = passwdParser(serverLocation, instr.arg3);
+          if (passwordCorrect === false) {
+            result = "server password incorrect";
+          }
+          if (typeof serverLocation !== "object") {
+            result = serverLocation;
+          }
+          if (typeof fileToCopy !== "object") {
+            result = fileToCopy;
+          }
+          if (result === " ") {
+            result =
+              "file " +
+              fileToCopy._fileName +
+              " was securely copied to " +
+              serverLocation._netLocName;
+            props.scp({ loc: serverLocation, file: fileToCopy });
+          }
+          break;
         case "ssh":
           const ipLoc = dnsTransfer(instr.arg1);
           if (typeof ipLoc != "object") {

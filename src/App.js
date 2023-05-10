@@ -22,8 +22,9 @@ function App() {
 
   const [sshLoc, setSshLoc] = useState({});
   const [ircLoc, setIrcLoc] = useState({});
-
   const [alert, setAlert] = useState("");
+  const [scp, setSCP] = useState("");
+  console.log(scp);
 
   return !username ? (
     <>
@@ -59,10 +60,11 @@ function App() {
               path="/"
               element={
                 <Terminal
-                  username={username}
                   alert={(alert) => setAlert(alert)}
-                  sshLoc={(sshLoc) => setSshLoc(sshLoc)}
                   ircLoc={(ircLoc) => setIrcLoc(ircLoc)}
+                  scp={(scp) => setSCP(scp)}
+                  sshLoc={(sshLoc) => setSshLoc(sshLoc)}
+                  username={username}
                 />
               }
             />
@@ -70,9 +72,10 @@ function App() {
               path="/ssh"
               element={
                 <SshTerminal
-                  username={username}
-                  sshLoc={sshLoc}
                   alert={(alert) => setAlert(alert)}
+                  scp={scp}
+                  sshLoc={sshLoc}
+                  username={username}
                 />
               }
             />
@@ -80,9 +83,9 @@ function App() {
               path="/irc"
               element={
                 <IrcTerminal
-                  username={username}
                   alert={(alert) => setAlert(alert)}
                   ircLoc={ircLoc}
+                  username={username}
                 />
               }
             />

@@ -45,7 +45,7 @@ export function commandParser(command) {
       case "scp":
         output = helpAssembler(
           input,
-          "Copies a file to a networked location. Append with a valid file name and IP address"
+          "Copies a file to a networked location. Append with a valid file name, ip address and password"
         );
         break;
       case "ssh":
@@ -80,7 +80,7 @@ export function commandParser(command) {
         output = argumentsChecker(cmd, 2);
         break;
       case "scp":
-        output = argumentsChecker(cmd, 3);
+        output = argumentsChecker(cmd, 4);
         break;
       default:
         output = helpAssembler(input, "command not found");
@@ -215,8 +215,8 @@ function cmdAssembler(command, number) {
     return { cmd: command[0] };
   } else if (number === 2) {
     return { cmd: command[0], arg1: command[1] };
-  } else if (number === 3) {
-    return { cmd: command[0], arg1: command[1], arg2: command[2] };
+  } else if (number === 4) {
+    return { cmd: command[0], arg1: command[1], arg2: command[2], arg3: command[3] };
   } else if (number === 100) {
     // used for commands with inputs of a string, therefore varaible number of arguments
     const message = command.slice(1).join(" ");
