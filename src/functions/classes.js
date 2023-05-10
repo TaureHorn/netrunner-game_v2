@@ -1,13 +1,13 @@
 import { isArrayEmpty, isObjectEmpty } from "./isEmpty";
 
 export class Character {
-    constructor(name, alias, pronoun, greeting, advice, resoAgweAdvice, status, connectionStatus, pfp) {
+    constructor(name, alias, greeting, advice, resoAgweAdvice, shadeWarning, status, connectionStatus, pfp) {
         this._name = name;
         this._alias = alias;
-        this._pronoun = pronoun;
         this._greeting = greeting;
         this._advice = advice;
         this._resoAgweAdvice = resoAgweAdvice;
+        this._shadeWarning = shadeWarning;
         this._status = status;
         this._connectionStatus = connectionStatus;
         this._pfp = pfp;
@@ -148,6 +148,13 @@ export class IRC {
     }
     appendMessage(user, message){
         this._messageHistory.push("[" + user + "]: " + message)
+    }
+    findUser(alias){
+        if (alias in this._members){
+            return Object.getOwnPropertyDescriptor(this._members, alias).value
+        } else {
+            return " ~~ no such user"
+        }
     }
 }
 

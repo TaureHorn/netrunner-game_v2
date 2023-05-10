@@ -6,8 +6,10 @@ import { charsSeventhCircle as chars } from "../data/characters";
 import { irc } from "../data/ircSeventhCircle";
 
 import UserDisplayStatus from "./ircUserDisplay";
+import UserPrivateMessage from "./ircPrivateMessage";
 
 import { ircCommandParser } from "../functions/cmdParser";
+import { sectionSelector } from "../functions/sectionSelector";
 
 function IrcTerminal(props) {
   const navigate = useNavigate();
@@ -31,13 +33,12 @@ function IrcTerminal(props) {
 
   function commandHandler(command) {
     let result = " ";
-    console.log(command.cmd);
     if (Object.keys(command)[1] === "helpStatement") {
       result = command.helpStatement;
     } else {
       switch (command.cmd) {
         case "cmds":
-          result = "cmds exit pm t";
+          result = "cmds exit messages pm private t users";
           break;
         case "exit":
           result = "Exiting IRC session...";
@@ -45,11 +46,60 @@ function IrcTerminal(props) {
             navigate("/");
           }, 2000);
           break;
+        case "messages":
+          result = "naviating to messages window";
+          sectionSelector(
+            sections,
+            sections[1],
+            headerSections,
+            headerSections[1],
+            "red"
+          );
+          break;
         case "pm":
-          result = "Starting private message with user: " + command.arg1;
+          let findUser = "";
+          if (command.arg1 === currentUser._name) {
+            result = "Cannot start a private message with yourself!";
+          } else {
+            findUser = currentIRC.findUser(command.arg1);
+          }
+          if (findUser === " ~~ no such user. a-Z only") {
+            result = findUser;
+          } else if (typeof findUser === "object") {
+            result = "Starting private message with user: " + findUser._name;
+            setPMTarget(findUser);
+            setPM(true);
+            sectionSelector(
+              sections,
+              sections[2],
+              headerSections,
+              headerSections[2],
+              "red"
+            );
+          }
+          break;
+        case "private":
+          result = "navigating to private messages window";
+          sectionSelector(
+            sections,
+            sections[2],
+            headerSections,
+            headerSections[2],
+            "red"
+          );
           break;
         case "t":
           result = "YOU ARE NOT PERMITTED TO SEND MESSAGES IN THIS CHANNEL";
+          break;
+        case "users":
+          result = "navigating to users window";
+          sectionSelector(
+            sections,
+            sections[0],
+            headerSections,
+            headerSections[0],
+            "red"
+          );
           break;
         default:
           result = "something is amiss...";
@@ -102,11 +152,21 @@ function IrcTerminal(props) {
     }
   }, [props.ircLoc]);
 
-    console.log(currentIRC._messageHistory)
+  // arrays of ids for controlling subsection visibility and styling
+  const headerSections = [
+    "userHeader",
+    "messagesHeader",
+    "privateMessagesHeader",
+  ];
+  const sections = ["users", "messages", "privateMessages"];
+
+  //boolean state for private message visibility
+  const [pm, setPM] = useState(false);
+  const [pmTarget, setPMTarget] = useState({});
 
   return (
     <>
-      <div className="border centrePanel panel scroll centreImage hover">
+      <div className="border centrePanel panel centreImage hover">
         <p
           className="headerText"
           style={{ fontSize: "44pt", textAlign: "center" }}
@@ -128,20 +188,106 @@ function IrcTerminal(props) {
           </form>
         </div>
         <hr />
-        <p className="headerText" style={{fontSize: "22pt", textAlign: "center"}}> Users:</p>
-        {characters?.map((char) => {
-          const displayStatus = char[1];
-          return (
-            <div key={crypto.randomUUID()}>
-              <UserDisplayStatus user={displayStatus} />
-            </div>
-          );
-        })}
-        <hr />
-        <p className="headerText" style={{fontSize: "22pt", textAlign: "center"}}> Message history:</p>
-        {currentIRC._messageHistory?.map((msg) => {
-          return <p className="hoverRed">{msg}</p>;
-        })}
+        <div className="panel scroll">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              outline: "1px solid rgb(255,0,85)",
+              marginTop: "4px",
+              zIndex: "3",
+            }}
+          >
+            <span
+              className="headerText headerButton"
+              id="userHeader"
+              style={{
+                color: "white",
+                outline: "1px solid white",
+                backgroundColor: "rgba(255,0,85,0.2)",
+                zIndex: "3",
+              }}
+              onClick={() =>
+                sectionSelector(
+                  sections,
+                  sections[0],
+                  headerSections,
+                  headerSections[0],
+                  "red"
+                )
+              }
+            >
+              Users
+            </span>
+            <span
+              className="headerText headerButton"
+              id="messagesHeader"
+              style={{ zIndex: "3" }}
+              onClick={() =>
+                sectionSelector(
+                  sections,
+                  sections[1],
+                  headerSections,
+                  headerSections[1],
+                  "red"
+                )
+              }
+            >
+              Channel Messages
+            </span>
+            <span
+              className="headerText headerButton"
+              id="privateMessagesHeader"
+              style={{ zIndex: "3" }}
+              onClick={() =>
+                sectionSelector(
+                  sections,
+                  sections[2],
+                  headerSections,
+                  headerSections[2],
+                  "red"
+                )
+              }
+            >
+              Private Messages
+            </span>
+          </div>
+          <div id="users">
+            {characters?.map((char) => {
+              const displayStatus = char[1];
+              return (
+                <div key={crypto.randomUUID()}>
+                  <UserDisplayStatus user={displayStatus} />
+                </div>
+              );
+            })}
+            <hr />
+          </div>
+          <div id="messages" style={{ display: "none" }}>
+            {currentIRC._messageHistory?.map((msg) => {
+              return <p className="hoverRed">{msg}</p>;
+            })}
+            <hr />
+          </div>
+          <div id="privateMessages" style={{ display: "none" }}>
+            {pm === false ? (
+              <div key={crypto.randomUUID()}>
+                <p style={{ textAlign: "center" }}>
+                  Initiate a private message with a user by typing "pm
+                  $username" in the command prompt
+                </p>
+              </div>
+            ) : (
+              <div key={crypto.randomUUID()}>
+                <UserPrivateMessage
+                  currentUser={currentIRC._members.aaaUser}
+                netLoc={currentNetworkLocation}
+                  targetUser={pmTarget}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

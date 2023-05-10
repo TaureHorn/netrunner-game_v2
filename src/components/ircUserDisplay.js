@@ -14,7 +14,7 @@ function UserDisplayStatus(props) {
         </div>
         <div style={{ lineHeight: "0.5" }}>
           <p>
-            <strong>{user._alias}</strong> <em>({user._pronoun})</em> [
+            <strong>{user._name} / {user._alias}</strong>[
             {user._connectionStatus}]
           </p>
           <p>
