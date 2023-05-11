@@ -5,8 +5,10 @@ import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
 import { dnsTransfer, ircTransfer } from "../functions/dnsTransfer";
-import { shutDown } from "../functions/shutDown";
+import { gameWinMonitor } from "../functions/gameWinState";
+import { isObjectEmpty } from "../functions/isEmpty";
 import { passwdParser } from "../functions/passwdParser";
+import { shutDown } from "../functions/shutDown";
 
 import { net } from "../data/network";
 import { rootFS } from "../data/rootFS";
@@ -116,11 +118,16 @@ function Terminal(props) {
           break;
         case "cd":
           const changeDirectory = currentDirectory.cd(instr.arg1);
-          setCurrentDirectory(changeDirectory);
-          if (changeDirectory._dirName === currentDirectory._dirName) {
-            result = "no such directory";
-          } else result = changeDirectory._dirName;
+          if (isObjectEmpty(changeDirectory) === false) {
+            setCurrentDirectory(changeDirectory);
+            if (changeDirectory._dirName === currentDirectory._dirName) {
+              result = "no such directory";
+            } else result = changeDirectory._dirName;
+          } else {
+            result = "you are already at the root directory";
+          }
           break;
+
         case "clear":
           return setCmdHistory([{}]);
         case "cmds":
@@ -154,9 +161,11 @@ function Terminal(props) {
           result = currentDirectory.ls();
           break;
         case "scp":
+          // inputs parsing
           const fileToCopy = currentDirectory.file(instr.arg1);
           const serverLocation = dnsTransfer(instr.arg2);
           const passwordCorrect = passwdParser(serverLocation, instr.arg3);
+          // input error checking
           if (passwordCorrect === false) {
             result = "server password incorrect";
           }
@@ -166,6 +175,7 @@ function Terminal(props) {
           if (typeof fileToCopy !== "object") {
             result = fileToCopy;
           }
+          // output
           if (result === " ") {
             result =
               "file " +
@@ -173,6 +183,14 @@ function Terminal(props) {
               " was securely copied to " +
               serverLocation._netLocName;
             props.scp({ loc: serverLocation, file: fileToCopy });
+            // win state monitoring
+            const winCheck = gameWinMonitor(
+              fileToCopy,
+              serverLocation._ipAddress
+            );
+            if (typeof winCheck === "boolean") {
+              props.winState(winCheck);
+            }
           }
           break;
         case "ssh":
@@ -219,7 +237,7 @@ function Terminal(props) {
 
   return (
     <>
-      <div className="border centrePanel panel scroll centreImage hover">
+      <div id="centrePanel" className="border centrePanel panel scroll centreImage hover">
         <div className="terminalText">
           <p> Parent directory: {currentDirectory._linkedParentDir._dirName}</p>
           <p> Current directory: {currentDirectory._dirName}</p>

@@ -5,11 +5,14 @@ function Footer(props) {
   return (
     <>
       <div
+        id="footer"
         className="inlineBox border hover header"
         style={{ justifyContent: "space-between" }}
       >
         <img src={zetatech} height={60} />
-        <p style={{ fontSize:"16pt", fontStyle:"italic" }}>powered by ZetaTech /|\ protected by Netwatch</p>
+        <p style={{ fontSize: "16pt", fontStyle: "italic" }}>
+          powered by ZetaTech /|\ protected by Netwatch
+        </p>
         <img src={qr} height={80} />
       </div>
     </>

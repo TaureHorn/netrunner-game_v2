@@ -1,4 +1,5 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { regexAlpha } from "../functions/regex";
 
 function Bootup(props) {
   const [ueid, setUeid] = useState("");
@@ -8,9 +9,12 @@ function Bootup(props) {
 
   const userHandler = (e) => {
     e.preventDefault();
-    const uname = e.target.username.value.toLowerCase().toString();
+    const uname = e.target.username.value.toString();
+    const unameValid = regexAlpha(uname);
     if (uname.length < 3 || uname.length > 16) {
       return props.alert("invalid username length");
+    } else if (unameValid === false) {
+      return props.alert("username must contain only alphanumeric characters");
     } else {
       bootup(uname);
     }
@@ -19,7 +23,6 @@ function Bootup(props) {
   const bootup = (user) => {
     const username = (user + "@" + ueid).toString();
     window.localStorage.setItem("username", username);
-    window.localStorage.setItem("gameState", "new");
     props.alert("welcome " + username + ". loading virtual environment");
     return setTimeout(() => {
       window.location.reload();
@@ -36,7 +39,7 @@ function Bootup(props) {
         <p>hostname: {ueid}</p>
         <p>please enter a username</p>
         <form onSubmit={(e) => userHandler(e)}>
-          <input type="text" autoFocus name="username"/>
+          <input type="text" autoFocus name="username" />
         </form>
       </div>
     </div>

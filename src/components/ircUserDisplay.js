@@ -14,7 +14,7 @@ function UserDisplayStatus(props) {
         </div>
         <div style={{ lineHeight: "0.5" }}>
           <p>
-            <strong>{user._name} / {user._alias}</strong>[
+            <strong>{user._name} / {user._alias}</strong> [
             {user._connectionStatus}]
           </p>
           <p>

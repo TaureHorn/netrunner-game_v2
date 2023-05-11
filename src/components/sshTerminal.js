@@ -13,6 +13,7 @@ import { ResoAgweBBS } from "../data/resoAgwe";
 import { edgeDirs } from "../data/dirsEdgerunnerFTP";
 import { edgeFS } from "../data/filesEdgerunnerFTP";
 import { angryDir, angryFS } from "../data/angryDaemon";
+import { isObjectEmpty } from "../functions/isEmpty";
 
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -224,10 +225,14 @@ function SshTerminal(props) {
           break;
         case "cd":
           const changeDirectory = currentDirectory.cd(instr.arg1);
-          setCurrentDirectory(changeDirectory);
-          if (changeDirectory._dirName === currentDirectory._dirName) {
-            result = "no such directory";
-          } else result = changeDirectory._dirName;
+          if (isObjectEmpty(changeDirectory) === false) {
+            setCurrentDirectory(changeDirectory);
+            if (changeDirectory._dirName === currentDirectory._dirName) {
+              result = "no such directory";
+            } else result = changeDirectory._dirName;
+          } else {
+              result = "you are already at the root directory"
+          }
           break;
         case "clear":
           return setCmdHistory([{}]);
@@ -284,16 +289,35 @@ function SshTerminal(props) {
 
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
   const [currentNetworkLocation, setCurrentNetworkLocation] = useState("");
+  const [currentDirectory, setCurrentDirectory] = useState("");
+  const [childDirs, setChildDirs] = useState([]);
+
+  const [fileSystem, updateFileSystem] = useState("");
+
   function assignNetLoc(loc) {
     switch (loc) {
       case "reso_agweBBS":
         setCurrentNetworkLocation(net.resoAgwe);
+        setCurrentDirectory(net.resoAgwe._linkedNetworkDirectories);
+        setChildDirs(
+          Object.entries(net.resoAgwe._linkedNetworkDirectories._linkedDirs)
+        );
         break;
       case "EdgerunnersFTP":
         setCurrentNetworkLocation(net.edgerunnerFTP);
+        setCurrentDirectory(net.edgerunnerFTP._linkedNetworkDirectories);
+        setChildDirs(
+          Object.entries(
+            net.edgerunnerFTP._linkedNetworkDirectories._linkedDirs
+          )
+        );
         break;
       case "AngryDaemons":
         setCurrentNetworkLocation(net.angryDaemons);
+        setCurrentDirectory(net.angryDaemons._linkedNetworkDirectories);
+        setChildDirs(
+          Object.entries(net.angryDaemons._linkedNetworkDirectories._linkedDirs)
+        );
         break;
       default:
         props.alert(
@@ -301,32 +325,17 @@ function SshTerminal(props) {
         );
         navigate("/");
     }
+    if (currentNetworkLocation._password === " ") {
+      setPasswdReq(false);
+    }
   }
 
   useEffect(() => {
+    // set location based on input
     if (currentNetworkLocation === "") {
       assignNetLoc(props.sshLoc);
     }
   }, [props.sshLoc]);
-
-  const [currentDirectory, setCurrentDirectory] = useState("");
-
-  useEffect(() => {
-    if (currentNetworkLocation !== "") {
-      setCurrentDirectory(currentNetworkLocation._linkedNetworkDirectories);
-    }
-    if (currentNetworkLocation._password === " ") {
-      setPasswdReq(false);
-    }
-  }, [currentNetworkLocation]);
-
-  const [childDirs, setChildDirs] = useState([]);
-
-  useEffect(() => {
-    if (currentDirectory !== "") {
-      setChildDirs(Object.entries(currentDirectory._linkedDirs));
-    }
-  }, [currentDirectory]);
 
   useEffect(() => {
     // creating assignment of scp transferred file to ssh directories
@@ -336,9 +345,45 @@ function SshTerminal(props) {
     ) {
       const dirLoc = scpParser(props.scp);
       const file = props.scp.file;
+      updateFileSystem("scpTriggered");
       return dirLoc.linkFiles(file._fileName, file); // file linking
     }
   }, [passwdReq]);
+
+  function daemonTesterDecrypt() {
+    if (
+      "bbs_mask_9SOCqTxfm2Zi.dat" in
+      currentNetworkLocation._linkedNetworkDirectories._fileDirLink
+    ) {
+      const decrypted = net.angryDaemons._linkedNetworkDirectories.linkFiles(
+        "bbs_mask_9SOCqTxfm2Zi.dat.decrypt",
+        angryFS.bbsMaskPayloadDecrypt
+      );
+      return decrypted;
+    }
+  }
+
+  function daemonTesterReport() {
+    if (
+      "bbs_mask_9SOCqTxfm2Zi.dat" in
+      currentNetworkLocation._linkedNetworkDirectories._fileDirLink
+    ) {
+      const report = net.angryDaemons._linkedNetworkDirectories.linkFiles(
+        "test-report_1545",
+        angryFS.testReport
+      );
+      return report;
+    }
+  }
+
+  useEffect(() => {
+    let decrypted = "";
+    let report = "";
+    if (currentDirectory === net.angryDaemons._linkedNetworkDirectories) {
+      decrypted = daemonTesterDecrypt();
+      report = daemonTesterReport();
+    }
+  }, [fileSystem]);
 
   return (
     <>

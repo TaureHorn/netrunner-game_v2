@@ -3,10 +3,12 @@
 :root {
   --text: "Courier Prime", monospace;
   --headerText: "Silkscreen", cursive;
+  --scanline: url(./resources/black-scanline-theme.jpg);
+  --VBDs: url(./resources/resoAgwe.jpg);
 }
 
 body {
-  background: url(./resources/black-scanline-theme.jpg);
+  background-image: var(--scanline);
 }
 
 .centerImage {
@@ -111,7 +113,7 @@ hr {
   top: 0;
   bottom: 0;
   margin: auto;
-  max-height: 15%;
+  max-height: 25%;
   max-width: 40%;
   border: 4px ridge white;
   background-color: #9b9b9b;

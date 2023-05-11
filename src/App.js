@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // component imports
@@ -14,23 +14,65 @@ import SoftwareSidebar from "./components/softwareSidebar";
 import Footer from "./components/footer";
 
 import { toggleElement } from "./functions/toggleElement";
+import { shutDown } from "./functions/shutDown";
+import { gameWinAppearance } from "./functions/gameWinState";
 
 function App() {
-  const [username, setUserName] = useState(
-    window.localStorage.getItem("username")
-  );
+  const [username, setUserName] = useState("");
+  const [userAlias, setUserAlias] = useState("");
+
+  useEffect(() => {
+    const userGet = window.localStorage.getItem("username");
+    if (userGet !== null) {
+      setUserName(userGet);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (username || username !== "") {
+      const split = username?.split("@");
+      setUserAlias(split[0]);
+    }
+  }, [username]);
 
   const [sshLoc, setSshLoc] = useState({});
   const [ircLoc, setIrcLoc] = useState({});
-  const [alert, setAlert] = useState("");
+  const [OSalert, setAlert] = useState("");
   const [scp, setSCP] = useState("");
-  console.log(scp);
+  const [winState, changeWinState] = useState("unset");
+
+  useEffect(() => {
+    if (winState === false) {
+      setTimeout(() => {
+        gameWinAppearance(winState);
+        setAlert(
+          "INSTRUSION DETECTED. ROOT PRIVILEGES ACQUIRED BY EXTERNAL SHELL. ERASING VIRTUAL MACHINE"
+        );
+      }, 1000);
+      setTimeout(() => {
+        shutDown();
+      }, 20000);
+    } else if (winState === true) {
+      setTimeout(() => {
+        gameWinAppearance(winState);
+        setAlert(
+          "Hey " +
+            userAlias +
+            ". It's K1W1. I've analysed the dat file you uploaded. Details on the Angry Daemon server if you wanna take a look. Shade is doin some hella shady shit with this. Excuse the pun. You may have just saved your life, and maybe shades too by not following his instructions. My advice, never touch this virtual machine again. And never talk to shade again either..."
+        );
+      }, 15000);
+    }
+  }, [winState]);
 
   return !username ? (
     <>
       <div className="page welcome">
-        <Bootup alert={(alert) => setAlert(alert)} />
-        {alert ? <Alert alert={alert} setAlert={() => setAlert()} /> : <></>}
+        <Bootup alert={(OSalert) => setAlert(OSalert)} />
+        {OSalert ? (
+          <Alert alert={OSalert} setAlert={() => setAlert()} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   ) : (
@@ -60,11 +102,12 @@ function App() {
               path="/"
               element={
                 <Terminal
-                  alert={(alert) => setAlert(alert)}
+                  alert={(OSalert) => setAlert(OSalert)}
                   ircLoc={(ircLoc) => setIrcLoc(ircLoc)}
                   scp={(scp) => setSCP(scp)}
                   sshLoc={(sshLoc) => setSshLoc(sshLoc)}
                   username={username}
+                  winState={(winState) => changeWinState(winState)}
                 />
               }
             />
@@ -72,7 +115,7 @@ function App() {
               path="/ssh"
               element={
                 <SshTerminal
-                  alert={(alert) => setAlert(alert)}
+                  alert={(OSalert) => setAlert(OSalert)}
                   scp={scp}
                   sshLoc={sshLoc}
                   username={username}
@@ -83,7 +126,7 @@ function App() {
               path="/irc"
               element={
                 <IrcTerminal
-                  alert={(alert) => setAlert(alert)}
+                  alert={(OSalert) => setAlert(OSalert)}
                   ircLoc={ircLoc}
                   username={username}
                 />
@@ -92,9 +135,9 @@ function App() {
           </Routes>
           <SoftwareSidebar />
         </div>
-        <Footer alert={(alert) => setAlert(alert)} />
+        <Footer alert={(OSalert) => setAlert(OSalert)} />
       </div>
-      {alert ? <Alert alert={alert} setAlert={() => setAlert()} /> : <></>}
+      {OSalert ? <Alert alert={OSalert} setAlert={() => setAlert()} /> : <></>}
     </>
   );
 }

@@ -252,6 +252,7 @@ function IrcTerminal(props) {
               Private Messages
             </span>
           </div>
+          <br />
           <div id="users">
             {characters?.map((char) => {
               const displayStatus = char[1];
@@ -261,7 +262,6 @@ function IrcTerminal(props) {
                 </div>
               );
             })}
-            <hr />
           </div>
           <div id="messages" style={{ display: "none" }}>
             {currentIRC._messageHistory?.map((msg) => {
@@ -281,7 +281,7 @@ function IrcTerminal(props) {
               <div key={crypto.randomUUID()}>
                 <UserPrivateMessage
                   currentUser={currentIRC._members.aaaUser}
-                netLoc={currentNetworkLocation}
+                  netLoc={currentNetworkLocation}
                   targetUser={pmTarget}
                 />
               </div>
