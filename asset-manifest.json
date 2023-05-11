@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/netrunner-game_v2/static/css/main.e75440f3.css",
+    "main.js": "/netrunner-game_v2/static/js/main.5c169a9c.js",
+    "static/js/787.4f0664c2.chunk.js": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js",
+    "static/media/resoAgwe.jpg": "/netrunner-game_v2/static/media/resoAgwe.70efd0bfe1585adbda37.jpg",
+    "static/media/bugbear.png": "/netrunner-game_v2/static/media/bugbear.59e8703d7040b8dc3b09.png",
+    "static/media/vortex.png": "/netrunner-game_v2/static/media/vortex.652215f07f0193738100.png",
+    "static/media/spaceboy.png": "/netrunner-game_v2/static/media/spaceboy.b6b0148068d3179a40c9.png",
+    "static/media/bad.png": "/netrunner-game_v2/static/media/bad.bd3e41245d6e8f104e18.png",
+    "static/media/shade.png": "/netrunner-game_v2/static/media/shade.ee40d8556e10f137133b.png",
+    "static/media/tbug.png": "/netrunner-game_v2/static/media/tbug.c13bdbd3b442e2db01ad.png",
+    "static/media/kiwi.png": "/netrunner-game_v2/static/media/kiwi.694ff18894f3d8aadcff.png",
+    "static/media/user.png": "/netrunner-game_v2/static/media/user.f9ce8761081e87d449c3.png",
+    "static/media/luce.png": "/netrunner-game_v2/static/media/luce.61ec095c48636fd4b72a.png",
+    "static/media/mystery.png": "/netrunner-game_v2/static/media/mystery.c0f3c0f1a8cac2ac8388.png",
+    "static/media/black-scanline-theme.jpg": "/netrunner-game_v2/static/media/black-scanline-theme.644089381d82dd6e2f37.jpg",
+    "static/media/zetatech.png": "/netrunner-game_v2/static/media/zetatech.45114520a3da1f06cd9f.png",
+    "index.html": "/netrunner-game_v2/index.html",
+    "main.e75440f3.css.map": "/netrunner-game_v2/static/css/main.e75440f3.css.map",
+    "main.5c169a9c.js.map": "/netrunner-game_v2/static/js/main.5c169a9c.js.map",
+    "787.4f0664c2.chunk.js.map": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e75440f3.css",
+    "static/js/main.5c169a9c.js"
+  ]
+}
