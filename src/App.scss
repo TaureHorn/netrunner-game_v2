@@ -13,7 +13,7 @@ body {
 
 .centerImage {
   background: url(./resources/centre-logo_skull-on-black_v2.png);
-  opacity: 25%;
+  opacity: 15%;
 }
 
 p,
@@ -71,7 +71,7 @@ hr {
   font-weight: bold;
   writing-mode: vertical-rl;
   position: absolute;
-  top: 48%;
+  bottom: 8%;
   padding: 3px;
 }
 
@@ -84,9 +84,12 @@ hr {
 }
 
 .sectionToggler {
+  font-size: 16pt;
+  text-transform: uppercase;
   background: none;
   text-align: center;
   text-transform: uppercase;
+
 }
 
 .sectionToggler:hover {
@@ -140,7 +143,7 @@ hr {
 }
 
 form {
-  width: 50%;
+  width: 70%;
 }
 
 input,
@@ -150,6 +153,7 @@ textarea {
   font-family: var(--text);
   font-size: 12pt;
   border: none;
+  outline: 1px dashed white !important;
   width: 100%;
   box-sizing: border-box !important;
   caret: white underscore !important;
@@ -195,7 +199,7 @@ input:focus-visible {
 
 .sidebarHeader {
   text-align: center;
-  font-size: 18pt;
+  font-size: 22pt;
   font-family: var(--headerText);
   font-style: italic;
 }
@@ -203,7 +207,7 @@ input:focus-visible {
 .headerText {
   font-family: var(--headerText);
   font-style: italic;
-  text-transform: capitalize;
+  text-transform: uppercase;
   margin: 0px;
 }
 
@@ -218,6 +222,12 @@ input:focus-visible {
 .headerButton:hover {
   color: white;
   outline: 2px solid white;
+}
+.sidebarSubsection {
+  font-size: 16pt;
+  text-transform: uppercase !important;
+  background-color: rgba(255,255,255,.33);
+  padding: 5px;
 }
 
 .terminalText {

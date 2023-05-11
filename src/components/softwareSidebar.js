@@ -44,6 +44,30 @@ function SoftwareSidebar(props) {
               or circjock chair, you've got your work cut out for you. This
               should get you about 5% of the way to cool!
             </p>
+            {/* /////// PERTURBATOR MUSIC PLAYER /////*/}
+            <div>
+              <iframe
+                style={{ border: "0", width: "100%", height: "120px" }}
+                src="https://bandcamp.com/EmbeddedPlayer/album=99843590/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=none/transparent=true/"
+                seamless
+              >
+                <a href="https://perturbator.bandcamp.com/album/the-uncanny-valley">
+                  The Uncanny Valley by PERTURBATOR
+                </a>
+              </iframe>
+            </div>
+            {/* /////// LORN MUSIC PLAYER /////*/}
+            <div>
+              <iframe
+                style={{ border: "0", width: "100%", height: "120px" }}
+                src="https://bandcamp.com/EmbeddedPlayer/album=747035665/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=none/transparent=true/"
+                seamless
+              >
+                <a href="https://lorn.bandcamp.com/album/drown-the-traitor-within">
+                  DROWN THE TRAITOR WITHIN by LORN
+                </a>
+              </iframe>
+            </div>
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div
@@ -76,7 +100,7 @@ function SoftwareSidebar(props) {
             className="blockText"
             style={{ display: "none" }}
           >
-            <p>
+            <p style={{ color: "rgb(80,80,80)" }}>
               Each netrunner has different preferences for the appearance of
               their terminal. The interface tech on this VM is kinda old so
               there's not a lot for customization. Here's what I could find.
@@ -93,23 +117,44 @@ function SoftwareSidebar(props) {
               </li>
               <li
                 id="darkHighContrast"
+                style={{ color: "rgb(80,80,80)" }}
                 onClick={() => themer("darkHighContrast")}
               >
                 dark: high contrast (by shade)
               </li>
-              <li id="arasaka" onClick={() => themer("arasaka")}>
+              <li
+                id="arasaka"
+                style={{ color: "rgb(80,80,80)" }}
+                onClick={() => themer("arasaka")}
+              >
                 arasaka red (by {missingAuthor})
               </li>
-              <li id="white" onClick={() => themer("white")}>
+              <li
+                id="white"
+                style={{ color: "rgb(80,80,80)" }}
+                onClick={() => themer("white")}
+              >
                 white (by b@d){" "}
               </li>
-              <li id="yellow" onClick={() => themer("yellow")}>
+              <li
+                id="yellow"
+                style={{ color: "rgb(80,80,80)" }}
+                onClick={() => themer("yellow")}
+              >
                 yellow (by {missingAuthor}){" "}
               </li>
-              <li id="BSOD" onClick={() => themer("BSOD")}>
+              <li
+                id="BSOD"
+                style={{ color: "rgb(80,80,80)" }}
+                onClick={() => themer("BSOD")}
+              >
                 BSOD[legacy] (by 8ug8ear)
               </li>
             </ul>
+            <p style={{ textTransform: "uppercase" }}>
+              error({crypto.randomUUID()}):
+            </p>
+            <p>Themes unvailable. Contact system administrator</p>
           </div>
         </div>
       </div>

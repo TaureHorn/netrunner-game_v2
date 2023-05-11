@@ -139,7 +139,7 @@ export const usrFS = {
       "storage",
       username + " shade",
       "root",
-      "Once you've gotten to grips with using the terminal a bit I have a task for you. A test of competency. I left you a gift. Within is some data you will need and a file 'bbs_mask_9SOCqTxfm2Zi.dat'. I need you to get that on a server. You'll need to ssh into the server ip and upload the file.",
+      "Once you've gotten to grips with using the terminal a bit I have a task for you. A test of competency. I left you some data you will need and a file 'bbs_mask_9SOCqTxfm2Zi.dat'. I need you to get that file on the Reso Agwe server. You'll need to copy the file with scp onto the server.",
       "hint: password is hidden in datamap file"
     ),
   },
