@@ -15,6 +15,12 @@ import winSound from "../resources/msgAlarm.mp3";
 const lossAlarm = new Audio(lossSound);
 const winAlarm = new Audio(winSound);
 
+export const gameStateIDs = {
+  plan: "5878c69f-3996-464b-809a-042d019662a1",
+  warning: "25c4319f-9994-4e8e-8cde-d8e48f0f3f1e",
+};
+
+console.log(gameStateIDs)
 export function gameWinMonitor(file, ip) {
   // inputs have already been checked for errors and validity when function is called
   if (file !== usrFS.files.bbsMaskPayload) {
@@ -47,4 +53,17 @@ export function gameWinAppearance(bool) {
       "Congratulations. You have completed the game!";
     document.getElementById("footerTitle").innerHTML = "THANKS FOR PLAYING!";
   }
+}
+
+export function gameStateTracker(instr) {
+    switch (instr){
+        case "task":
+            window.localStorage.setItem("plan", gameStateIDs.plan)
+            break;
+        case "edgerunnerFTP":
+            window.localStorage.setItem("warning", gameStateIDs.warning)
+            break;
+        default:
+            console.log("gameStateTracker has recieved an invalid input")
+    }
 }
