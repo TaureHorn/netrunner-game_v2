@@ -20,6 +20,7 @@ import { gameWinAppearance } from "./functions/gameWinState";
 function App() {
   const [username, setUserName] = useState("");
   const [userAlias, setUserAlias] = useState("");
+  const [notes, setNotes] = useState("");
 
   useEffect(() => {
     const userGet = window.localStorage.getItem("username");
@@ -27,6 +28,13 @@ function App() {
       setUserName(userGet);
     }
   }, []);
+
+  useEffect(() => {
+    const notesGet = window.localStorage.getItem("notes");
+    if (notesGet !== null) {
+      setNotes(notesGet);
+    }
+  }, [username]);
 
   useEffect(() => {
     if (username || username !== "") {
@@ -60,7 +68,7 @@ function App() {
             userAlias +
             ". It's K1W1. I've analysed the dat file you uploaded. Details on the Angry Daemon server if you wanna take a look. Shade is doin some hella shady shit with this. Excuse the pun. You may have just saved your life, and maybe shades too by not following his instructions. My advice, never touch this virtual machine again. And never talk to shade again either..."
         );
-      }, 15000);
+      }, 1000);
     }
   }, [winState]);
 
@@ -77,20 +85,6 @@ function App() {
     </>
   ) : (
     <>
-      <button
-        onClick={() => toggleElement("helpSidebar")}
-        className="toggler helpToggler"
-      >
-        help
-      </button>
-
-      <button
-        onClick={() => toggleElement("softwareSidebar")}
-        className="toggler softwareToggler"
-      >
-        software
-      </button>
-
       <div className="border page">
         <Header />
         <div className="inlineBox panels">
@@ -131,7 +125,7 @@ function App() {
               }
             />
           </Routes>
-          <SoftwareSidebar />
+          <SoftwareSidebar notes={notes} />
         </div>
         <Footer alert={(OSalert) => setAlert(OSalert)} />
       </div>

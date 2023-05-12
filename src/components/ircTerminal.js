@@ -10,6 +10,7 @@ import UserPrivateMessage from "./ircPrivateMessage";
 
 import { ircCommandParser } from "../functions/cmdParser";
 import { sectionSelector } from "../functions/sectionSelector";
+import { toggleElement, uiElements } from "../functions/toggleElement";
 
 function IrcTerminal(props) {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function IrcTerminal(props) {
     } else {
       switch (command.cmd) {
         case "cmds":
-          result = "cmds exit messages pm private t users";
+          result = "cmds exit messages pm private t toggle users";
           break;
         case "exit":
           result = "Exiting IRC session...";
@@ -93,6 +94,14 @@ function IrcTerminal(props) {
           break;
         case "t":
           result = "YOU ARE NOT PERMITTED TO SEND MESSAGES IN THIS CHANNEL";
+          break;
+        case "toggle":
+          if (command.arg1 in uiElements === true) {
+            result = "toggled UI element " + command.arg1;
+            toggleElement(uiElements[command.arg1]);
+          } else {
+            result = " ~~ no such UI element";
+          }
           break;
         case "users":
           result = "navigating to users window";
@@ -283,7 +292,8 @@ function IrcTerminal(props) {
             {pm === false ? (
               <div key={crypto.randomUUID()}>
                 <p style={{ textAlign: "center" }}>
-                  Initiate a private message with a user with the "pm" command followed by the users name.
+                  Initiate a private message with a user with the "pm" command
+                  followed by the users name.
                 </p>
               </div>
             ) : (

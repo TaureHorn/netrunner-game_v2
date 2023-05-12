@@ -9,11 +9,13 @@ import { gameWinMonitor } from "../functions/gameWinState";
 import { isObjectEmpty } from "../functions/isEmpty";
 import { passwdParser } from "../functions/passwdParser";
 import { shutDown } from "../functions/shutDown";
+import { toggleElement } from "../functions/toggleElement";
 
 import { net } from "../data/network";
 import { rootFS } from "../data/rootFS";
 import { usrFS } from "../data/usrFS";
 import { zetaTechVM } from "../data/zetatechVM";
+import { uiElements } from "../functions/toggleElement";
 
 function Terminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -131,7 +133,7 @@ function Terminal(props) {
         case "clear":
           return setCmdHistory([{}]);
         case "cmds":
-          result = "cat cd clear cmds exit file irc ls scp ssh steghide";
+          result = "cat cd clear cmds exit file irc ls scp ssh steghide toggle";
           break;
         case "exit":
           result = "Exiting virtual machine environment session...";
@@ -208,6 +210,14 @@ function Terminal(props) {
         case "steghide":
           result = currentDirectory.steghide(instr.arg1);
           break;
+        case "toggle":
+          if (instr.arg1 in uiElements === true) {
+            result = "toggled UI element " + instr.arg1;
+            toggleElement(uiElements[instr.arg1]);
+          } else {
+              result = " ~~ no such UI element"
+          }
+          break;
         default:
           console.log(
             "An error has occurred. Somehow commandParser has output an invalid command"
@@ -237,7 +247,10 @@ function Terminal(props) {
 
   return (
     <>
-      <div id="centrePanel" className="border centrePanel panel scroll centreImage hover">
+      <div
+        id="centrePanel"
+        className="border centrePanel panel scroll centreImage hover"
+      >
         <div className="terminalText">
           <p> Parent directory: {currentDirectory._linkedParentDir._dirName}</p>
           <p> Current directory: {currentDirectory._dirName}</p>
