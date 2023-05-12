@@ -17,6 +17,9 @@ function IrcTerminal(props) {
   //
   // INPUT HANDLING
   //
+
+  const [cmdHistory, setCmdHistory] = useState("");
+
   function inputHandler(e) {
     e.preventDefault();
     const input = e.target.cmd.value.toString();
@@ -118,7 +121,8 @@ function IrcTerminal(props) {
       input.value = message;
       setTimeout(() => {
         input.value = "";
-      }, 3000);
+        setCmdHistory(message);
+      }, 2000);
     }
   }
 
@@ -184,7 +188,13 @@ function IrcTerminal(props) {
             {currentUser._name}@{currentNetworkLocation._netLocName} $:
           </span>
           <form onSubmit={(e) => inputHandler(e)}>
-            <input id="commandInput" autoFocus name="cmd" type="text" />
+            <input
+              id="commandInput"
+              autoFocus
+              name="cmd"
+              placeholder={cmdHistory}
+              type="text"
+            />
           </form>
         </div>
         <hr />
@@ -273,8 +283,7 @@ function IrcTerminal(props) {
             {pm === false ? (
               <div key={crypto.randomUUID()}>
                 <p style={{ textAlign: "center" }}>
-                  Initiate a private message with a user by typing "pm
-                  $username" in the command prompt
+                  Initiate a private message with a user with the "pm" command followed by the users name.
                 </p>
               </div>
             ) : (

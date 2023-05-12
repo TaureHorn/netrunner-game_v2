@@ -16,6 +16,7 @@ function UserPrivateMessage(props) {
     "Ask about Reso Agwe",
     "Ask about the hidden warning from `a friend`",
   ]);
+  const [inputHistory, setInputHistory] = useState("");
 
   function inputHandler(e) {
     e.preventDefault();
@@ -107,6 +108,7 @@ function UserPrivateMessage(props) {
       const input = document.getElementById("pmInput");
       input.value = message;
       setTimeout(() => {
+        setInputHistory(message);
         input.value = "";
       }, 1000);
     }
@@ -172,7 +174,13 @@ function UserPrivateMessage(props) {
         <span style={{ fontSize: "32pt" }}>➔</span>
         <span>{targetUser._alias} $:</span>
         <form onSubmit={(e) => inputHandler(e)}>
-          <input id="pmInput" autoFocus name="cmd" type="text" />
+          <input
+            id="pmInput"
+            autoFocus
+            placeholder={inputHistory}
+            name="cmd"
+            type="text"
+          />
         </form>
       </div>
     </>
