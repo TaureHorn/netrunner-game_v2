@@ -46,12 +46,12 @@ function App() {
       setTimeout(() => {
         gameWinAppearance(winState);
         setAlert(
-          "INSTRUSION DETECTED. ROOT PRIVILEGES ACQUIRED BY EXTERNAL SHELL. ERASING VIRTUAL MACHINE"
+          "INSTRUSION DETECTED. ROOT PRIVILEGES ACQUIRED BY EXTERNAL SHELL. ERASING VIRTUAL MACHINE..."
         );
       }, 1000);
       setTimeout(() => {
         shutDown();
-      }, 20000);
+      }, 11000);
     } else if (winState === true) {
       setTimeout(() => {
         gameWinAppearance(winState);
@@ -81,16 +81,14 @@ function App() {
         onClick={() => toggleElement("helpSidebar")}
         className="toggler helpToggler"
       >
-        {" "}
-        help{" "}
+        help
       </button>
 
       <button
         onClick={() => toggleElement("softwareSidebar")}
         className="toggler softwareToggler"
       >
-        {" "}
-        software{" "}
+        software
       </button>
 
       <div className="border page">
