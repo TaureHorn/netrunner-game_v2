@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CommandHistory from "./commandHistory";
 
 import { convoParser } from "../functions/cmdParser";
+
+import { gameStateIDs } from "../functions/gameWinState";
 
 function UserPrivateMessage(props) {
   const currentUser = props.currentUser;
@@ -13,9 +15,26 @@ function UserPrivateMessage(props) {
   const [convoOptions, changeConvoOptions] = useState([
     "Say Hello",
     "Ask for advice on netrunning",
-    "Ask about Reso Agwe",
-    "Ask about the hidden warning from `a friend`",
   ]);
+
+  const convoAdditions = {
+    resoAgweAdvice: "Ask about getting on to Reso Agwe",
+    shadeWarning: "Ask about the hidden warning about shade from `a friend`",
+  };
+
+  useEffect(() => {
+    const newConvoOptions = [...convoOptions];
+    if (window.localStorage.getItem("plan") === gameStateIDs.plan) {
+      // set conversation option based on the task found in home file system
+      newConvoOptions.push(convoAdditions.resoAgweAdvice);
+    }
+    if (window.localStorage.getItem("warning") === gameStateIDs.warning) {
+      // set conversation option based on the warning found in home files system
+      newConvoOptions.push(convoAdditions.shadeWarning);
+    }
+    changeConvoOptions(newConvoOptions);
+  }, [props.targetUser]);
+
   const [inputHistory, setInputHistory] = useState("");
 
   function inputHandler(e) {

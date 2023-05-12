@@ -1,6 +1,8 @@
 export function shutDown() {
-  window.localStorage.removeItem("username");
-  window.localStorage.removeItem("notes");
+  const localStorage = ["username", "notes", "plan", "warning"];
+  localStorage.forEach((item) => {
+    window.localStorage.removeItem(item);
+  });
   setTimeout(() => {
     window.location.reload();
   }, 3000);

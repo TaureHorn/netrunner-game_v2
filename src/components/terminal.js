@@ -5,6 +5,7 @@ import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
 import { dnsTransfer, ircTransfer } from "../functions/dnsTransfer";
+import { gameStateTracker } from "../functions/gameWinState";
 import { gameWinMonitor } from "../functions/gameWinState";
 import { isObjectEmpty } from "../functions/isEmpty";
 import { passwdParser } from "../functions/passwdParser";
@@ -117,6 +118,9 @@ function Terminal(props) {
       switch (instr.cmd) {
         case "cat":
           result = currentDirectory.cat(instr.arg1);
+          if (instr.arg1 === "task" || instr.arg1 === "edgerunnerFTP") {
+            gameStateTracker(instr.arg1);
+          }
           break;
         case "cd":
           const changeDirectory = currentDirectory.cd(instr.arg1);
@@ -129,7 +133,6 @@ function Terminal(props) {
             result = "you are already at the root directory";
           }
           break;
-
         case "clear":
           return setCmdHistory([{}]);
         case "cmds":
@@ -215,7 +218,7 @@ function Terminal(props) {
             result = "toggled UI element " + instr.arg1;
             toggleElement(uiElements[instr.arg1]);
           } else {
-              result = " ~~ no such UI element"
+            result = " ~~ no such UI element";
           }
           break;
         default:
