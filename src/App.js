@@ -13,7 +13,6 @@ import IrcTerminal from "./components/ircTerminal";
 import SoftwareSidebar from "./components/softwareSidebar";
 import Footer from "./components/footer";
 
-import { toggleElement } from "./functions/toggleElement";
 import { shutDown } from "./functions/shutDown";
 import { gameWinAppearance } from "./functions/gameWinState";
 
@@ -68,7 +67,7 @@ function App() {
             userAlias +
             ". It's K1W1. I've analysed the dat file you uploaded. Details on the Angry Daemon server if you wanna take a look. Shade is doin some hella shady shit with this. Excuse the pun. You may have just saved your life, and maybe shades too by not following his instructions. My advice, never touch this virtual machine again. And never talk to shade again either..."
         );
-      }, 1000);
+      }, 10000);
     }
   }, [winState]);
 

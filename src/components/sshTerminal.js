@@ -239,7 +239,7 @@ function SshTerminal(props) {
         case "clear":
           return setCmdHistory([{}]);
         case "cmds":
-          result = "cat cd clear cmds exit file irc ls scp ssh steghide";
+          result = "cat cd clear cmds exit file irc ls scp ssh steghide toggle";
           break;
         case "exit":
           result = "Exiting SSH session, and returning to host session";
