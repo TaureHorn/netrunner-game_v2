@@ -62,7 +62,7 @@ export const edgeFS = {
       "storage",
       username + " kiwi root",
       "kiwi",
-      "we've had eyes on shade some time now. they've set you up to clash with the Voodoo Boys 'thout realising. Lose - lose sitch. choom, for your own sake, abandon the task they set you. drop the dat file shade wants you to upload  on the ip hidden in this file - not the Reso Agwe BSS server like shade asked. i'll take care of the rest and you peace the fuck out, k?",
+      "We've had eyes on shade for some time now. He's set you up to clash with the Voodoo Boys without you realising. Lose - lose sitch... Choom, for your own sake, abandon the task he set you. Drop the dat file shade wants you to upload onto the Angry Daemon server - not the Reso Agwe BBS like he wants. Credentials for Angry Daemon are hidden in this file. I'll take care of the rest and you peace the fuck out, k?",
       "239.149.68.33, pass: " + daemonPass
     ),
   },
