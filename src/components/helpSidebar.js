@@ -24,8 +24,9 @@ function HelpSidebar() {
               your door to carry your braindead body to hospital or worse.
             </p>
             <p>
-              To save us both a lot of hassle this machine only runs in RAM, no
-              storage. So don't reload the page unless you've really messed
+              To save us both a lot of hassle this machine only runs in RAM.
+              Nothing is stored cept your username, session id and and notes you
+              make. So don't reload the page unless you've really messed
               something up and wanna reset. Any super burning questions, hit me
               up on irc - but plx try to work it out yourself first, k. If you
               can't work out how to get to irc, you're a lost cause. Tell Regina

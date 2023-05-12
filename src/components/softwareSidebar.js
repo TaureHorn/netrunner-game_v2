@@ -1,8 +1,18 @@
+import { useEffect, useState } from "react";
 import { themer, toggleElement } from "../functions/toggleElement";
 
-const missingAuthor = "${uname} not found";
-
 function SoftwareSidebar(props) {
+  const missingAuthor = "${uname} not found";
+
+  const [notesTemp, updateNotesTemp] = useState(props.notes);
+
+  function notesHandler(e) {
+    e.preventDefault();
+    const value = e.target.value.toString();
+    updateNotesTemp(value);
+    window.localStorage.setItem("notes", value);
+  }
+
   return (
     <>
       <div id="softwareSidebar" className="border sidePanel panel hover scroll">
@@ -86,7 +96,16 @@ function SoftwareSidebar(props) {
               here. Remember this VM is RAM only. Notes will not persist across
               reloads.
             </p>
-            <textarea></textarea>
+            <textarea
+              id="notes"
+              defaultValue={notesTemp}
+              placeholder="write your notes here"
+              onChange={(e) =>
+                setTimeout(() => {
+                  notesHandler(e);
+                }, 4999)
+              }
+            ></textarea>
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div

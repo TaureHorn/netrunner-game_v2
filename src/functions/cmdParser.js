@@ -48,6 +48,11 @@ export function commandParser(command) {
           "Copies a file to a networked location. Append with a valid file name, ip address and password"
         );
         break;
+      case "software":
+        output = helpAssembler(
+          input,
+          "Toggles the display of the software sidebar"
+        );
       case "ssh":
         output = helpAssembler(
           input,
@@ -58,6 +63,12 @@ export function commandParser(command) {
         output = helpAssembler(
           input,
           "Prints any information that was hidden in a file using steganography tools. Append with a valid filename"
+        );
+        break;
+      case "toggle":
+        output = helpAssembler(
+          input,
+          "Toggles the display of a UI element. Append with element name. Options: footer, header, help, software"
         );
         break;
       default:
@@ -77,6 +88,7 @@ export function commandParser(command) {
       case "irc":
       case "ssh":
       case "steghide":
+      case "toggle":
         output = argumentsChecker(cmd, 2);
         break;
       case "scp":
@@ -124,6 +136,12 @@ export function ircCommandParser(command) {
           "Send a message to the channel/user. Append with message content"
         );
         break;
+      case "toggle":
+        output = helpAssembler(
+          input,
+          "Toggles the display of a UI element. Append with element name. Option: footer, header, help, software"
+        );
+        break;
       case "users":
         output = helpAssembler(input, "Displays window for channel users");
         break;
@@ -147,6 +165,9 @@ export function ircCommandParser(command) {
         break;
       case "t":
         output = argumentsChecker(cmd, 100);
+        break;
+      case "toggle":
+        output = argumentsChecker(cmd, 2);
         break;
       case "users":
         output = argumentsChecker(cmd, 1);
@@ -216,7 +237,12 @@ function cmdAssembler(command, number) {
   } else if (number === 2) {
     return { cmd: command[0], arg1: command[1] };
   } else if (number === 4) {
-    return { cmd: command[0], arg1: command[1], arg2: command[2], arg3: command[3] };
+    return {
+      cmd: command[0],
+      arg1: command[1],
+      arg2: command[2],
+      arg3: command[3],
+    };
   } else if (number === 100) {
     // used for commands with inputs of a string, therefore varaible number of arguments
     const message = command.slice(1).join(" ");

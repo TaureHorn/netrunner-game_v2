@@ -6,6 +6,7 @@ import CommandHistory from "./commandHistory";
 import { commandParser } from "../functions/cmdParser";
 import { passwdParser } from "../functions/passwdParser";
 import { scpParser } from "../functions/scpParser";
+import { toggleElement } from "../functions/toggleElement";
 
 import { net } from "../data/network";
 import { reso } from "../data/reso";
@@ -14,6 +15,7 @@ import { edgeDirs } from "../data/dirsEdgerunnerFTP";
 import { edgeFS } from "../data/filesEdgerunnerFTP";
 import { angryDir, angryFS } from "../data/angryDaemon";
 import { isObjectEmpty } from "../functions/isEmpty";
+import { uiElements } from "../functions/toggleElement";
 
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -231,7 +233,7 @@ function SshTerminal(props) {
               result = "no such directory";
             } else result = changeDirectory._dirName;
           } else {
-              result = "you are already at the root directory"
+            result = "you are already at the root directory";
           }
           break;
         case "clear":
@@ -264,6 +266,15 @@ function SshTerminal(props) {
         case "steghide":
           result = currentDirectory.steghide(instr.arg1);
           break;
+        case "toggle":
+          if (instr.arg1 in uiElements === true) {
+            result = "toggled UI element " + instr.arg1;
+            toggleElement(uiElements[instr.arg1]);
+          } else {
+            result = " ~~ no such UI element";
+          }
+          break;
+
         default:
           console.log(
             "An error has occurred. Somehow commandParser has output an invalid command"

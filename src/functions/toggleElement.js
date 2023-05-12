@@ -1,3 +1,10 @@
+export const uiElements = {
+  footer: "footer",
+  header: "header",
+  help: "helpSidebar",
+  software: "softwareSidebar",
+};
+
 export function toggleElement(element) {
   const x = document.getElementById(element);
   if (x.style.display === "none") {
@@ -17,10 +24,10 @@ export function themer(element) {
   ];
   const x = document.getElementById(element);
 
-    themeSelectors.forEach(selector => {
-        document.getElementById(selector).style.background = "none";
-        document.getElementById(selector).style.color = "white"
-    })
-    x.style.backgroundColor = "white";
-    x.style.color = "black"
+  themeSelectors.forEach((selector) => {
+    document.getElementById(selector).style.background = "none";
+    document.getElementById(selector).style.color = "white";
+  });
+  x.style.backgroundColor = "white";
+  x.style.color = "black";
 }
