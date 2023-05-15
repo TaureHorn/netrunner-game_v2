@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/netrunner-game_v2/static/css/main.e75440f3.css",
-    "main.js": "/netrunner-game_v2/static/js/main.554a11c6.js",
+    "main.js": "/netrunner-game_v2/static/js/main.f2f561c2.js",
     "static/js/787.4f0664c2.chunk.js": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js",
     "static/media/resoAgwe.jpg": "/netrunner-game_v2/static/media/resoAgwe.70efd0bfe1585adbda37.jpg",
     "static/media/bugbear.png": "/netrunner-game_v2/static/media/bugbear.59e8703d7040b8dc3b09.png",
@@ -20,11 +20,11 @@
     "static/media/zetatech.png": "/netrunner-game_v2/static/media/zetatech.45114520a3da1f06cd9f.png",
     "index.html": "/netrunner-game_v2/index.html",
     "main.e75440f3.css.map": "/netrunner-game_v2/static/css/main.e75440f3.css.map",
-    "main.554a11c6.js.map": "/netrunner-game_v2/static/js/main.554a11c6.js.map",
+    "main.f2f561c2.js.map": "/netrunner-game_v2/static/js/main.f2f561c2.js.map",
     "787.4f0664c2.chunk.js.map": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e75440f3.css",
-    "static/js/main.554a11c6.js"
+    "static/js/main.f2f561c2.js"
   ]
 }
