@@ -1,4 +1,5 @@
-import { isArrayEmpty, isObjectEmpty } from "./isEmpty";
+import { isArrayEmpty} from "./isEmpty";
+import { genRand } from "./randStr";
 
 export class Character {
     constructor(name, alias, greeting, advice, resoAgweAdvice, shadeWarning, status, connectionStatus, pfp) {
@@ -11,6 +12,7 @@ export class Character {
         this._status = status;
         this._connectionStatus = connectionStatus;
         this._pfp = pfp;
+        this._userID = genRand(16)
         this._ircChannel = {}
     }
     linkToIRC(netLoc){

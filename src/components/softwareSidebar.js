@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { genRand } from "../functions/randStr";
 import { themer, toggleElement } from "../functions/toggleElement";
 
 function SoftwareSidebar(props) {
@@ -54,27 +55,97 @@ function SoftwareSidebar(props) {
               or circjock chair, you've got your work cut out for you. This
               should get you about 5% of the way to cool!
             </p>
-            {/* /////// PERTURBATOR MUSIC PLAYER /////*/}
-            <div>
+            {/* /////// LAZERHAWK MUSIC PLAYER /////*/}
+            <p
+              className="sidebarSubsection hover"
+              onClick={() => toggleElement("skullNShark")}
+            >
+              LAZERHAWK - SKULL AND SHARK
+            </p>
+            <div id="skullNShark" style={{ display: "none" }}>
               <iframe
                 style={{ border: "0", width: "100%", height: "120px" }}
-                src="https://bandcamp.com/EmbeddedPlayer/album=99843590/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=none/transparent=true/"
+                src="https://bandcamp.com/EmbeddedPlayer/album=3483895767/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
               >
-                <a href="https://perturbator.bandcamp.com/album/the-uncanny-valley">
-                  The Uncanny Valley by PERTURBATOR
+                <a href="https://lazerhawk.bandcamp.com/album/skull-and-shark">
+                  Skull and Shark by Lazerhawk
                 </a>
               </iframe>
             </div>
+
             {/* /////// LORN MUSIC PLAYER /////*/}
-            <div>
+            <p
+              className="sidebarSubsection hover"
+              onClick={() => toggleElement("drownTheTraitorWithin")}
+            >
+              LORN - DROWN THE TRAITOR WITHIN
+            </p>
+
+            <div id="drownTheTraitorWithin" style={{ display: "none" }}>
               <iframe
                 style={{ border: "0", width: "100%", height: "120px" }}
-                src="https://bandcamp.com/EmbeddedPlayer/album=747035665/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=none/transparent=true/"
+                src="https://bandcamp.com/EmbeddedPlayer/album=747035665/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
               >
                 <a href="https://lorn.bandcamp.com/album/drown-the-traitor-within">
                   DROWN THE TRAITOR WITHIN by LORN
+                </a>
+              </iframe>
+            </div>
+            {/* /////// MASTER BOOT RECORD MUSIC PLAYER /////*/}
+            <p
+              className="sidebarSubsection hover"
+              onClick={() => toggleElement("virusDos")}
+            >
+              MASTER BOOT RECORD - VIRUS.DOS
+            </p>
+            <div id="virusDos" style={{ display: "none" }}>
+              <iframe
+                style={{ border: "0", width: "100%", height: "120px" }}
+                src="https://bandcamp.com/EmbeddedPlayer/album=2662275744/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
+                seamless
+              >
+                <a href="https://masterbootrecord.bandcamp.com/album/virus-dos">
+                  VIRUS.DOS by MASTER BOOT RECORD
+                </a>
+              </iframe>
+            </div>
+
+            {/* /////// NEON VANDAL MUSIC PLAYER /////*/}
+            <p
+              className="sidebarSubsection hover"
+              onClick={() => toggleElement("megalopolis")}
+            >
+              NEON VANDAL - MEGALOPOLIS
+            </p>
+            <div id="megalopolis" style={{ display: "none" }}>
+              <iframe
+                style={{ border: "0", width: "100%", height: "120px" }}
+                src="https://bandcamp.com/EmbeddedPlayer/album=1118027304/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
+                seamless
+              >
+                <a href="https://neonvandal.bandcamp.com/album/megalopolis-a-cyberpunk-soundtrack">
+                  Megalopolis:A Cyberpunk Soundtrack by Neon Vandal
+                </a>
+              </iframe>
+            </div>
+            {/* /////// PERTURBATOR MUSIC PLAYER /////*/}
+            <p
+              className="sidebarSubsection hover"
+              onClick={() => toggleElement("uncannyValley")}
+            >
+              PERTURBATOR - UNCANNY VALLEY
+            </p>
+
+            <div id="uncannyValley" style={{ display: "none" }}>
+              <iframe
+                style={{ border: "0", width: "100%", height: "120px" }}
+                src="https://bandcamp.com/EmbeddedPlayer/album=99843590/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
+                seamless
+              >
+                <a href="https://perturbator.bandcamp.com/album/the-uncanny-valley">
+                  The Uncanny Valley by PERTURBATOR
                 </a>
               </iframe>
             </div>
@@ -105,6 +176,7 @@ function SoftwareSidebar(props) {
                   notesHandler(e);
                 }, 4999)
               }
+              style={{ width: "97%" }}
             ></textarea>
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
@@ -170,9 +242,7 @@ function SoftwareSidebar(props) {
                 BSOD[legacy] (by 8ug8ear)
               </li>
             </ul>
-            <p style={{ textTransform: "uppercase" }}>
-              error({crypto.randomUUID()}):
-            </p>
+            <p style={{ textTransform: "uppercase" }}>error: {genRand(14)}</p>
             <p>Themes unvailable. Contact system administrator</p>
           </div>
         </div>

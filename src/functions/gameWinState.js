@@ -20,7 +20,6 @@ export const gameStateIDs = {
   warning: "25c4319f-9994-4e8e-8cde-d8e48f0f3f1e",
 };
 
-console.log(gameStateIDs)
 export function gameWinMonitor(file, ip) {
   // inputs have already been checked for errors and validity when function is called
   if (file !== usrFS.files.bbsMaskPayload) {

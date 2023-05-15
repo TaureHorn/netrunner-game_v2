@@ -127,11 +127,7 @@ function IrcTerminal(props) {
       message.length < 200
     ) {
       const input = document.getElementById("commandInput");
-      input.value = message;
-      setTimeout(() => {
-        input.value = "";
-        setCmdHistory(message);
-      }, 2000);
+      input.placeholder = message;
     }
   }
 

@@ -301,6 +301,7 @@ function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
   const [currentNetworkLocation, setCurrentNetworkLocation] = useState("");
   const [currentDirectory, setCurrentDirectory] = useState("");
+  // const childDirs = Object.entries(currentDirectory?._linkedDirs);
   const [childDirs, setChildDirs] = useState([]);
 
   const [fileSystem, updateFileSystem] = useState("");
@@ -310,25 +311,14 @@ function SshTerminal(props) {
       case "reso_agweBBS":
         setCurrentNetworkLocation(net.resoAgwe);
         setCurrentDirectory(net.resoAgwe._linkedNetworkDirectories);
-        setChildDirs(
-          Object.entries(net.resoAgwe._linkedNetworkDirectories._linkedDirs)
-        );
         break;
       case "EdgerunnersFTP":
         setCurrentNetworkLocation(net.edgerunnerFTP);
         setCurrentDirectory(net.edgerunnerFTP._linkedNetworkDirectories);
-        setChildDirs(
-          Object.entries(
-            net.edgerunnerFTP._linkedNetworkDirectories._linkedDirs
-          )
-        );
         break;
       case "AngryDaemons":
         setCurrentNetworkLocation(net.angryDaemons);
         setCurrentDirectory(net.angryDaemons._linkedNetworkDirectories);
-        setChildDirs(
-          Object.entries(net.angryDaemons._linkedNetworkDirectories._linkedDirs)
-        );
         break;
       default:
         props.alert(
@@ -360,6 +350,12 @@ function SshTerminal(props) {
       return dirLoc.linkFiles(file._fileName, file); // file linking
     }
   }, [passwdReq]);
+
+  useEffect(() => {
+    if (currentDirectory !== "") {
+      setChildDirs(Object.entries(currentDirectory._linkedDirs));
+    }
+  }, [currentDirectory]);
 
   function daemonTesterDecrypt() {
     if (
