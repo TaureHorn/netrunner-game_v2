@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import CommandHistory from "./commandHistory";
-
-import { convoParser } from "../functions/cmdParser";
 
 import { gameStateIDs } from "../functions/gameWinState";
 
 function UserPrivateMessage(props) {
+  const { userID } = useParams;
   const currentUser = props.currentUser;
   const targetUser = props.targetUser;
-  const netLoc = props.netLoc;
 
   const [cmdHistory, setCmdHistory] = useState([]);
   const [convoOptions, changeConvoOptions] = useState([
-    "Say Hello",
+    "Say hello",
     "Ask for advice on netrunning",
   ]);
 
   const convoAdditions = {
+    greeting: "Say hello", // used only as reference
+    netrunnerAdvice: "Ask for advice on netrunning", // used only as a reference
     resoAgweAdvice: "Ask about getting on to Reso Agwe",
     shadeWarning: "Ask about the hidden warning about shade from `a friend`",
   };
@@ -35,38 +36,23 @@ function UserPrivateMessage(props) {
     changeConvoOptions(newConvoOptions);
   }, [props.targetUser]);
 
-  const [inputHistory, setInputHistory] = useState("");
-
   function inputHandler(e) {
     e.preventDefault();
-    const input = e.target.cmd.value.toString();
+    const input = parseInt(e.target.cmd.value);
     document.getElementById("pmInput").value = "";
-    if (input.length === 0) {
-      return inputFlasher("input empty");
-    } else if (input.length > 50) {
-      return inputFlasher("input cannot be more than 50 characters in length");
+    if (typeof input !== "number" || input > convoOptions.length) {
+      return inputFlasher(
+        "please enter a number between 1 and " + convoOptions.length
+      );
     } else {
-      const parsedInput = convoParser(input);
-      convoHandler(parsedInput);
+      convoHandler(input);
     }
   }
 
   function convoHandler(command) {
-    if (Object.keys(command)[1] === "helpStatement") {
-      return inputFlasher(command.helpStatement);
-    } else {
-      switch (command.cmd) {
-        case "cmds":
-          return inputFlasher("cmds option");
-        case "option":
-          inputFlasher(command.cmd + " " + command.arg1);
-          responseParser(convoOptions[command.arg1 - 1]);
-          convoCurator(command.arg1 - 1);
-          break;
-        default:
-          return inputFlasher(" something is amiss");
-      }
-    }
+    inputFlasher(command);
+    responseParser(convoOptions[command - 1]);
+    convoCurator(command - 1);
   }
 
   function responseParser(message) {
@@ -77,19 +63,19 @@ function UserPrivateMessage(props) {
     const userTag = "[" + currentUser._name + "]: ";
     const responseTag = "[" + targetUser._alias + "]: ";
     switch (message) {
-      case "Say Hello":
+      case convoAdditions.greeting:
         output.cmd = userTag + "Hey!";
         output.result = responseTag + targetUser._greeting;
         break;
-      case "Ask for advice on netrunning":
+      case convoAdditions.netrunnerAdvice:
         output.cmd = userTag + "I'm kinda new to netrunning. Any advice?";
         output.result = responseTag + targetUser._advice;
         break;
-      case "Ask about Reso Agwe":
+      case convoAdditions.resoAgweAdvice:
         output.cmd = userTag + "Do you know how to get into Reso Agwe?";
         output.result = responseTag + targetUser._resoAgweAdvice;
         break;
-      case "Ask about the hidden warning from `a friend`":
+      case convoAdditions.shadeWarning:
         output.cmd =
           userTag +
           "I found a warning about shade hidden in a file on my machine signed 'a friend'. Said to find em here. Any detes?";
@@ -118,19 +104,10 @@ function UserPrivateMessage(props) {
     changeConvoOptions(tempConvo);
   }
 
-  function inputFlasher(message) {
-    if (
-      typeof message === "string" &&
-      message.length > 0 &&
-      message.length < 200
-    ) {
-      const input = document.getElementById("pmInput");
-      input.value = message;
-      setTimeout(() => {
-        setInputHistory(message);
-        input.value = "";
-      }, 1000);
-    }
+  function inputFlasher(number) {
+    const output = number.toString();
+    const input = document.getElementById("pmInput");
+    return (input.placeholder = output);
   }
 
   return (
@@ -160,6 +137,9 @@ function UserPrivateMessage(props) {
             <strong>ALIAS:</strong> <em>{targetUser._alias}</em>
           </p>
           <p>
+            <strong>ID:</strong> <em>{targetUser._userID}</em>
+          </p>
+          <p>
             <strong>CONNECTION STATUS:</strong>{" "}
             <em>{targetUser._connectionStatus}</em>
           </p>
@@ -181,7 +161,7 @@ function UserPrivateMessage(props) {
           return (
             <div key={crypto.randomUUID()}>
               <span>
-                {index + 1}:{option}
+                {index + 1}: {option}
               </span>
             </div>
           );
@@ -196,7 +176,7 @@ function UserPrivateMessage(props) {
           <input
             id="pmInput"
             autoFocus
-            placeholder={inputHistory}
+            placeholder="Enter the number of the conversation option you want here"
             name="cmd"
             type="text"
           />

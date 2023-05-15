@@ -179,41 +179,6 @@ export function ircCommandParser(command) {
   return output;
 }
 
-export function convoParser(command) {
-  const input = command.toLowerCase();
-  const cmd = command.split(" ");
-  const program = cmd[0].toLowerCase();
-
-  let output = "";
-  if (cmd[1] === "--help" || cmd[1] === "-h") {
-    switch (program) {
-      case "cmds":
-        output = helpAssembler(input, "Lists available terminal commands");
-        break;
-      case "option":
-        output = helpAssembler(
-          input,
-          "Select conversation option. Append with number"
-        );
-        break;
-      default:
-        output = helpAssembler(input, "command not found");
-    }
-  } else {
-    switch (program) {
-      case "cmds":
-        output = argumentsChecker(cmd, 1);
-        break;
-      case "option":
-        output = argumentsChecker(cmd, 2);
-        break;
-      default:
-        output = helpAssembler(input, "command not found");
-    }
-  }
-  return output;
-}
-
 function argumentsChecker(command, number) {
   // check for correct number of arguments
   if (command[command.length - 1] === "") {
