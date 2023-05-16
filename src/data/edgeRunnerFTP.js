@@ -1,17 +1,35 @@
-import { File } from "../functions/classes";
+import { Directory, File } from "../functions/classes";
+import { getUsername } from "../functions/getUsername";
+
 import { daemonPass } from "./network";
 
-let username = "";
-const getUsername = () => {
-  if (!window.localStorage.getItem("username")) {
-    return "";
-  } else {
-    const userID = window.localStorage.getItem("username").split("@");
-    return (username = userID[0]);
-  }
-};
-getUsername();
+const username = getUsername();
 
+///////////////////////////////// DIRECTORIES ////////////////////////////////////////////
+//
+export const edgeDir = {
+  rootDir: new Directory("root"),
+  homeDir: new Directory("home"),
+  archiveDir: new Directory("archive"),
+  softwareDir: new Directory("software"),
+  targetsDir: new Directory("targets"),
+};
+//
+///// LINKING /////
+//
+edgeDir.rootDir.linkDirectories("home", edgeDir.homeDir);
+
+edgeDir.homeDir.linkParentDirectory(edgeDir.rootDir);
+edgeDir.homeDir.linkDirectories("archive", edgeDir.archiveDir);
+edgeDir.homeDir.linkDirectories("software", edgeDir.softwareDir);
+edgeDir.homeDir.linkDirectories("targets", edgeDir.targetsDir);
+
+edgeDir.archiveDir.linkParentDirectory(edgeDir.homeDir);
+edgeDir.softwareDir.linkParentDirectory(edgeDir.homeDir);
+edgeDir.targetsDir.linkParentDirectory(edgeDir.homeDir);
+//
+///////////////////////////////// FILES ////////////////////////////////////////////
+//
 export const edgeFS = {
   root: {
     root: new File(
@@ -67,3 +85,11 @@ export const edgeFS = {
     ),
   },
 };
+//
+///// LINKING /////
+//
+edgeDir.rootDir.linkFiles("root", edgeFS.root.root);
+edgeDir.archiveDir.linkFiles("archive", edgeFS.archive.archive);
+edgeDir.softwareDir.linkFiles("software", edgeFS.software.software);
+edgeDir.targetsDir.linkFiles("shade", edgeFS.targets.shade);
+edgeDir.targetsDir.linkFiles("newbie-readme", edgeFS.targets.newbie_readme);
