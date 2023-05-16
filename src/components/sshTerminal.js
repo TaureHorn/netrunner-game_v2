@@ -18,9 +18,6 @@ import { ResoAgweBBS } from "../data/resoAgwe";
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
   //
-  // -- DIRECTORY LINKING
-  //
-  //RESO AGWE BBS
   net.resoAgwe.linkNetworkedDirectories(ResoAgweBBS.resoAgwe);
   net.edgerunnerFTP.linkNetworkedDirectories(edgeDir.homeDir);
   net.angryDaemons.linkNetworkedDirectories(angryDir.homeDir);
@@ -33,6 +30,7 @@ function SshTerminal(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // dumb way to output and reoutput a notice to input a ssh servers password. triggered automatically on connection to server
     if (cmdHistory[0].cmd !== uname.toString()) {
       cmdLogger({ cmd: "", result: "enter password for " + props.sshLoc });
     }
@@ -51,6 +49,7 @@ function SshTerminal(props) {
         result: "command cannot be more than 100 characters in length",
       });
     } else if (passwdReq === true) {
+      // small logic section to handle password input parsing, as well as allowing the user to exit
       const judgePass = passwdParser(currentNetworkLocation, input);
       if (input === "exit") {
         cmdLogger({
@@ -79,6 +78,7 @@ function SshTerminal(props) {
   };
 
   function commandHandler(instr, command) {
+    // assess object input for recognised commands and handles the logic for the command and its arguments.
     let result = " ";
     let result2 = "";
     let result3 = "";
@@ -88,10 +88,12 @@ function SshTerminal(props) {
       result = instr.helpStatement;
     } else {
       switch (instr.cmd) {
-        case "cat":
+        case "cat": 
+              // concatenate file - output file contents | checking for file in directory occurs in constructor method
           result = currentDirectory.cat(instr.arg1);
           break;
-        case "cd":
+        case "cd": 
+              // change directory
           const changeDirectory = currentDirectory.cd(instr.arg1);
           if (isObjectEmpty(changeDirectory) === false) {
             setCurrentDirectory(changeDirectory);
@@ -102,37 +104,45 @@ function SshTerminal(props) {
             result = "you are already at the root directory";
           }
           break;
-        case "clear":
+        case "clear": // clear the terminal history
           return setCmdHistory([{}]);
-        case "cmds":
+        case "cmds": // returns a list of possible commands
           result = "cat cd clear cmds exit file irc ls scp ssh steghide toggle";
           break;
-        case "exit":
+        case "exit": // exit ssh session, returns back to main session
           result = "Exiting SSH session, and returning to host session";
           setTimeout(() => {
             navigate("/");
           }, 2000);
           break;
-        case "file":
+        case "file": // checks if file exits in current directory and outputs its metadata if it does
           const file = currentDirectory.file(instr.arg1);
-          result = "name: " + file._fileName;
-          result2 = "type: " + file._fileType;
-          result3 = "access: " + file._fileType;
-          result4 = "owner: " + file._fileOwner;
-          result5 = "creator: " + file._fileCreator;
+          if (typeof file !== "object") {
+            result = "~~ no such file";
+          } else {
+            result = "name: " + file._fileName;
+            result2 = "type: " + file._fileType;
+            result3 = "access: " + file._fileType;
+            result4 = "owner: " + file._fileOwner;
+            result5 = "creator: " + file._fileCreator;
+          }
           break;
         case "irc":
-        case "ls":
+          result = "Cannot recursively spawn shells";
+          break;
+        case "ls": // lists file contents of current directory | empty checking handles in constructor method
           result = currentDirectory.ls();
           break;
         case "scp":
+          result = "scp is unavailable while within a ssh session";
+          break;
         case "ssh":
           result = "Cannot recursively spawn shells";
           break;
-        case "steghide":
+        case "steghide": // lists "hidden file info" | checking for file in current directory happens in constructor method
           result = currentDirectory.steghide(instr.arg1);
           break;
-        case "toggle":
+        case "toggle": // checks if argument matched list of ui elements and toggles element visibititly if true
           if (instr.arg1 in uiElements === true) {
             result = "toggled UI element " + instr.arg1;
             toggleElement(uiElements[instr.arg1]);
@@ -140,8 +150,7 @@ function SshTerminal(props) {
             result = " ~~ no such UI element";
           }
           break;
-
-        default:
+        default: // should never show, error checking mostly occurs earlier in chain
           console.log(
             "An error has occurred. Somehow commandParser has output an invalid command"
           );
@@ -159,6 +168,7 @@ function SshTerminal(props) {
   }
 
   function cmdLogger(cmd) {
+// updates command history with output of comman handler
     const newCmd = [...cmdHistory];
     newCmd.unshift(cmd);
     setCmdHistory(newCmd);
@@ -173,6 +183,7 @@ function SshTerminal(props) {
   const [fileSystem, updateFileSystem] = useState("");
 
   function assignNetLoc(loc) {
+      // sets states data based on passed on location data passed in as props
     switch (loc) {
       case "reso_agweBBS":
         setCurrentNetworkLocation(net.resoAgwe);
@@ -186,8 +197,8 @@ function SshTerminal(props) {
         setCurrentNetworkLocation(net.angryDaemons);
         setCurrentDirectory(net.angryDaemons._linkedNetworkDirectories);
         break;
-      default:
-        props.alert(
+      default: // shouldn't really show, but very useful auto-navigation if users reloads page while within ssh session
+        props.alert( 
           "Secure shell failed to spawn at specified ip address. Returning to host shell session"
         );
         navigate("/");
@@ -218,6 +229,7 @@ function SshTerminal(props) {
   }, [passwdReq]);
 
   useEffect(() => {
+      // update of connected child directories auto triggered on directory change
     if (currentDirectory !== "") {
       setChildDirs(Object.entries(currentDirectory._linkedDirs));
     }
@@ -250,6 +262,7 @@ function SshTerminal(props) {
   }
 
   useEffect(() => {
+      // auto linking of two specific files to a specific directory, files passed in via scp command
     let decrypted = "";
     let report = "";
     if (currentDirectory === net.angryDaemons._linkedNetworkDirectories) {

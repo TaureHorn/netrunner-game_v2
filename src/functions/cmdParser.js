@@ -1,10 +1,12 @@
 export function commandParser(command) {
+  // takes input from terminals, checks for recognised commands, help request tags and if input has correct number of arguments for inputed command
   const input = command.toLowerCase();
   const cmd = command.split(" ");
   const program = cmd[0].toLowerCase();
   let output = "";
 
   if (cmd[1] === "--help" || cmd[1] === "-h") {
+    // if cmd appened with help request tag, find command in switch and output a help statement about command
     switch (program) {
       case "cat":
         output = helpAssembler(input, "Print the contents of a file");
@@ -53,6 +55,7 @@ export function commandParser(command) {
           input,
           "Toggles the display of the software sidebar"
         );
+        break;
       case "ssh":
         output = helpAssembler(
           input,
@@ -76,6 +79,7 @@ export function commandParser(command) {
     }
   } else {
     switch (program) {
+      // find known command in input and check that command has correct number of arguments
       case "clear":
       case "cmds":
       case "exit":
@@ -102,12 +106,14 @@ export function commandParser(command) {
 }
 
 export function ircCommandParser(command) {
+  // takes input from terminals, checks for recognised commands, help request tags and if input has correct number of arguments for inputed command
   const input = command.toLowerCase();
   const cmd = command.split(" ");
   const program = cmd[0].toLowerCase();
 
   let output = "";
   if (cmd[1] === "--help" || cmd[1] === "-h") {
+    // if cmd appened with help request tag, find command in switch and output a help statement about command
     switch (program) {
       case "cmds":
         output = helpAssembler(input, "Lists available terminal commands");
@@ -150,6 +156,7 @@ export function ircCommandParser(command) {
     }
   } else {
     switch (program) {
+      // find known command in input and check that command has correct number of arguments
       case "cmds":
       case "exit":
         output = argumentsChecker(cmd, 1);

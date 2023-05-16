@@ -22,6 +22,7 @@ function App() {
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
+    // if username exists within localstorage on page load - assign to state
     const userGet = window.localStorage.getItem("username");
     if (userGet !== null) {
       setUserName(userGet);
@@ -29,6 +30,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // if notes exists within localstorage on page load - assign to state
     const notesGet = window.localStorage.getItem("notes");
     if (notesGet !== null) {
       setNotes(notesGet);
@@ -36,6 +38,7 @@ function App() {
   }, [username]);
 
   useEffect(() => {
+    // assign alias to state based on username
     if (username || username !== "") {
       const split = username?.split("@");
       setUserAlias(split[0]);
@@ -49,6 +52,7 @@ function App() {
   const [winState, changeWinState] = useState("unset");
 
   useEffect(() => {
+      // trigger game win / loss effects based on state being updated to bool and value of bool 
     if (winState === false) {
       setTimeout(() => {
         gameWinAppearance(winState);

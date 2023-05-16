@@ -1,8 +1,10 @@
 export function sectionSelector(array, section, array2, section2, style) {
+    // function to change a selected element by one style and an array of other elements to a different style at once
   const x = document.getElementById(section);
   const y = document.getElementById(section2);
 
-  const text = { white: "white", red: "rgb(255,0,85)" };
+// pre-designated styles -- chosen based on 'style' parameter
+    const text = { white: "white", red: "rgb(255,0,85)" };
   const outline = {
     white: "1px solid white",
     red: "1px solid rgb(255,0,85)",

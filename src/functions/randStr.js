@@ -7,7 +7,7 @@ const characters =
 export function genRand(length) {
   let rand = "";
   for (let i = 0; i < length; i++) {
-    const randNum = parseInt(Math.random() * characters.length);
+    const randNum = parseInt(Math.random() * characters.length+1);
     rand += characters.slice(randNum, randNum+1)
   }
   return rand;

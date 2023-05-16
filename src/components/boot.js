@@ -7,11 +7,11 @@ function Bootup(props) {
     setUeid("zetatech_" + Math.random().toString().slice(2, 8));
   }, []);
 
-  const userHandler = (e) => {
+  const userHandler = (e) => { // handles the output from the input box
     e.preventDefault();
     const uname = e.target.username.value.toString();
-    const unameValid = regexAlpha(uname);
-    if (uname.length < 3 || uname.length > 16) {
+    const unameValid = regexAlpha(uname); // boolean output check for if uname contains only alphanumeric values
+    if (uname.length < 3 || uname.length > 20) {
       return props.alert("invalid username length");
     } else if (unameValid === false) {
       return props.alert("username must contain only alphanumeric characters");
@@ -20,7 +20,7 @@ function Bootup(props) {
     }
   };
 
-  const bootup = (user) => {
+  const bootup = (user) => { // commits user data to local storage and loads into main UI
     const username = (user + "@" + ueid).toString();
     window.localStorage.setItem("username", username);
     props.alert("welcome " + username + ". loading virtual environment");

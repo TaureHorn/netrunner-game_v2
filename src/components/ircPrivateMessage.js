@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import CommandHistory from "./commandHistory";
 
 import { gameStateIDs } from "../functions/gameWinState";
 
 function UserPrivateMessage(props) {
-  const { userID } = useParams;
   const currentUser = props.currentUser;
   const targetUser = props.targetUser;
 
@@ -24,6 +22,7 @@ function UserPrivateMessage(props) {
   };
 
   useEffect(() => {
+    // if local storage has keys to indicate the player has found certain information => adds questions about that information to the convo options list
     const newConvoOptions = [...convoOptions];
     if (window.localStorage.getItem("plan") === gameStateIDs.plan) {
       // set conversation option based on the task found in home file system
@@ -50,12 +49,13 @@ function UserPrivateMessage(props) {
   }
 
   function convoHandler(command) {
-    inputFlasher(command);
-    responseParser(convoOptions[command - 1]);
-    convoCurator(command - 1);
+    inputFlasher(command); // records the last entered command / command error message by setting input box placeholder
+    responseParser(convoOptions[command - 1]); // parses option inputs and outputs response based on which conversation option is entered
+    convoCurator(command - 1); // removes the inputed conversation option from the list and updates the list
   }
 
   function responseParser(message) {
+    // parses option inputs and outputs response based on which conversation option is entered
     const output = {
       cmd: "",
       result: "",
@@ -99,12 +99,14 @@ function UserPrivateMessage(props) {
   }
 
   function convoCurator(index) {
+    // removes the inputed conversation option from the list and updates the list
     const tempConvo = convoOptions;
     tempConvo.splice(index, 1);
     changeConvoOptions(tempConvo);
   }
 
   function inputFlasher(number) {
+    // records the last entered command / command error message by setting input box placeholder
     const output = number.toString();
     const input = document.getElementById("pmInput");
     return (input.placeholder = output);
@@ -127,7 +129,7 @@ function UserPrivateMessage(props) {
           src={targetUser._pfp}
           width="256"
           title={targetUser._alias + "'s profile picture"}
-          alt="a users profile picture"
+          alt="users profile"
         />
         <div style={{ lineHeight: "2", fontSize: "16pt" }}>
           <p>

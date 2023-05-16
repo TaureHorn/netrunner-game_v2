@@ -5,7 +5,7 @@ function Header() {
     <>
       <div id="header">
         <div className="border hover inlineBox header">
-          <img src={netwatch} height={30} />
+          <img src={netwatch} height={30} alt="netwatch logo" title="netwatch logo"/>
           <p id="title" className="headerText" style={{ fontSize: "32pt" }}>
             NetWatch: Netrunner
           </p>

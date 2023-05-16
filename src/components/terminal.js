@@ -16,7 +16,6 @@ import { uiElements } from "../functions/toggleElement";
 import { net } from "../data/network";
 import { zetatechDir } from "../data/zetatechVM";
 
-
 function Terminal(props) {
   net.zombie.linkNetworkedDirectories(zetatechDir.homeDir);
   ////////////// COMMANDS INPUT HANDLING /////////////////////////////////////////////////////////
@@ -43,6 +42,7 @@ function Terminal(props) {
   };
 
   function commandHandler(instr, command) {
+    // assess object input for recognised commands and handles the logic for the command and its arguments.
     const input = command.toLowerCase();
     let result = " ";
     let result2 = "";
@@ -54,40 +54,51 @@ function Terminal(props) {
     } else {
       switch (instr.cmd) {
         case "cat":
+          // concatenate file - output file contents | checking for file in directory occurs in constructor method
           result = currentDirectory.cat(instr.arg1);
           if (instr.arg1 === "task" || instr.arg1 === "edgerunnerFTP") {
             gameStateTracker(instr.arg1);
           }
           break;
         case "cd":
+          // change directory
           const changeDirectory = currentDirectory.cd(instr.arg1);
           if (isObjectEmpty(changeDirectory) === false) {
             setCurrentDirectory(changeDirectory);
             if (changeDirectory._dirName === currentDirectory._dirName) {
-              result = "no such directory";
+              result = "~~ no such directory";
             } else result = changeDirectory._dirName;
           } else {
             result = "you are already at the root directory";
           }
           break;
         case "clear":
+          // clear the terminal history
           return setCmdHistory([{}]);
         case "cmds":
+          // returns list of possible commands
           result = "cat cd clear cmds exit file irc ls scp ssh steghide toggle";
           break;
         case "exit":
+          // exit vm session and navigates back to login page
           result = "Exiting virtual machine environment session...";
           shutDown();
           break;
-        case "file":
+        case "file": // checks if file exists in current directory and outputs its metadata if it does
           const file = currentDirectory.file(instr.arg1);
-          result = "name: " + file._fileName;
-          result2 = "type: " + file._fileType;
-          result3 = "access: " + file._fileAccess;
-          result4 = "owner: " + file._fileOwner;
-          result5 = "creator: " + file._fileCreator;
+          if (typeof file !== "object") {
+            result = "~~ no such file";
+          } else {
+            console.log(file);
+            result = "name: " + file._fileName;
+            result2 = "type: " + file._fileType;
+            result3 = "access: " + file._fileAccess;
+            result4 = "owner: " + file._fileOwner;
+            result5 = "creator: " + file._fileCreator;
+          }
           break;
         case "irc":
+          // checks if argumet matches irc ip and outputs success/failure message. on success navigate to irc passing dat aup as props
           const ircLoc = ircTransfer(instr.arg1);
           if (typeof ircLoc !== "object") {
             result = ircLoc;
@@ -99,10 +110,12 @@ function Terminal(props) {
             }, 2000);
           }
           break;
-        case "ls":
+        case "ls": // lists file contents of current directory | empty checkin handled in constructor method
           result = currentDirectory.ls();
           break;
         case "scp":
+          // secure copy. sets parsed arguments to states and procedurally checks those states to see if the argument outputs are valid
+          // if arguments are valid, passes data up as props and checks if data meets game win/loss criteria
           // inputs parsing
           const fileToCopy = currentDirectory.file(instr.arg1);
           const serverLocation = dnsTransfer(instr.arg2);
@@ -135,7 +148,7 @@ function Terminal(props) {
             }
           }
           break;
-        case "ssh":
+        case "ssh": // secure shell. checks if argument is valid ssh ip, if so passes data up as props and navigates to ssh
           const ipLoc = dnsTransfer(instr.arg1);
           if (typeof ipLoc != "object") {
             result = ipLoc;
@@ -147,10 +160,10 @@ function Terminal(props) {
             }, 2000);
           }
           break;
-        case "steghide":
+        case "steghide": // lists "hidden file info" | checking for file in current directory happens in constructor method
           result = currentDirectory.steghide(instr.arg1);
           break;
-        case "toggle":
+        case "toggle": // checks if argument matched list of ui elements and toggles element visibititly if true
           if (instr.arg1 in uiElements === true) {
             result = "toggled UI element " + instr.arg1;
             toggleElement(uiElements[instr.arg1]);
@@ -158,7 +171,7 @@ function Terminal(props) {
             result = " ~~ no such UI element";
           }
           break;
-        default:
+        default: // should never show, error checking mostly occurs earlier in chain
           console.log(
             "An error has occurred. Somehow commandParser has output an invalid command"
           );

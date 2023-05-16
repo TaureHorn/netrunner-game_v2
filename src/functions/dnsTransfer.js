@@ -1,5 +1,10 @@
 import { net } from "../data/network";
 
+// functions called from terminals when networked commands called
+// e.g. ssh, irc, scp
+// takes in input of terminal command arguement and checks if argument matches known ip
+// if yes, returns matching network location data as object
+
 export function dnsTransfer(ip) {
   switch (ip) {
     case net.edgerunnerFTP._ipAddress:
