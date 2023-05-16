@@ -6,6 +6,7 @@ export const uiElements = {
 };
 
 export function toggleElement(element) {
+    // shows/ hides a DOM element selected by inputed parameter
   const x = document.getElementById(element);
   if (x.style.display === "none") {
     return (x.style.display = "block");

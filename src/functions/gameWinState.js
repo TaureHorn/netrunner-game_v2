@@ -35,6 +35,7 @@ export function gameWinMonitor(file, ip) {
 }
 
 export function gameWinAppearance(bool) {
+    // called when game ends to change the appearance of the webpage based on success / loss
   if (bool === false) {
     lossAlarm.play();
     document.getElementById("header").style.backgroundColor = "#FF0055";
@@ -55,6 +56,9 @@ export function gameWinAppearance(bool) {
 }
 
 export function gameStateTracker(instr) {
+    // called as part of cat command in terminal
+    // takes in command argument and checks if matches known file important to game progression
+    // if yes, sets unique key to local storage
     switch (instr){
         case "task":
             window.localStorage.setItem("plan", gameStateIDs.plan)

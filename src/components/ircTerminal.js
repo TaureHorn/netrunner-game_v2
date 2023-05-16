@@ -30,27 +30,28 @@ function IrcTerminal(props) {
     } else if (input.length > 100) {
       return cmdFlasher("command cannot be more than 100 characters in length");
     } else {
-      const parsedCmd = ircCommandParser(input);
-      commandHandler(parsedCmd);
+      const parsedCmd = ircCommandParser(input); // checks to see if input matches a correct command, checks for correct number of command arguments and tag to output a help statement about a command then outputs an object of command and argument(s)
+      commandHandler(parsedCmd); // handles the bulk of the argument logic
     }
   }
 
   function commandHandler(command) {
+    // assess object input for recognised commands and handles the logic for the command and its arguments.
     let result = " ";
     if (Object.keys(command)[1] === "helpStatement") {
       result = command.helpStatement;
     } else {
       switch (command.cmd) {
-        case "cmds":
+        case "cmds": // outputs a list of possible commands
           result = "cmds exit messages pm private t toggle users";
           break;
-        case "exit":
+        case "exit": // exit back to main shell session
           result = "Exiting IRC session...";
           setTimeout(() => {
             navigate("/");
           }, 2000);
           break;
-        case "messages":
+        case "messages": // shows irc channel messages window
           result = "naviating to messages window";
           sectionSelector(
             sections,
@@ -60,7 +61,7 @@ function IrcTerminal(props) {
             "red"
           );
           break;
-        case "pm":
+        case "pm": // initiates a private conversation with a given user
           let findUser = "";
           if (command.arg1 === currentUser._name) {
             result = "Cannot start a private message with yourself!";
@@ -82,7 +83,7 @@ function IrcTerminal(props) {
             );
           }
           break;
-        case "private":
+        case "private": // shows private conversation window
           result = "navigating to private messages window";
           sectionSelector(
             sections,
@@ -92,10 +93,10 @@ function IrcTerminal(props) {
             "red"
           );
           break;
-        case "t":
+        case "t": // sends a message to the irc channel | in this case, the user is not permitted to message because of in game context
           result = "YOU ARE NOT PERMITTED TO SEND MESSAGES IN THIS CHANNEL";
           break;
-        case "toggle":
+        case "toggle": // shows/hides page ui elements
           if (command.arg1 in uiElements === true) {
             result = "toggled UI element " + command.arg1;
             toggleElement(uiElements[command.arg1]);
@@ -103,7 +104,7 @@ function IrcTerminal(props) {
             result = " ~~ no such UI element";
           }
           break;
-        case "users":
+        case "users": // shows irc channel users window
           result = "navigating to users window";
           sectionSelector(
             sections,
@@ -113,7 +114,7 @@ function IrcTerminal(props) {
             "red"
           );
           break;
-        default:
+        default: // shouldn't ever show, but just in case - errors should be caught earlier in the chain
           result = "something is amiss...";
       }
     }
@@ -121,6 +122,7 @@ function IrcTerminal(props) {
   }
 
   function cmdFlasher(message) {
+    // basic checking and sets input box placeholder as the result of the last entered command if that produced an output message
     if (
       typeof message === "string" &&
       message.length > 0 &&
@@ -141,6 +143,7 @@ function IrcTerminal(props) {
   const currentUser = chars.aaaUser;
 
   function assignIrcLoc(loc) {
+    // checks that location passed in fits known locatins and assigns relevant data to controlling state variables
     switch (loc) {
       case "7th-Circle":
         setCurrentNetworkLocation(net.seventhCircle);
@@ -154,15 +157,16 @@ function IrcTerminal(props) {
         navigate("/");
     }
   }
-    console.log(characters)
+  console.log(characters);
 
   useEffect(() => {
+    //  if current network location is at its initialised state => set states based on data passed in as props
     if (currentNetworkLocation === "") {
       assignIrcLoc(props.ircLoc);
     }
   }, [props.ircLoc]);
 
-  // arrays of ids for controlling subsection visibility and styling
+  // array of DOM element ids for controlling subsection visibility and styling
   const headerSections = [
     "userHeader",
     "messagesHeader",

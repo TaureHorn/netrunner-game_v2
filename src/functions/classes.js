@@ -18,32 +18,6 @@ export class Character {
     linkToIRC(netLoc){
         this._ircChannel = netLoc
     }
-    set name(value){
-        if (value.length < 2 || value.length > 30) {
-            alert("name is too short / too long")
-        } this._name = value
-    }
-    set alias(value){
-        if (value.length < 2 || value.length > 30){
-            alert(this._name + ": alias is too short/ too long")
-        } this._alias = value
-    }
-    set pronoun(value){
-        if (value === "he/him" || value === "she/her" || value === "they/them"){
-            this._pronoun = value
-        } alert(this._name + ": that pronoun is not accepted")
-    }
-    set status(value){
-        if (value.length > 100){
-            alert(this._name + ": status cannot be more than 100 characters")
-        }
-    }
-    set connectionStatus(value){
-        if (value !== "online" || value !== "offline"){
-            alert (this._name + ": connectionStatus must be either online or offline")
-        } this._connectionStatus = value 
-    }
-
 }
 
 export class Directory {
@@ -53,16 +27,6 @@ export class Directory {
     this._linkedDirs = {};
     this._fileDirLink = {};
   }
-    set dirName(value) {
-        if (typeof value !== String){
-            return console.log(value + " is not a string")
-        } else if (value.length === 0) {
-            return console.log("cannot set dirName to empty value")
-        } else if (value.length > 32) {
-            return console.log(value + " cannot be more than 32 characters in length")
-        }
-        this._dirName = value;
-    }
     linkParentDirectory(directory){
         this._linkedParentDir = directory
     }
@@ -73,7 +37,7 @@ export class Directory {
         this._fileDirLink[name] = file
     }
 
-    ls(){
+    ls(){ // list files in directory
         const files = Object.entries(this._fileDirLink)
         const fileList = files.map(file => {
             return file[1]._fileName
@@ -85,20 +49,20 @@ export class Directory {
         }
     }
 
-    cat(fileSearch){
+    cat(fileSearch){ // print file in this directory
         if (fileSearch in this._fileDirLink){
             const file = Object.getOwnPropertyDescriptor(this._fileDirLink, fileSearch).value
             return file._fileInfo
         } else return " ~~ no such file"
     }
-    file(fileSearch){
+    file(fileSearch){ // print metadata of file in this directory
         if (fileSearch in this._fileDirLink){
             const file = Object.getOwnPropertyDescriptor(this._fileDirLink, fileSearch).value
             return file
         } else return " ~~ no such file"
 }
 
-    steghide(fileSearch){
+    steghide(fileSearch){ // print hidden data of file in this directory
         if (fileSearch in this._fileDirLink){
             const file = Object.getOwnPropertyDescriptor(this._fileDirLink, fileSearch).value
             if (file._fileHiddenInfo === "n/a"){
@@ -106,7 +70,7 @@ export class Directory {
             } else return file._fileHiddenInfo
         } else return " ~~ no such file"
     }
-    cd(directory) {
+    cd(directory) { // change to a directory linked to this one
         if (directory === ".."){
             if (isArrayEmpty(this._linkedParentDir) === true){
                 return this
@@ -142,16 +106,16 @@ export class IRC {
         this._members = {}
         this._messageHistory = []
     }
-    linkMember(member){
+    linkMember(member){ // add member(s) to irc channel 
         this._members = member
     }
-    assignNetwork(net){
+    assignNetwork(net){ // assing irc channel to network location
         this._network = net
     }
     appendMessage(user, message){
         this._messageHistory.push("[" + user + "]: " + message)
     }
-    findUser(alias){
+    findUser(alias){ // check in inputed user is in this irc channel
         if (alias in this._members){
             return Object.getOwnPropertyDescriptor(this._members, alias).value
         } else {
@@ -167,7 +131,7 @@ export class NetworkLocation{
         this._password = password;
         this._linkedNetworkDirectories = {}
     }
-    linkNetworkedDirectories(directories){
+    linkNetworkedDirectories(directories){ // link network location and directory
         this._linkedNetworkDirectories = directories
     }
 }

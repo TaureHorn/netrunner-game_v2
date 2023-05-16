@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { genRand } from "../functions/randStr";
 import { themer, toggleElement } from "../functions/toggleElement";
 
@@ -8,6 +8,7 @@ function SoftwareSidebar(props) {
   const [notesTemp, updateNotesTemp] = useState(props.notes);
 
   function notesHandler(e) {
+    // saves contents of textarea input box to local storage. function called on change only every 5 seconds
     e.preventDefault();
     const value = e.target.value.toString();
     updateNotesTemp(value);
@@ -67,6 +68,7 @@ function SoftwareSidebar(props) {
                 style={{ border: "0", width: "100%", height: "120px" }}
                 src="https://bandcamp.com/EmbeddedPlayer/album=3483895767/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
+                title="lazerhawk"
               >
                 <a href="https://lazerhawk.bandcamp.com/album/skull-and-shark">
                   Skull and Shark by Lazerhawk
@@ -87,6 +89,7 @@ function SoftwareSidebar(props) {
                 style={{ border: "0", width: "100%", height: "120px" }}
                 src="https://bandcamp.com/EmbeddedPlayer/album=747035665/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
+                title="lorn"
               >
                 <a href="https://lorn.bandcamp.com/album/drown-the-traitor-within">
                   DROWN THE TRAITOR WITHIN by LORN
@@ -105,6 +108,7 @@ function SoftwareSidebar(props) {
                 style={{ border: "0", width: "100%", height: "120px" }}
                 src="https://bandcamp.com/EmbeddedPlayer/album=2662275744/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
+                title="masterBootRecord"
               >
                 <a href="https://masterbootrecord.bandcamp.com/album/virus-dos">
                   VIRUS.DOS by MASTER BOOT RECORD
@@ -124,6 +128,7 @@ function SoftwareSidebar(props) {
                 style={{ border: "0", width: "100%", height: "120px" }}
                 src="https://bandcamp.com/EmbeddedPlayer/album=1118027304/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
+                title="neonVandal"
               >
                 <a href="https://neonvandal.bandcamp.com/album/megalopolis-a-cyberpunk-soundtrack">
                   Megalopolis:A Cyberpunk Soundtrack by Neon Vandal
@@ -143,6 +148,7 @@ function SoftwareSidebar(props) {
                 style={{ border: "0", width: "100%", height: "120px" }}
                 src="https://bandcamp.com/EmbeddedPlayer/album=99843590/size=large/bgcol=333333/linkcol=ffffff/artwork=none/transparent=true/"
                 seamless
+                title="perturbator"
               >
                 <a href="https://perturbator.bandcamp.com/album/the-uncanny-valley">
                   The Uncanny Valley by PERTURBATOR

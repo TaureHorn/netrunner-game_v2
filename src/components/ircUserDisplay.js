@@ -9,7 +9,7 @@ function UserDisplayStatus(props) {
             src={user._pfp}
             width="72"
             title={user._alias + "'s profile picture"}
-            alt="a users profile picture"
+            alt="user profile"
           />
         </div>
         <div style={{ lineHeight: "0.5" }}>
