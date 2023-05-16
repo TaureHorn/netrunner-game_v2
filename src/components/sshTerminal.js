@@ -4,18 +4,16 @@ import { useNavigate } from "react-router-dom";
 import CommandHistory from "./commandHistory";
 
 import { commandParser } from "../functions/cmdParser";
+import { isObjectEmpty } from "../functions/isEmpty";
 import { passwdParser } from "../functions/passwdParser";
 import { scpParser } from "../functions/scpParser";
 import { toggleElement } from "../functions/toggleElement";
-
-import { net } from "../data/network";
-import { reso } from "../data/reso";
-import { ResoAgweBBS } from "../data/resoAgwe";
-import { edgeDirs } from "../data/dirsEdgerunnerFTP";
-import { edgeFS } from "../data/filesEdgerunnerFTP";
-import { angryDir, angryFS } from "../data/angryDaemon";
-import { isObjectEmpty } from "../functions/isEmpty";
 import { uiElements } from "../functions/toggleElement";
+
+import { angryDir, angryFS } from "../data/angryDaemon";
+import { edgeDir } from "../data/edgeRunnerFTP";
+import { net } from "../data/network";
+import { ResoAgweBBS } from "../data/resoAgwe";
 
 function SshTerminal(props) {
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
@@ -24,140 +22,8 @@ function SshTerminal(props) {
   //
   //RESO AGWE BBS
   net.resoAgwe.linkNetworkedDirectories(ResoAgweBBS.resoAgwe);
-  net.edgerunnerFTP.linkNetworkedDirectories(edgeDirs.homeDir);
+  net.edgerunnerFTP.linkNetworkedDirectories(edgeDir.homeDir);
   net.angryDaemons.linkNetworkedDirectories(angryDir.homeDir);
-
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_2mGUUHfQIk0t",
-    ResoAgweBBS.bbs_mask_2mGUUHfQIk0t
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_9SOCqTxfm2Zi",
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_XpPkmHxDgPfn",
-    ResoAgweBBS.bbs_mask_XpPkmHxDgPfN
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories(
-    "bbs_mask_hMlMhTNGxi05",
-    ResoAgweBBS.bbs_mask_hMlMhTNGxi05
-  );
-  ResoAgweBBS.resoAgwe.linkDirectories("root", ResoAgweBBS.resoRoot);
-
-  ResoAgweBBS.bbs_mask_2mGUUHfQIk0t.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_XpPkmHxDgPfN.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.bbs_mask_hMlMhTNGxi05.linkParentDirectory(ResoAgweBBS.resoAgwe);
-  ResoAgweBBS.resoRoot.linkParentDirectory(ResoAgweBBS.resoAgwe);
-
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "91E0C5NMg5xE",
-    ResoAgweBBS.p91E0C5NMg5xE
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "HjTESlk7aw4b",
-    ResoAgweBBS.HjTESlk7aw4b
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "M9KFZKULring",
-    ResoAgweBBS.M9KFZKUlring
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "p7FzTKa13OhG",
-    ResoAgweBBS.p7FzTKa13OhG
-  );
-  ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi.linkDirectories(
-    "saoXGjvToAlh",
-    ResoAgweBBS.saoXGjvToAlh
-  );
-
-  ResoAgweBBS.p91E0C5NMg5xE.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.HjTESlk7aw4b.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.M9KFZKUlring.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.p7FzTKa13OhG.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-  ResoAgweBBS.saoXGjvToAlh.linkParentDirectory(
-    ResoAgweBBS.bbs_mask_9SOCqTxfm2Zi
-  );
-
-  ResoAgweBBS.p7FzTKa13OhG.linkDirectories("whitelist", ResoAgweBBS.whitelist);
-  ResoAgweBBS.whitelist.linkParentDirectory(ResoAgweBBS.p7FzTKa13OhG);
-  // EDGERUNNERS FTP
-  edgeDirs.rootDir.linkDirectories("home", edgeDirs.homeDir);
-
-  edgeDirs.homeDir.linkParentDirectory(edgeDirs.rootDir);
-  edgeDirs.homeDir.linkDirectories("archive", edgeDirs.archiveDir);
-  edgeDirs.homeDir.linkDirectories("software", edgeDirs.softwareDir);
-  edgeDirs.homeDir.linkDirectories("targets", edgeDirs.targetsDir);
-
-  edgeDirs.archiveDir.linkParentDirectory(edgeDirs.homeDir);
-  edgeDirs.softwareDir.linkParentDirectory(edgeDirs.homeDir);
-  edgeDirs.targetsDir.linkParentDirectory(edgeDirs.homeDir);
-
-  // ANGRY DAEMON TESTER
-  angryDir.homeDir.linkDirectories("tools", angryDir.toolsDir);
-  angryDir.toolsDir.linkParentDirectory(angryDir.homeDir);
-  angryDir.homeDir.linkDirectories("export", angryDir.exportDir);
-  angryDir.exportDir.linkParentDirectory(angryDir.homeDir);
-
-  //
-  // -- FILE LINKING
-  //
-  //RESO AGWE BBS
-
-  ResoAgweBBS.resoAgwe.linkFiles("connections-logs_0", reso.root.userLog0);
-  ResoAgweBBS.resoAgwe.linkFiles("connections-logs_1", reso.root.userLog1);
-
-  ResoAgweBBS.p91E0C5NMg5xE.linkFiles(
-    "91EOC5NMg5xE",
-    reso.bbs_mask.a91EOC5NMg5xE
-  );
-  ResoAgweBBS.HjTESlk7aw4b.linkFiles(
-    "HjTRSLk7aw4b",
-    reso.bbs_mask.bHjTRSlk7aw4b
-  );
-  ResoAgweBBS.M9KFZKUlring.linkFiles(
-    "M9KFZKUlring",
-    reso.bbs_mask.cM9KFZKUlring
-  );
-  ResoAgweBBS.saoXGjvToAlh.linkFiles(
-    "saoXGjvToAlh",
-    reso.bbs_mask.esaoXGjvToAlh
-  );
-
-  ResoAgweBBS.p7FzTKa13OhG.linkFiles("ruleset", reso.p7FzTKa13Ohg.ruleset);
-  ResoAgweBBS.p7FzTKa13OhG.linkFiles("ufw.conf.d", reso.p7FzTKa13Ohg.ufwConf);
-
-  ResoAgweBBS.whitelist.linkFiles("jeon-kiri", reso.whitelist.jeonKiri);
-  ResoAgweBBS.whitelist.linkFiles("leon", reso.whitelist.leon);
-  ResoAgweBBS.whitelist.linkFiles(
-    "maman-briggite",
-    reso.whitelist.mamanBriggite
-  );
-  ResoAgweBBS.whitelist.linkFiles("moseley", reso.whitelist.moseley);
-  ResoAgweBBS.whitelist.linkFiles("mr-hands", reso.whitelist.mrHands);
-  ResoAgweBBS.whitelist.linkFiles("placide", reso.whitelist.placide);
-  ResoAgweBBS.whitelist.linkFiles("ti-neptune", reso.whitelist.tiNeptune);
-
-  //EDGERUNNERS FTP
-  edgeDirs.rootDir.linkFiles("root", edgeFS.root.root);
-  edgeDirs.archiveDir.linkFiles("archive", edgeFS.archive.archive);
-  edgeDirs.softwareDir.linkFiles("software", edgeFS.software.software);
-  edgeDirs.targetsDir.linkFiles("shade", edgeFS.targets.shade);
-  edgeDirs.targetsDir.linkFiles("newbie-readme", edgeFS.targets.newbie_readme);
-
-  //ANGRY DAEMON TESTER
-  angryDir.homeDir.linkFiles("readme", angryFS.readme);
-  angryDir.exportDir.linkFiles("export", angryFS.export);
-  angryDir.toolsDir.linkFiles("tools", angryFS.tools);
 
   ////////////// COMMANDS INPUT HANDLING /////////////////////////////////////////////////////////
   const [cmdHistory, setCmdHistory] = useState([{}]);

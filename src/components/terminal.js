@@ -11,77 +11,14 @@ import { isObjectEmpty } from "../functions/isEmpty";
 import { passwdParser } from "../functions/passwdParser";
 import { shutDown } from "../functions/shutDown";
 import { toggleElement } from "../functions/toggleElement";
-
-import { net } from "../data/network";
-import { rootFS } from "../data/rootFS";
-import { usrFS } from "../data/usrFS";
-import { zetaTechVM } from "../data/zetatechVM";
 import { uiElements } from "../functions/toggleElement";
 
+import { net } from "../data/network";
+import { zetatechDir } from "../data/zetatechVM";
+
+
 function Terminal(props) {
-  ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
-  //
-  // -- DIRECTORY LINKING
-  //
-  //VM
-
-  net.zombie.linkNetworkedDirectories(zetaTechVM.homeDir);
-
-  zetaTechVM.rootDir.linkDirectories("boot", zetaTechVM.bootDir);
-  zetaTechVM.rootDir.linkDirectories("etc", zetaTechVM.etcDir);
-  zetaTechVM.rootDir.linkDirectories("home", zetaTechVM.homeDir);
-  zetaTechVM.rootDir.linkDirectories("usr", zetaTechVM.usrDir);
-
-  zetaTechVM.bootDir.linkParentDirectory(zetaTechVM.rootDir);
-  zetaTechVM.etcDir.linkParentDirectory(zetaTechVM.rootDir);
-  zetaTechVM.homeDir.linkParentDirectory(zetaTechVM.rootDir);
-  zetaTechVM.usrDir.linkParentDirectory(zetaTechVM.rootDir);
-
-  zetaTechVM.homeDir.linkDirectories("commands", zetaTechVM.commandsDir);
-  zetaTechVM.homeDir.linkDirectories("files", zetaTechVM.filesDir);
-  zetaTechVM.homeDir.linkDirectories("ssh", zetaTechVM.sshDir);
-  zetaTechVM.homeDir.linkDirectories("irc", zetaTechVM.ircHome);
-
-  zetaTechVM.commandsDir.linkParentDirectory(zetaTechVM.homeDir);
-  zetaTechVM.filesDir.linkParentDirectory(zetaTechVM.homeDir);
-  zetaTechVM.sshDir.linkParentDirectory(zetaTechVM.homeDir);
-  zetaTechVM.ircHome.linkParentDirectory(zetaTechVM.homeDir);
-  //
-  // -- FILE LINKING
-  //
-  //VM
-  zetaTechVM.bootDir.linkFiles("boot", rootFS.boot);
-  zetaTechVM.etcDir.linkFiles("etc", rootFS.etc);
-  zetaTechVM.usrDir.linkFiles("usr", rootFS.usr);
-
-  zetaTechVM.commandsDir.linkFiles("cat", usrFS.cmds.cat);
-  zetaTechVM.commandsDir.linkFiles("cd", usrFS.cmds.cd);
-  zetaTechVM.commandsDir.linkFiles("clear", usrFS.cmds.clear);
-  zetaTechVM.commandsDir.linkFiles("cmds", usrFS.cmds.cmds);
-  zetaTechVM.commandsDir.linkFiles("exit", usrFS.cmds.exit);
-  zetaTechVM.commandsDir.linkFiles("file", usrFS.cmds.file);
-  zetaTechVM.commandsDir.linkFiles("irc", usrFS.cmds.irc);
-  zetaTechVM.commandsDir.linkFiles("ls", usrFS.cmds.ls);
-  zetaTechVM.commandsDir.linkFiles("scp", usrFS.cmds.scp);
-  zetaTechVM.commandsDir.linkFiles("ssh", usrFS.cmds.ssh);
-  zetaTechVM.commandsDir.linkFiles("steghide", usrFS.cmds.steghide);
-
-  zetaTechVM.filesDir.linkFiles(
-    "bbs_mask_9SOCqTxfm2Zi.dat",
-    usrFS.files.bbsMaskPayload
-  );
-  zetaTechVM.filesDir.linkFiles(
-    "reso-agwe-datamap",
-    usrFS.files.resoAgweDatamap
-  );
-  zetaTechVM.filesDir.linkFiles("task", usrFS.files.task);
-
-  zetaTechVM.sshDir.linkFiles("edgerunnerFTP", usrFS.ssh.edgerunnerFtp);
-  zetaTechVM.sshDir.linkFiles("reso-agwe", usrFS.ssh.resoAgweBBS);
-  zetaTechVM.sshDir.linkFiles("zetatech-vm-manager", usrFS.ssh.zetatechVM);
-
-  zetaTechVM.ircHome.linkFiles("7th-Circle", usrFS.irc.seventhCircle);
-
+  net.zombie.linkNetworkedDirectories(zetatechDir.homeDir);
   ////////////// COMMANDS INPUT HANDLING /////////////////////////////////////////////////////////
   const [cmdHistory, setCmdHistory] = useState([{}]);
   const uname = props.username + " $: ";
@@ -245,7 +182,7 @@ function Terminal(props) {
   }
 
   ////////////// OBJECT STATES ///////////////////////////////////////////////////////////////////
-  const [currentDirectory, setCurrentDirectory] = useState(zetaTechVM.homeDir);
+  const [currentDirectory, setCurrentDirectory] = useState(zetatechDir.homeDir);
   const childDirs = Object.entries(currentDirectory._linkedDirs);
 
   return (

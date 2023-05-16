@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { net } from "../data/network";
-import { charsSeventhCircle as chars } from "../data/characters";
-import { irc } from "../data/ircSeventhCircle";
+import { charsSeventhCircle as chars } from "../data/seventhCircle";
+import { irc } from "../data/seventhCircle";
 
 import UserDisplayStatus from "./ircUserDisplay";
 import UserPrivateMessage from "./ircPrivateMessage";
@@ -154,6 +154,7 @@ function IrcTerminal(props) {
         navigate("/");
     }
   }
+    console.log(characters)
 
   useEffect(() => {
     if (currentNetworkLocation === "") {

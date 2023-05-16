@@ -1,5 +1,5 @@
 import { angryDir } from "../data/angryDaemon";
-import { edgeDirs } from "../data/dirsEdgerunnerFTP";
+import { edgeDir } from "../data/edgeRunnerFTP";
 import { ResoAgweBBS } from "../data/resoAgwe";
 
 export function scpParser(object){
@@ -7,7 +7,7 @@ export function scpParser(object){
         case "reso_agweBBS":
             return ResoAgweBBS.resoAgwe
         case "EdgerunnerFTP":
-            return edgeDirs.rootDir
+            return edgeDir.rootDir
         case "AngryDaemons":
             return angryDir.homeDir
         default:

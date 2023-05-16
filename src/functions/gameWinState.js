@@ -4,8 +4,8 @@
 // game loss triggered on upload of payload to reso agwe server
 // scp $payload $resoAgweIP $resoAgwePassword
 
-import { usrFS } from "../data/usrFS";
 import { net } from "../data/network";
+import { zetatechFS } from "../data/zetatechVM"
 
 import VDBs from "../resources/resoAgwe.jpg";
 
@@ -22,7 +22,7 @@ export const gameStateIDs = {
 
 export function gameWinMonitor(file, ip) {
   // inputs have already been checked for errors and validity when function is called
-  if (file !== usrFS.files.bbsMaskPayload) {
+  if (file !== zetatechFS.files.bbsMaskPayload) {
     return " ";
   }
   if (ip === net.angryDaemons._ipAddress) {
