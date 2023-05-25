@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/netrunner-game_v2/static/css/main.e75440f3.css",
-    "main.js": "/netrunner-game_v2/static/js/main.e9831228.js",
+    "main.css": "/netrunner-game_v2/static/css/main.202e2aec.css",
+    "main.js": "/netrunner-game_v2/static/js/main.985f0aa5.js",
     "static/js/787.4f0664c2.chunk.js": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js",
     "static/media/resoAgwe.jpg": "/netrunner-game_v2/static/media/resoAgwe.70efd0bfe1585adbda37.jpg",
     "static/media/bugbear.png": "/netrunner-game_v2/static/media/bugbear.59e8703d7040b8dc3b09.png",
@@ -15,16 +15,21 @@
     "static/media/luce.png": "/netrunner-game_v2/static/media/luce.61ec095c48636fd4b72a.png",
     "static/media/mystery.png": "/netrunner-game_v2/static/media/mystery.c0f3c0f1a8cac2ac8388.png",
     "static/media/black-scanline-theme.jpg": "/netrunner-game_v2/static/media/black-scanline-theme.644089381d82dd6e2f37.jpg",
+    "static/media/centre-logo_night-city.png": "/netrunner-game_v2/static/media/centre-logo_night-city.2709c06e6bfd3e442ca4.png",
     "static/media/msgAlarm.mp3": "/netrunner-game_v2/static/media/msgAlarm.4ed951a37ab00affffe7.mp3",
+    "static/media/centre-logo_netwatch.png": "/netrunner-game_v2/static/media/centre-logo_netwatch.53eb13dbe65fef01fb02.png",
     "static/media/badAlarm.mp3": "/netrunner-game_v2/static/media/badAlarm.0ab51a631bfdc1087e29.mp3",
+    "static/media/centre-logo_biotechnica.png": "/netrunner-game_v2/static/media/centre-logo_biotechnica.7a99933a4b79e0c2c256.png",
+    "static/media/centre-logo_david-martinez_2.png": "/netrunner-game_v2/static/media/centre-logo_david-martinez_2.e9c80183c235f05fdf70.png",
+    "static/media/centre-logo_red.png": "/netrunner-game_v2/static/media/centre-logo_red.843dc58956c22157f099.png",
     "static/media/zetatech.png": "/netrunner-game_v2/static/media/zetatech.45114520a3da1f06cd9f.png",
     "index.html": "/netrunner-game_v2/index.html",
-    "main.e75440f3.css.map": "/netrunner-game_v2/static/css/main.e75440f3.css.map",
-    "main.e9831228.js.map": "/netrunner-game_v2/static/js/main.e9831228.js.map",
+    "main.202e2aec.css.map": "/netrunner-game_v2/static/css/main.202e2aec.css.map",
+    "main.985f0aa5.js.map": "/netrunner-game_v2/static/js/main.985f0aa5.js.map",
     "787.4f0664c2.chunk.js.map": "/netrunner-game_v2/static/js/787.4f0664c2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e75440f3.css",
-    "static/js/main.e9831228.js"
+    "static/css/main.202e2aec.css",
+    "static/js/main.985f0aa5.js"
   ]
 }
