@@ -4,9 +4,9 @@ function Header() {
   return (
     <>
       <div id="header">
-        <div className="border hover inlineBox header">
-          <img src={netwatch} height={30} alt="netwatch logo" title="netwatch logo"/>
-          <p id="title" className="headerText" style={{ fontSize: "32pt" }}>
+        <div className="border hover inlineBox bar">
+          <img src={netwatch} height={30} className="image" alt="netwatch logo" title="netwatch logo"/>
+          <p id="title" className="titlesText" style={{ fontSize: "32pt" }}>
             NetWatch: Netrunner
           </p>
           <p style={{ fontStyle: "italic", fontSize: "16pt" }}>

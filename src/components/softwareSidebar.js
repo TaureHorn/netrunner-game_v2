@@ -3,7 +3,7 @@ import { genRand } from "../functions/randStr";
 import { themer, toggleElement } from "../functions/toggleElement";
 
 function SoftwareSidebar(props) {
-  const missingAuthor = "${uname} not found";
+  const missingAuthor = genRand(16);
 
   const [notesTemp, updateNotesTemp] = useState(props.notes);
 
@@ -18,16 +18,16 @@ function SoftwareSidebar(props) {
   return (
     <>
       <div id="softwareSidebar" className="border sidePanel panel hover scroll">
-        <p className="sidebarHeader">=== SOFTWARE ===</p>
+        <p className="sidebarHeader titlesText subTitles">=== SOFTWARE ===</p>
         <div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div
-            className="sectionToggler border"
+            className=" headerBar"
             onClick={() => toggleElement("softwareReadme")}
           >
-            <p> READ ME!</p>
+            <p className="headerText"> READ ME!</p>
           </div>
-          <div id="softwareReadme" className="blockText">
+          <div id="softwareReadme" className="border bgStatic blockText">
             <p>
               Yo choom! There was a load of Netwatch garbage pre-installed here.
               I cleaned it up for you - no prying eyes. In its place I've left
@@ -41,14 +41,14 @@ function SoftwareSidebar(props) {
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div
-            className="sectionToggler border"
+            className=" headerBar"
             onClick={() => toggleElement("softwareMusic")}
           >
-            <p> MUSIC</p>
+            <p className="headerText"> MUSIC</p>
           </div>
           <div
             id="softwareMusic"
-            className="blockText"
+            className="border bgStatic blockText"
             style={{ display: "none" }}
           >
             <p>
@@ -58,7 +58,7 @@ function SoftwareSidebar(props) {
             </p>
             {/* /////// LAZERHAWK MUSIC PLAYER /////*/}
             <p
-              className="sidebarSubsection hover"
+              className=" bg border highlightText listItem"
               onClick={() => toggleElement("skullNShark")}
             >
               LAZERHAWK - SKULL AND SHARK
@@ -78,7 +78,7 @@ function SoftwareSidebar(props) {
 
             {/* /////// LORN MUSIC PLAYER /////*/}
             <p
-              className="sidebarSubsection hover"
+              className=" bg border highlightText listItem"
               onClick={() => toggleElement("drownTheTraitorWithin")}
             >
               LORN - DROWN THE TRAITOR WITHIN
@@ -98,7 +98,7 @@ function SoftwareSidebar(props) {
             </div>
             {/* /////// MASTER BOOT RECORD MUSIC PLAYER /////*/}
             <p
-              className="sidebarSubsection hover"
+              className=" bg border highlightText listItem"
               onClick={() => toggleElement("virusDos")}
             >
               MASTER BOOT RECORD - VIRUS.DOS
@@ -118,7 +118,7 @@ function SoftwareSidebar(props) {
 
             {/* /////// NEON VANDAL MUSIC PLAYER /////*/}
             <p
-              className="sidebarSubsection hover"
+              className=" bg border highlightText listItem"
               onClick={() => toggleElement("megalopolis")}
             >
               NEON VANDAL - MEGALOPOLIS
@@ -137,7 +137,7 @@ function SoftwareSidebar(props) {
             </div>
             {/* /////// PERTURBATOR MUSIC PLAYER /////*/}
             <p
-              className="sidebarSubsection hover"
+              className=" bg border highlightText listItem"
               onClick={() => toggleElement("uncannyValley")}
             >
               PERTURBATOR - UNCANNY VALLEY
@@ -158,14 +158,14 @@ function SoftwareSidebar(props) {
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div
-            className="sectionToggler border"
+            className=" headerBar"
             onClick={() => toggleElement("softwareNotes")}
           >
-            <p>NOTES</p>
+            <p className="headerText">NOTES</p>
           </div>
           <div
             id="softwareNotes"
-            className="blockText"
+            className="border bgStatic blockText"
             style={{ display: "none" }}
           >
             <p>
@@ -175,6 +175,7 @@ function SoftwareSidebar(props) {
             </p>
             <textarea
               id="notes"
+              className="bgStatic border highlightText "
               defaultValue={notesTemp}
               placeholder="write your notes here"
               onChange={(e) =>
@@ -187,69 +188,61 @@ function SoftwareSidebar(props) {
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
           <div
-            className="sectionToggler border"
+            className=" headerBar"
             onClick={() => toggleElement("softwareThemes")}
           >
-            <p>THEMES</p>
+            <p className="headerText">THEMES</p>
           </div>
           <div
             id="softwareThemes"
-            className="blockText"
+            className="border bgStatic blockText"
             style={{ display: "none" }}
           >
-            <p style={{ color: "rgb(80,80,80)" }}>
+            <p>
               Each netrunner has different preferences for the appearance of
               their terminal. The interface tech on this VM is kinda old so
               there's not a lot for customization. Here's what I could find.
               Click on one to try it out. Warning! Some of them are kinda
               eye-searing compared to my superior dark themes!
             </p>
-            <ul>
-              <li
-                id="darkLowContrast"
-                onClick={() => themer("darkLowContrast")}
-                style={{ backgroundColor: "white", color: "black" }}
-              >
-                dark: low contrast (by shade)
-              </li>
-              <li
-                id="darkHighContrast"
-                style={{ color: "rgb(80,80,80)" }}
-                onClick={() => themer("darkHighContrast")}
-              >
-                dark: high contrast (by shade)
-              </li>
-              <li
-                id="arasaka"
-                style={{ color: "rgb(80,80,80)" }}
-                onClick={() => themer("arasaka")}
-              >
-                arasaka red (by {missingAuthor})
-              </li>
-              <li
-                id="white"
-                style={{ color: "rgb(80,80,80)" }}
-                onClick={() => themer("white")}
-              >
-                white (by b@d){" "}
-              </li>
-              <li
-                id="yellow"
-                style={{ color: "rgb(80,80,80)" }}
-                onClick={() => themer("yellow")}
-              >
-                yellow (by {missingAuthor}){" "}
-              </li>
-              <li
-                id="BSOD"
-                style={{ color: "rgb(80,80,80)" }}
-                onClick={() => themer("BSOD")}
-              >
-                BSOD[legacy] (by 8ug8ear)
-              </li>
-            </ul>
-            <p style={{ textTransform: "uppercase" }}>error: {genRand(14)}</p>
-            <p>Themes unvailable. Contact system administrator</p>
+            <p
+              className="bg border highlightText listItem"
+              id="red"
+              onClick={() => themer("thRed")}
+            >
+              red (by shade)
+            </p>
+            <p
+              className="bg border highlightText listItem"
+              id="yellow"
+              onClick={() => themer("thYellow")}
+            >
+              yellow (by ERROR:({missingAuthor}))
+            </p>
+            <p
+              className="bg border highlightText listItem"
+              id="green"
+              onClick={() => themer("thGreen")}
+            >
+              Biotechnica Green
+            </p>
+            <p
+              className="bg border highlightText listItem"
+              id="blue"
+              onClick={() => themer("thBlue")}
+            >
+              Netwatch Blue
+            </p>
+            <p
+              className="bg border highlightText listItem"
+              id="white"
+              onClick={() => themer("thWhite")}
+            >
+              Night City White
+            </p>
+            <p style={{ textTransform: "uppercase" }}>
+              ERROR:{missingAuthor} ::: user not found{" "}
+            </p>
           </div>
         </div>
       </div>

@@ -204,22 +204,37 @@ function Terminal(props) {
         id="centrePanel"
         className="border centrePanel panel scroll centreImage hover"
       >
-        <div className="terminalText">
-          <p> Parent directory: {currentDirectory._linkedParentDir._dirName}</p>
-          <p> Current directory: {currentDirectory._dirName}</p>
-          <span> Child directories: </span>
+        <div className="terminalText" style={{ lineHeight: "0.5" }}>
+          <p>
+            {" "}
+            <strong>PARENT DIRECTORY:</strong>{" "}
+            {currentDirectory._linkedParentDir._dirName}
+          </p>
+          <p>
+            {" "}
+            <strong>CURRENT DIRECTORY:</strong> {currentDirectory._dirName}
+          </p>
+          <span>
+            {" "}
+            <strong>CHILD DIRECTORIES:</strong>{" "}
+          </span>
           {childDirs?.map((dir) => {
             return <span key={crypto.randomUUID()}>{dir[0]} </span>;
           })}
         </div>
-        <hr />
-        <div id="cmdInput" className="inlineBoxLeft terminalText">
-          <span>{uname}</span>
-          <form onSubmit={(e) => inputHandler(e)}>
-            <input id="commandInput" autoFocus name="cmd" type="text" />
+        <div id="cmdInput" className="cmdInput">
+          <span className="uname">{uname}</span>
+          <form className="form" onSubmit={(e) => inputHandler(e)}>
+            <input
+              id="commandInput"
+              className="commands"
+              autoFocus
+              name="cmd"
+              placeholder="type your commands here"
+              type="text"
+            />
           </form>
         </div>
-        <hr />
         <div className="cmdReturn terminalText">
           <CommandHistory arr={cmdHistory} />
         </div>

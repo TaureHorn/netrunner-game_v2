@@ -14,21 +14,12 @@ export function toggleElement(element) {
   return (x.style.display = "none");
 }
 
-export function themer(element) {
-  const themeSelectors = [
-    "darkLowContrast",
-    "darkHighContrast",
-    "arasaka",
-    "white",
-    "yellow",
-    "BSOD",
-  ];
-  const x = document.getElementById(element);
-
-  themeSelectors.forEach((selector) => {
-    document.getElementById(selector).style.background = "none";
-    document.getElementById(selector).style.color = "white";
-  });
-  x.style.backgroundColor = "white";
-  x.style.color = "black";
+export function themer(theme) {
+    const themeClasses = ["thRed", "thYellow", "thBlue", "thGreen", "thWhite"]
+    const game = document.getElementById("root")
+    themeClasses.forEach(classname => {
+        game.classList.remove(classname)
+    })
+    game.classList.add(theme)
+    window.localStorage.setItem("theme", theme)
 }

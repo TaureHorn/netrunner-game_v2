@@ -15,6 +15,7 @@ import Footer from "./components/footer";
 
 import { shutDown } from "./functions/shutDown";
 import { gameWinAppearance } from "./functions/gameWinState";
+import { themer } from "./functions/toggleElement";
 
 function App() {
   const [username, setUserName] = useState("");
@@ -45,6 +46,13 @@ function App() {
     }
   }, [username]);
 
+  useEffect(() => {
+    const themeGet = window.localStorage.getItem("theme");
+    if (themeGet !== null) {
+      themer(themeGet);
+    }
+  }, []);
+
   const [sshLoc, setSshLoc] = useState({});
   const [ircLoc, setIrcLoc] = useState({});
   const [OSalert, setAlert] = useState("");
@@ -52,7 +60,7 @@ function App() {
   const [winState, changeWinState] = useState("unset");
 
   useEffect(() => {
-      // trigger game win / loss effects based on state being updated to bool and value of bool 
+    // trigger game win / loss effects based on state being updated to bool and value of bool
     if (winState === false) {
       setTimeout(() => {
         gameWinAppearance(winState);
@@ -74,63 +82,66 @@ function App() {
       }, 10000);
     }
   }, [winState]);
-
   return !username ? (
     <>
       <div className="page welcome">
-        <Bootup alert={(OSalert) => setAlert(OSalert)} />
-        {OSalert ? (
-          <Alert alert={OSalert} setAlert={() => setAlert()} />
-        ) : (
-          <></>
-        )}
+        <div id="bootCont" className="welcome thRed">
+          <Bootup alert={(OSalert) => setAlert(OSalert)} />
+          {OSalert ? (
+            <Alert alert={OSalert} setAlert={() => setAlert()} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   ) : (
     <>
-      <div className="border page">
-        <Header />
-        <div className="inlineBox panels">
-          <HelpSidebar />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Terminal
-                  alert={(OSalert) => setAlert(OSalert)}
-                  ircLoc={(ircLoc) => setIrcLoc(ircLoc)}
-                  scp={(scp) => setSCP(scp)}
-                  sshLoc={(sshLoc) => setSshLoc(sshLoc)}
-                  username={username}
-                  winState={(winState) => changeWinState(winState)}
-                />
-              }
-            />
-            <Route
-              path="/ssh"
-              element={
-                <SshTerminal
-                  alert={(OSalert) => setAlert(OSalert)}
-                  scp={scp}
-                  sshLoc={sshLoc}
-                  username={username}
-                />
-              }
-            />
-            <Route
-              path="/irc"
-              element={
-                <IrcTerminal
-                  alert={(OSalert) => setAlert(OSalert)}
-                  ircLoc={ircLoc}
-                  username={username}
-                />
-              }
-            />
-          </Routes>
-          <SoftwareSidebar notes={notes} />
+      <div className="page">
+        <div className="border content thRed">
+          <Header />
+          <div className="inlineBox panels">
+            <HelpSidebar />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Terminal
+                    alert={(OSalert) => setAlert(OSalert)}
+                    ircLoc={(ircLoc) => setIrcLoc(ircLoc)}
+                    scp={(scp) => setSCP(scp)}
+                    sshLoc={(sshLoc) => setSshLoc(sshLoc)}
+                    username={username}
+                    winState={(winState) => changeWinState(winState)}
+                  />
+                }
+              />
+              <Route
+                path="/ssh"
+                element={
+                  <SshTerminal
+                    alert={(OSalert) => setAlert(OSalert)}
+                    scp={scp}
+                    sshLoc={sshLoc}
+                    username={username}
+                  />
+                }
+              />
+              <Route
+                path="/irc"
+                element={
+                  <IrcTerminal
+                    alert={(OSalert) => setAlert(OSalert)}
+                    ircLoc={ircLoc}
+                    username={username}
+                  />
+                }
+              />
+            </Routes>
+            <SoftwareSidebar notes={notes} />
+          </div>
+          <Footer alert={(OSalert) => setAlert(OSalert)} />
         </div>
-        <Footer alert={(OSalert) => setAlert(OSalert)} />
       </div>
       {OSalert ? <Alert alert={OSalert} setAlert={() => setAlert()} /> : <></>}
     </>

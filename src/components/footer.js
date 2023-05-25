@@ -6,14 +6,14 @@ function Footer() {
     <>
       <div id="footer">
         <div
-          className="inlineBox border hover header"
+          className="inlineBox border hover bar footer"
           style={{ justifyContent: "space-between" }}
         >
-          <img src={zetatech} height={60} alt="z logo" title="zetatech"/>
-          <p id="footerTitle" style={{ fontSize: "16pt", fontStyle: "italic" }}>
+          <img src={zetatech} height={60} className="image" alt="z logo" title="zetatech"/>
+          <p id="footerTitle" className="titlesText subTitles">
             / powered by ZetaTech /|\ protected by Netwatch \
           </p>
-          <img src={qr} height={80} alt="qr code" title="follow the rabbit hole"/>
+          <img src={qr} height={80} className="image" alt="qr code" title="follow the rabbit hole"/>
         </div>
       </div>
     </>
