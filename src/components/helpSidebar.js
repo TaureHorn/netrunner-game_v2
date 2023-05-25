@@ -4,15 +4,15 @@ function HelpSidebar() {
   return (
     <>
       <div id="helpSidebar" className="border sidePanel panel hover scroll">
-        <p className="sidebarHeader">=== HELP ===</p>
+        <p className="sidebarHeader titlesText subTitles">=== HELP ===</p>
         <div>
           <div
-            className="sectionToggler border"
+            className="headerBar"
             onClick={() => toggleElement("helpReadme")}
           >
-            <p> READ ME! </p>
+            <p className="headerText"> READ ME! </p>
           </div>
-          <div id="helpReadme" className="blockText">
+          <div id="helpReadme" className="border bgStatic blockText">
             <p>
               Yo! Regina told me you were new to the world of netrunning and
               wanted to get your feet wet, well not actually wet - that'll come
@@ -45,14 +45,14 @@ function HelpSidebar() {
         </div>
         {/*/////////////////////////////////// GLOSSARY ////////////////////////////////////////////*/}
         <div
-          className="sectionToggler border"
+          className="headerBar"
           onClick={() => toggleElement("helpGlossary")}
         >
-          <p>glossary</p>
+          <p className="headerText">glossary</p>
         </div>
         <div
           id="helpGlossary"
-          className="blockText"
+          className="border bgStatic blockText"
           style={{ display: "none" }}
         >
           <p>
@@ -61,7 +61,7 @@ function HelpSidebar() {
           </p>
           {/*///////////////////////////*/}
           <p
-            className="sidebarSubsection hover"
+            className="bg border highlightText listItem"
             onClick={() => toggleElement("ircInfo")}
           >
             IRC
@@ -76,7 +76,7 @@ function HelpSidebar() {
           </p>
           {/*///////////////////////////*/}
           <p
-            className="sidebarSubsection hover"
+            className="bg border highlightText listItem"
             onClick={() => toggleElement("netrunnerInfo")}
           >
             Netrunner
@@ -106,7 +106,7 @@ function HelpSidebar() {
           </div>
           {/*///////////////////////////*/}
           <p
-            className="sidebarSubsection hover"
+            className="bg border highlightText listItem"
             onClick={() => toggleElement("netwatchInfo")}
           >
             NetWatch
@@ -126,7 +126,7 @@ function HelpSidebar() {
           </p>
           {/*///////////////////////////*/}
           <p
-            className="sidebarSubsection hover"
+            className="bg border highlightText listItem"
             onClick={() => toggleElement("sshInfo")}
           >
             SSH
@@ -137,7 +137,7 @@ function HelpSidebar() {
             is what you're using now, simple command line tools an whatnot.
           </p>
           <p
-            className="sidebarSubsection hover"
+            className="bg border highlightText listItem"
             onClick={() => toggleElement("zombieInfo")}
           >
             Z.O.M.B.I.E
@@ -167,13 +167,13 @@ function HelpSidebar() {
 
         {/*/////////////////////////////////// MAP ////////////////////////////////////////////*/}
         <div
-          className="sectionToggler border"
+          className="headerBar"
           onClick={() => toggleElement("helpMap")}
         >
-          <p> map </p>
+          <p className="headerText"> map </p>
         </div>
 
-        <div id="helpMap" className="blockText" style={{ display: "none" }}>
+        <div id="helpMap" className="border bgStatic blockText" style={{ display: "none" }}>
           <p>
             There's a task for you within the files of this VM. Something to
             test and prove yourself with. This datamap should be useful for that

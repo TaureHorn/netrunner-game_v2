@@ -1,254 +1,461 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&family=Silkscreen&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Courier+Prime&family=Silkscreen&display=swap";
 
-:root {
-  --text: "Courier Prime", monospace;
-  --headerText: "Silkscreen", cursive;
-  --scanline: url(./resources/black-scanline-theme.jpg);
-  --VBDs: url(./resources/resoAgwe.jpg);
+/*/////////////////////////////// VARIABLES /////////////////////////////*/
+/**/
+/*THEMES*/
+/* red */
+$bgRed: #120b10;
+$inRed: #a10036;
+$acRed: #ff0055;
+$contrastRed: #ffffff;
+/* yellow */
+$bgYellow: #16160b;
+$inYellow: #839637;
+$acYellow: #d0ee58;
+$contrastYellow: #2570d6;
+/* blue */
+$bgBlue: #0a1d21;
+$inBlue: #19a1a1;
+$acBlue: #28ffff;
+$contrastBlue: #000000;
+/* green */
+$bgGreen: #15251b;
+$inGreen: #168c50;
+$acGreen: #1cd577;
+$contrastGreen: #000000;
+/* white */
+$bgWhite: #1a1a1a;
+$inWhite: #656565;
+$acWhite: #cccccc;
+$contrastWhite: #000000;
+/* NON THEME */
+$cpYellow: #f3e600;
+$uncommon: #18f081;
+$rare: #2570d6;
+$epic: #9c2bf7;
+$legendary: #fd932d;
+
+$monospaced: "Courier Prime", monospace;
+$titlesText: "Silkscreen", monospace;
+
+$background: url(./resources/black-scanline-theme.jpg);
+$VDBs: url(./resources/resoAgwe.jpg);
+
+$padding: 0.5%;
+
+.thRed {
+  .border {
+    border-color: $inRed;
+  }
+  .bgStatic {
+    background-color: $bgRed;
+  }
+  .bg {
+    background-color: $bgRed;
+  }
+  .bg:hover {
+    background-color: $inRed;
+    box-shadow: $inRed 2px 2px 5px, $inRed -2px -2px 5px;
+  }
+  .bg:active {
+    background-color: $acRed;
+  }
+  .centreImage {
+    background-image: url(./resources/centre-logo_red.png);
+  }
+  .cmdInput {
+    background-color: $inRed;
+  }
+  .cmdInput:hover,
+  .cmdInput:focus {
+    background-color: $acRed;
+  }
+  .commands,
+  .highlightText,
+  .uname {
+    color: $acBlue !important;
+  }
+  .headerBar {
+    background-color: $inRed;
+    box-shadow: $acRed 10px 10px 10px, $acRed -10px -10px -10px;
+  }
+  .headerBar:hover,
+  .headerBar:active {
+    background-color: $acRed;
+  }
+  p,
+  span,
+  li {
+    color: $acRed;
+  }
+  input,
+  textarea {
+    color: $acRed;
+  }
+  .image {
+    filter: sepia(100%) hue-rotate(287deg) saturate(110000%) brightness(0.8);
+  }
+}
+
+.thYellow {
+  .border {
+    border-color: $inYellow;
+  }
+  hr {
+    border: 1px solid $inYellow;
+  }
+  .bgStatic {
+    background-color: $bgYellow;
+  }
+  .bg {
+    background-color: $bgYellow;
+  }
+  .bg:hover {
+    background-color: $inYellow;
+    box-shadow: $inYellow 2px 2px 5px, $inYellow -2px -2px 5px;
+  }
+  .bg:active {
+    background-color: $acYellow;
+  }
+  .centreImage {
+    background-image: url(./resources/centre-logo_david-martinez_2.png);
+  }
+  .cmdInput {
+    background-color: $inYellow;
+  }
+  .cmdInput:hover,
+  .cmdInput:focus {
+    background-color: $acYellow;
+  }
+  .commands,
+  .highlightText,
+  .uname {
+    color: white !important;
+  }
+  .headerBar {
+    background-color: $inYellow;
+    box-shadow: $acYellow 2px 2px 5px, $acYellow -2px -2px 5px;
+  }
+  .headerBar:hover,
+  .headerBar:active {
+    background-color: $acYellow;
+  }
+  p,
+  span,
+  li {
+    color: $acYellow;
+  }
+  input,
+  textarea {
+    color: $acYellow;
+  }
+  .image {
+    filter: sepia(100%) hue-rotate(355deg) saturate(1100%) brightness(0.8);
+  }
+}
+
+.thBlue {
+  .border {
+    border-color: $inBlue;
+  }
+  hr {
+    border: 1px solid $inBlue;
+  }
+  .bgStatic {
+    background-color: $bgBlue;
+  }
+  .bg {
+    background-color: $bgBlue;
+  }
+  .bg:hover {
+    background-color: $inBlue;
+    box-shadow: $inBlue 2px 2px 5px, $inBlue -2px -2px 5px;
+  }
+  .bg:active {
+    background-color: $acBlue;
+  }
+  .centreImage {
+    background-image: url(./resources/centre-logo_netwatch.png);
+  }
+  .cmdInput {
+    background-color: $inBlue;
+  }
+  .cmdInput:hover,
+  .cmdInput:focus {
+    background-color: $acBlue;
+  }
+  .commands,
+  .highlightText,
+  .uname {
+    color: $cpYellow !important;
+  }
+  .headerBar {
+    background-color: $inBlue;
+    box-shadow: $acBlue 2px 2px 5px, $acBlue -2px -2px 5px;
+  }
+  .headerBar:hover,
+  .headerBar:active {
+    background-color: $acBlue;
+  }
+  p,
+  span,
+  li {
+    color: $acBlue;
+  }
+  input,
+  textarea {
+    color: $acBlue;
+  }
+  .image {
+    filter: sepia(100%) hue-rotate(140deg) saturate(20000%) brightness(0.8);
+  }
+}
+.thGreen {
+  .border {
+    border-color: $inGreen;
+  }
+  hr {
+    border: 1px solid $inGreen;
+  }
+  .bgStatic {
+    background-color: $bgGreen;
+  }
+  .bg {
+    background-color: $bgGreen;
+  }
+  .bg:hover {
+    background-color: $inGreen;
+    box-shadow: $inGreen 2px 2px 5px, $inGreen -2px -2px 5px;
+  }
+  .bg:active {
+    background-color: $acGreen;
+  }
+  .centreImage {
+    background-image: url(./resources/centre-logo_biotechnica.png);
+  }
+  .cmdInput {
+    background-color: $inGreen;
+  }
+  .cmdInput:hover,
+  .cmdInput:focus {
+    background-color: $acGreen;
+  }
+  .commands,
+  .highlightText,
+  .uname {
+    color: $acYellow !important;
+  }
+  .headerBar {
+    background-color: $inGreen;
+    box-shadow: $acGreen 2px 2px 5px, $acGreen -2px -2px 5px;
+  }
+  .headerBar:hover,
+  .headerBar:active {
+    background-color: $acGreen;
+  }
+  p,
+  span,
+  li {
+    color: $acGreen;
+  }
+  input,
+  textarea {
+    color: $acGreen;
+  }
+  .image {
+    filter: sepia(100%) hue-rotate(64deg) saturate(1800%) brightness(0.8);
+  }
+}
+.thWhite {
+  .border {
+    border-color: $inWhite;
+  }
+  hr {
+    border: 1px solid $inWhite;
+  }
+  .bgStatic {
+    background-color: $bgWhite;
+  }
+  .bg {
+    background-color: $bgWhite;
+  }
+  .bg:hover {
+    background-color: $inWhite;
+    box-shadow: $inWhite 2px 2px 5px, $inWhite -2px -2px 5px;
+  }
+  .bg:active {
+    background-color: $acWhite;
+  }
+  .centreImage {
+    background-image: url(./resources/centre-logo_night-city.png);
+  }
+  .cmdInput {
+    background-color: $inWhite;
+  }
+  .cmdInput:hover,
+  .cmdInput:focus {
+    background-color: $acWhite;
+  }
+  .commands,
+  .highlightText,
+  .uname {
+    color: white !important;
+  }
+  .headerBar {
+    background-color: $inWhite;
+    box-shadow: $acWhite 2px 2px 5px, $acWhite -2px -2px 5px;
+  }
+
+  .headerBar:hover,
+  .headerBar:active {
+    background-color: $acWhite;
+  }
+  p,
+  span,
+  li {
+    color: $acWhite;
+  }
+  input,
+  textarea {
+    color: $acWhite;
+  }
+  .image {
+    filter: brightness(0.8);
+  }
 }
 
 body {
-  background-image: var(--scanline);
+  background-image: $background;
 }
-
-.centerImage {
-  background: url(./resources/centre-logo_skull-on-black_v2.png);
-  opacity: 15%;
-}
-
+/////////////////////////////////// GENERAL STYLING //////////////////////////////////////////////////////////////////
 p,
+input,
+li,
 span,
-li {
-  color: white;
-  font-family: var(--text);
+textarea {
+  color: inherit;
+  font-family: $monospaced;
+}
+.titlesText {
+  font-family: $titlesText;
+  font-weight: bolder;
+  margin: 0px;
+  text-transform: uppercase;
 }
 
-li {
-  font-style: italic;
-  cursor: pointer;
-}
-
-hr {
-  border: 4px ridge grey;
-}
-
-.welcome {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-
-.page {
-  min-height: 99vh;
-  min-width: 97vh;
+.subTitles {
+  font-size: 22pt;
+  text-align: center;
 }
 
 .border {
-  border: 4px ridge grey;
-  margin: 0px;
-  padding: 0px;
+  border-width: 1px;
+  border-style: ridge;
 }
 
-.header {
-  padding: 10px;
-}
-
-.hover:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.hoverRed:hover {
-  background-color: rgba(255, 0, 85, 0.1);
-  outline: 1px solid rgb(255, 0, 85);
-}
-
-.toggler {
-  background: grey;
-  color: black;
-  border: 4px ridge white;
-  font-size: 1em;
-  text-transform: uppercase;
-  font-weight: bold;
-  writing-mode: vertical-rl;
-  position: absolute;
-  bottom: 8%;
-  padding: 3px;
-}
-
-.helpToggler {
-  left: -5px;
-}
-
-.softwareToggler {
-  right: -5px;
-}
-
-.sectionToggler {
-  font-size: 16pt;
-  text-transform: uppercase;
-  background: none;
-  text-align: center;
-  text-transform: uppercase;
-
-}
-
-.sectionToggler:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.inlineBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inlineBoxLeft {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 20px;
-}
-
-.alertBox {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  max-height: 25%;
-  max-width: 40%;
-  border: 4px ridge white;
-  background-color: #9b9b9b;
-  padding: 20px !important;
-}
-
-.alertText {
-  text-align: center;
-  font-size: 18pt;
-  color: #000000;
-}
-
-.alertButton {
-  width: 100%;
-  margin-right: 10px;
-  background: none;
-  color: #000000;
-  border: 1px solid black;
+.headerBar {
+  clip-path: polygon(40px 0, 100% 0%, 100% 100%, 0 100%, 0 40px);
   cursor: pointer;
-}
-
-.alertButton:hover {
-  background: white;
-}
-
-form {
-  width: 70%;
-}
-
-input,
-textarea {
-  background: none;
-  color: white;
-  font-family: var(--text);
-  font-size: 12pt;
-  border: none;
-  outline: 1px dashed white !important;
-  width: 100%;
-  box-sizing: border-box !important;
-  caret: white underscore !important;
-}
-
-input:active,
-input:focus,
-input:focus-visible {
-  border: none !important;
-  outline: none !important;
-}
-
-.inputRed {
-  background-color: rgb(255, 0, 85) !important;
-  color: white;
-}
-
-.panels {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.panel {
-  min-height: 84vh;
-}
-
-.sidePanel {
-  flex-grow: 0;
-  width: 25%;
-}
-
-.centrePanel {
-  flex-grow: 4;
-  background-image: url(./resources/centre-logo_skull-on-black_v2_33op.png);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.cmdReturn {
-  height: 46vh;
-}
-
-.sidebarHeader {
+  padding: 2px;
+  margin: 5px 10px 0px 10px;
+  text-transform: uppercase;
   text-align: center;
-  font-size: 22pt;
-  font-family: var(--headerText);
-  font-style: italic;
 }
 
 .headerText {
-  font-family: var(--headerText);
-  font-style: italic;
-  text-transform: uppercase;
-  margin: 0px;
+  color: #000000 !important;
+  font-size: 14pt;
 }
 
-.headerButton {
-  font-size: 22pt;
-  color: rgb(255, 0, 85);
-  outline: 1px solid rgb(255, 0, 85);
-  padding: 1%;
+.bg {
+  cursor: pointer;
 }
-
-.headerButton:active,
-.headerButton:hover {
-  color: white;
-  outline: 2px solid white;
-}
-.sidebarSubsection {
-  font-size: 16pt;
-  text-transform: uppercase !important;
-  background-color: rgba(255,255,255,.33);
-  padding: 5px;
-}
-
-.terminalText {
-  font-size: 12pt;
-  padding-left: 10px;
-  padding-right: 10px;
+.listItem {
+  padding: 2%;
+  text-align: center;
 }
 
 .blockText {
+  padding: 10px;
   text-align: justify;
-  font-size: 12pt;
-  padding: 10px;
+  margin: -2px 10px 10px 10px;
 }
-
-button {
+/* /////////////////////// TERMINAL /////////////////////////////////////*/
+.centreImage {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60vh;
+}
+.terminalText {
+  padding: $padding;
+}
+.cmdInput {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  margin: 1% -1% 1% -1%;
+  padding: 1%;
+}
+.form {
+  flex-basis: 75%;
+}
+.uname {
+  flex-basis: 25%;
+}
+.commands,
+.uname {
   background: none;
-  padding: 10px;
-  color: white;
+  border: none;
+  font-size: 14pt;
+  font-weight: bolder;
+  outline: none;
+}
+.commands {
+  width: 100%;
+}
+.commands:focus {
+  border: none;
+  outline: none;
 }
 
+.cmdReturn {
+  margin-bottom: 2%;
+}
+
+/* /////////////////////// POSITIONING /////////////////////////////////////*/
+
+.page {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.bar {
+  padding: $padding;
+  width: 100%;
+}
+.welcome {
+  align-content: center;
+  display: flex;
+  justify-content: center;
+}
+.inlineBox {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.panels {
+  display: flex;
+  flex-grow: 1;
+}
+.panel {
+  height: 85vh !important;
+}
+.centrePanel {
+  flex-basis: 60%;
+}
+.sidePanel {
+  flex-basis: 20%;
+}
 .scroll {
-  max-height: 10px;
   overflow: scroll;
 }

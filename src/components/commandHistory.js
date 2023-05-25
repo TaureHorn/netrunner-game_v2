@@ -12,13 +12,13 @@ function CommandHistory(props) {
       {cmds.map((cmd) => {
         // most of the time cmd.result2-5 are empty strings and are therefore not rendered
         return (
-          <div key={crypto.randomUUID()}>
+          <div className="cmdReturn" key={crypto.randomUUID()}>
             <p style={{ fontWeight: "bold" }}>{cmd?.cmd}</p>
-            <p style={{ fontStyle: "italic" }}>{cmd?.result}</p>
-            <p style={{ fontStyle: "italic" }}>{cmd?.result2}</p>
-            <p style={{ fontStyle: "italic" }}>{cmd?.result3}</p>
-            <p style={{ fontStyle: "italic" }}>{cmd?.result4}</p>
-            <p style={{ fontStyle: "italic" }}>{cmd?.result5}</p>
+            <p className="highlightText" style={{ fontStyle: "italic" }}>{cmd?.result}</p>
+            <p className="highlightText" style={{ fontStyle: "italic" }}>{cmd?.result2}</p>
+            <p className="highlightText" style={{ fontStyle: "italic" }}>{cmd?.result3}</p>
+            <p className="highlightText" style={{ fontStyle: "italic" }}>{cmd?.result4}</p>
+            <p className="highlightText" style={{ fontStyle: "italic" }}>{cmd?.result5}</p>
           </div>
         );
       })}
