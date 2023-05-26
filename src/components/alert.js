@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function Alert(props) {
   function focusElement(element) {
     setTimeout(() => {
@@ -5,22 +7,28 @@ function Alert(props) {
     }, 200);
   }
 
-  focusElement("alertClose");
-
+  useEffect(() => {
+    if (props.alert != "") {
+      document.getElementById("alerter").showModal();
+      focusElement("alertClose");
+    }
+  }, [props.alert]);
   return (
-    <div className="alertBox border">
-      <p className="alertText" style={{ fontSize: "32pt", fontWeight: "bolder", lineHeight: "0.25" }}>
-        ALERT!
-      </p>
-      <p className="alertText">{props.alert}</p>
-      <button
-        id="alertClose"
-        className="alertButton"
-        onClick={() => props.setAlert("")}
-      >
-        close
-      </button>
-    </div>
+    <>
+      <dialog closed id="alerter" className="alertDialog bg border">
+        <p className="alertHeader highlightText">ALERT</p>
+        <p className="highlightText">{props.alert}</p>
+        <form method="dialog">
+          <button
+            id="alertClose"
+            className="alertButton bg border"
+            onClick={() => props.setAlert("")}
+          >
+            <p className="highlightText">close</p>
+          </button>
+        </form>
+      </dialog>
+    </>
   );
 }
 

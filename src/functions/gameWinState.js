@@ -38,11 +38,9 @@ export function gameWinAppearance(bool) {
     // called when game ends to change the appearance of the webpage based on success / loss
   if (bool === false) {
     lossAlarm.play();
-    document.getElementById("header").style.backgroundColor = "#FF0055";
-    document.getElementById("footer").style.backgroundColor = "#FF0055";
     const bg = "url(" + VDBs + ")";
     document.getElementById("centrePanel").style.background = "url()";
-    document.querySelector("body").style.background = bg;
+    document.querySelector("body").style.backgroundImage = bg;
     document.getElementById("title").innerHTML = "You have lost the game!";
     document.getElementById("footerTitle").innerHTML = "TRY AGAIN";
   } else if (bool === true) {

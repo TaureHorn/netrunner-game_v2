@@ -6,7 +6,7 @@ function Footer() {
     <>
       <div id="footer">
         <div
-          className="inlineBox border hover bar footer"
+          className="inlineBox border bar"
           style={{ justifyContent: "space-between" }}
         >
           <img src={zetatech} height={60} className="image" alt="z logo" title="zetatech"/>

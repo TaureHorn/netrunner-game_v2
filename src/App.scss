@@ -59,6 +59,7 @@ $padding: 0.5%;
   }
   .bg:active {
     background-color: $acRed;
+    box-shadow: $inRed 8px 8px 15px, $inRed -8px -8px 15px;
   }
   .centreImage {
     background-image: url(./resources/centre-logo_red.png);
@@ -82,6 +83,9 @@ $padding: 0.5%;
   .headerBar:hover,
   .headerBar:active {
     background-color: $acRed;
+  }
+  .hover:hover {
+      background-color: rgba(255,0,85,.1);
   }
   p,
   span,
@@ -116,6 +120,7 @@ $padding: 0.5%;
   }
   .bg:active {
     background-color: $acYellow;
+    box-shadow: $inYellow 8px 8px 15px, $inYellow -8px -8px 15px;
   }
   .centreImage {
     background-image: url(./resources/centre-logo_david-martinez_2.png);
@@ -140,6 +145,10 @@ $padding: 0.5%;
   .headerBar:active {
     background-color: $acYellow;
   }
+  .hover:hover {
+      background-color: rgba(208,238,88,.1);
+  }
+
   p,
   span,
   li {
@@ -173,6 +182,7 @@ $padding: 0.5%;
   }
   .bg:active {
     background-color: $acBlue;
+    box-shadow: $inBlue 8px 8px 15px, $inBlue -8px -8px 15px;
   }
   .centreImage {
     background-image: url(./resources/centre-logo_netwatch.png);
@@ -196,6 +206,9 @@ $padding: 0.5%;
   .headerBar:hover,
   .headerBar:active {
     background-color: $acBlue;
+  }
+  .hover:hover {
+      background-color: rgba(44,161,161,.1);
   }
   p,
   span,
@@ -229,6 +242,7 @@ $padding: 0.5%;
   }
   .bg:active {
     background-color: $acGreen;
+    box-shadow: $inGreen 8px 8px 15px, $inGreen -8px -8px 15px;
   }
   .centreImage {
     background-image: url(./resources/centre-logo_biotechnica.png);
@@ -252,6 +266,9 @@ $padding: 0.5%;
   .headerBar:hover,
   .headerBar:active {
     background-color: $acGreen;
+  }
+  .hover:hover {
+      background-color: rgba(28,213,119,.1);
   }
   p,
   span,
@@ -285,6 +302,7 @@ $padding: 0.5%;
   }
   .bg:active {
     background-color: $acWhite;
+    box-shadow: $inWhite 8px 8px 15px, $inWhite -8px -8px 15px;
   }
   .centreImage {
     background-image: url(./resources/centre-logo_night-city.png);
@@ -310,6 +328,9 @@ $padding: 0.5%;
   .headerBar:active {
     background-color: $acWhite;
   }
+  .hover:hover {
+      background-color: rgba(255,255,255,.1);
+  }
   p,
   span,
   li {
@@ -326,6 +347,9 @@ $padding: 0.5%;
 
 body {
   background-image: $background;
+  background-position: center;
+  background-repeat: repeat;
+  overflow:hidden;
 }
 /////////////////////////////////// GENERAL STYLING //////////////////////////////////////////////////////////////////
 p,
@@ -335,6 +359,9 @@ span,
 textarea {
   color: inherit;
   font-family: $monospaced;
+}
+.padding {
+  padding: $padding;
 }
 .titlesText {
   font-family: $titlesText;
@@ -370,6 +397,24 @@ textarea {
 .bg {
   cursor: pointer;
 }
+.alertDialog {
+  max-width: 70%;
+  overflow: auto;
+  position: absolute;
+  z-index: 1;
+}
+.alertButton {
+  cursor: pointer;
+  width: 100%;
+}
+.alertButton:focus {
+  outline: none;
+}
+.alertHeader {
+  background: none;
+  font-size: 22pt;
+  text-align: center;
+}
 .listItem {
   padding: 2%;
   text-align: center;
@@ -388,19 +433,19 @@ textarea {
 }
 .terminalText {
   padding: $padding;
+  padding-top: 0 !important;
 }
 .cmdInput {
   align-items: center;
   display: flex;
-  flex-grow: 1;
-  margin: 1% -1% 1% -1%;
+  flex-wrap: wrap;
+  gap: 1%;
+  margin: 0% -1% 0% -1%;
   padding: 1%;
+  padding-left: 2% !important;
 }
 .form {
-  flex-basis: 75%;
-}
-.uname {
-  flex-basis: 25%;
+  flex-grow: 1;
 }
 .commands,
 .uname {
@@ -430,8 +475,8 @@ textarea {
   overflow: hidden;
 }
 .bar {
-  padding: $padding;
-  width: 100%;
+  flex-wrap: wrap;
+  width: 100vw;
 }
 .welcome {
   align-content: center;
@@ -445,10 +490,11 @@ textarea {
 }
 .panels {
   display: flex;
-  flex-grow: 1;
+  flex-grow: 2;
 }
 .panel {
   height: 85vh !important;
+  overflow-x: hidden;
 }
 .centrePanel {
   flex-basis: 60%;
@@ -457,5 +503,5 @@ textarea {
   flex-basis: 20%;
 }
 .scroll {
-  overflow: scroll;
+  overflow-y: scroll;
 }

@@ -3,7 +3,7 @@ function UserDisplayStatus(props) {
 
   return (
     <>
-      <div className="inlineBoxLeft hoverRed" style={{ paddingLeft: "2%" }}>
+      <div className="inlineBoxLeft item" style={{ paddingLeft: "2%" }}>
         <div>
           <img
             src={user._pfp}
@@ -13,11 +13,11 @@ function UserDisplayStatus(props) {
           />
         </div>
         <div style={{ lineHeight: "0.5" }}>
-          <p>
+          <p className="ircText">
             <strong>{user._name} / {user._alias}</strong> [
             {user._connectionStatus}]
           </p>
-          <p>
+          <p className="ircText">
             <em>{user._status}</em>
           </p>
           <br />

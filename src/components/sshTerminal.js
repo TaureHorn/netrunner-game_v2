@@ -88,12 +88,12 @@ function SshTerminal(props) {
       result = instr.helpStatement;
     } else {
       switch (instr.cmd) {
-        case "cat": 
-              // concatenate file - output file contents | checking for file in directory occurs in constructor method
+        case "cat":
+          // concatenate file - output file contents | checking for file in directory occurs in constructor method
           result = currentDirectory.cat(instr.arg1);
           break;
-        case "cd": 
-              // change directory
+        case "cd":
+          // change directory
           const changeDirectory = currentDirectory.cd(instr.arg1);
           if (isObjectEmpty(changeDirectory) === false) {
             setCurrentDirectory(changeDirectory);
@@ -168,7 +168,7 @@ function SshTerminal(props) {
   }
 
   function cmdLogger(cmd) {
-// updates command history with output of comman handler
+    // updates command history with output of comman handler
     const newCmd = [...cmdHistory];
     newCmd.unshift(cmd);
     setCmdHistory(newCmd);
@@ -183,7 +183,7 @@ function SshTerminal(props) {
   const [fileSystem, updateFileSystem] = useState("");
 
   function assignNetLoc(loc) {
-      // sets states data based on passed on location data passed in as props
+    // sets states data based on passed on location data passed in as props
     switch (loc) {
       case "reso_agweBBS":
         setCurrentNetworkLocation(net.resoAgwe);
@@ -198,7 +198,7 @@ function SshTerminal(props) {
         setCurrentDirectory(net.angryDaemons._linkedNetworkDirectories);
         break;
       default: // shouldn't really show, but very useful auto-navigation if users reloads page while within ssh session
-        props.alert( 
+        props.alert(
           "Secure shell failed to spawn at specified ip address. Returning to host shell session"
         );
         navigate("/");
@@ -229,7 +229,7 @@ function SshTerminal(props) {
   }, [passwdReq]);
 
   useEffect(() => {
-      // update of connected child directories auto triggered on directory change
+    // update of connected child directories auto triggered on directory change
     if (currentDirectory !== "") {
       setChildDirs(Object.entries(currentDirectory._linkedDirs));
     }
@@ -262,7 +262,7 @@ function SshTerminal(props) {
   }
 
   useEffect(() => {
-      // auto linking of two specific files to a specific directory, files passed in via scp command
+    // auto linking of two specific files to a specific directory, files passed in via scp command
     let decrypted = "";
     let report = "";
     if (currentDirectory === net.angryDaemons._linkedNetworkDirectories) {
@@ -273,26 +273,39 @@ function SshTerminal(props) {
 
   return (
     <>
-      <div className="border centrePanel panel scroll centreImage hover">
-        <div className="terminalText">
+      <div
+        id="centrePanel"
+        className="border centrePanel panel scroll centreImage hover"
+      >
+        <div className="terminalText" style={{ lineHeight: "0.5" }}>
           <p>
-            {" "}
-            Parent directory: {currentDirectory?._linkedParentDir?._dirName}
+            <strong>PARENT DIRECTORY: </strong>
+            {currentDirectory?._linkedParentDir?._dirName}
           </p>
-          <p> Current directory: {currentDirectory?._dirName}</p>
-          <span> Child directories: </span>
+          <p>
+            <strong>CURRENT DIRECTORY: </strong>
+            {currentDirectory?._dirName}
+          </p>
+          <span>
+            <strong>CHILD DIRECTORIES: </strong>
+          </span>
           {childDirs?.map((dir) => {
             return <span key={crypto.randomUUID()}>{dir[0]} </span>;
           })}
         </div>
-        <hr />
-        <div id="cmdInput" className="inlineBoxLeft terminalText">
-          <span>{uname}</span>
-          <form onSubmit={(e) => inputHandler(e)}>
-            <input id="commandInput" autoFocus name="cmd" type="text" />
+        <div id="cmdInput" className="cmdInput">
+          <span className="uname">{uname}</span>
+          <form className="form" onSubmit={(e) => inputHandler(e)}>
+            <input
+              id="commandInput"
+              className="commands"
+              autoFocus
+              name="cmd"
+              placeholder="type your commandes here"
+              ype="text"
+            />
           </form>
         </div>
-        <hr />
         <div className="cmdReturn terminalText">
           <CommandHistory arr={cmdHistory} />
         </div>
