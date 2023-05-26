@@ -1,3 +1,6 @@
+import "../seventhCircle.scss";
+import Fire from "../resources/fire-57.gif";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +22,7 @@ function IrcTerminal(props) {
   // INPUT HANDLING
   //
 
-  const [cmdHistory, setCmdHistory] = useState("");
+  const [cmdHistory, setCmdHistory] = useState("type your commands here");
 
   function inputHandler(e) {
     e.preventDefault();
@@ -157,7 +160,6 @@ function IrcTerminal(props) {
         navigate("/");
     }
   }
-  console.log(characters);
 
   useEffect(() => {
     //  if current network location is at its initialised state => set states based on data passed in as props
@@ -180,26 +182,25 @@ function IrcTerminal(props) {
 
   return (
     <>
-      <div className="border centrePanel panel centreImage hover">
-        <p
-          className="headerText"
-          style={{ fontSize: "44pt", textAlign: "center" }}
-        >
-          {currentNetworkLocation._netLocName}
-        </p>
-        <p
-          style={{ fontSize: "12pt", textAlign: "center", fontStyle: "italic" }}
-        >
-          {currentIRC._tagline?.toLowerCase()}
-        </p>
-        <hr />
-        <div id="cmdInput" className="inlineBoxLeft terminalText inputRed">
-          <span>
+      <div className="border centrePanel hover panel scroll">
+        <div className="sevenBG">
+          <div className="titleBar">
+            <img src={Fire} width="100px" alt="fire gif" />
+            <h1 className="channelTitle">
+              {currentNetworkLocation._netLocName}
+            </h1>
+            <img src={Fire} width="100px" alt="fire gif" />
+          </div>
+          <p className="subtitleText">{currentIRC._tagline?.toLowerCase()}</p>
+        </div>
+        <div id="cmdInput" className="cmdInput">
+          <span className="uname">
             {currentUser._name}@{currentNetworkLocation._netLocName} $:
           </span>
-          <form onSubmit={(e) => inputHandler(e)}>
+          <form className="form" onSubmit={(e) => inputHandler(e)}>
             <input
               id="commandInput"
+              className="commands"
               autoFocus
               name="cmd"
               placeholder={cmdHistory}
@@ -207,19 +208,10 @@ function IrcTerminal(props) {
             />
           </form>
         </div>
-        <hr />
-        <div className="panel scroll">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              outline: "1px solid rgb(255,0,85)",
-              marginTop: "4px",
-              zIndex: "3",
-            }}
-          >
+        <div className="panel">
+          <div className="headers">
             <span
-              className="headerText headerButton"
+              className="ircHeaderText headerButton"
               id="userHeader"
               style={{
                 color: "white",
@@ -240,9 +232,8 @@ function IrcTerminal(props) {
               Users
             </span>
             <span
-              className="headerText headerButton"
+              className="ircHeaderText headerButton"
               id="messagesHeader"
-              style={{ zIndex: "3" }}
               onClick={() =>
                 sectionSelector(
                   sections,
@@ -256,9 +247,8 @@ function IrcTerminal(props) {
               Channel Messages
             </span>
             <span
-              className="headerText headerButton"
+              className="ircHeaderText headerButton"
               id="privateMessagesHeader"
-              style={{ zIndex: "3" }}
               onClick={() =>
                 sectionSelector(
                   sections,
@@ -272,7 +262,6 @@ function IrcTerminal(props) {
               Private Messages
             </span>
           </div>
-          <br />
           <div id="users">
             {characters?.map((char) => {
               const displayStatus = char[1];
@@ -285,14 +274,13 @@ function IrcTerminal(props) {
           </div>
           <div id="messages" style={{ display: "none" }}>
             {currentIRC._messageHistory?.map((msg) => {
-              return <p className="hoverRed">{msg}</p>;
+              return <p className="ircText item">{msg}</p>;
             })}
-            <hr />
           </div>
           <div id="privateMessages" style={{ display: "none" }}>
             {pm === false ? (
               <div key={crypto.randomUUID()}>
-                <p style={{ textAlign: "center" }}>
+                <p className="ircText ircHighlightText" style={{ textAlign: "center" }}>
                   Initiate a private message with a user with the "pm" command
                   followed by the users name.
                 </p>

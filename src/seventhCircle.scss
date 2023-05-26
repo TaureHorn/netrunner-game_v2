@@ -1,0 +1,109 @@
+@import "https://fonts.googleapis.com/css2?family=Syne+Mono&family=UnifrakturMaguntia&display=swap";
+
+/*/////////////////////////////// VARIABLES /////////////////////////////*/
+$darkBG: #660000;
+$orangeRed: #ff230a;
+$gold: #ffb238;
+
+.sevenBG {
+  background-image: linear-gradient(180deg, $darkBG, rgba(0, 0, 0, 0));
+}
+.titleBar {
+  align-items: center;
+  display: flex;
+  gap: 5%;
+  justify-content: center;
+}
+.channelTitle {
+  color: $orangeRed !important;
+  font-family: UnifrakturMaguntia;
+  font-size: 96pt;
+  margin: 1%;
+  text-align: center;
+  text-shadow: $gold 3px 3px;
+}
+.subtitleText {
+  color: $gold !important;
+  font-family: Syne Mono, monospace;
+  font-size: 16pt;
+  text-align: center;
+}
+.headers {
+  display: flex;
+  justify-content: space-between;
+  outline: 1px solid $orangeRed;
+  padding: 0 2% 0 2%;
+  margin-top: 1px;
+  z-index: 3;
+}
+.headerButton {
+  cursor: pointer;
+  padding: 1%;
+  outline: 1px solid $orangeRed;
+  z-index: 3;
+}
+.ircHeaderText {
+  color: $gold !important;
+  font-family: Syne Mono, monospace;
+  font-size: 16pt !important;
+  text-transform: uppercase;
+  text-align: center;
+}
+.item {
+  padding: 0.5%;
+  margin: 0%;
+}
+.item:hover {
+  background-color: $darkBG;
+  color: $gold !important;
+  outline: 1px solid $orangeRed;
+  p {
+    color: $gold !important;
+  }
+}
+.ircText {
+  color: $orangeRed !important;
+  font-family: Syne Mono, cursive;
+  font-size: 14pt;
+}
+.ircHighlightText {
+  color: $gold !important;
+}
+/*/////////////////////////////// PRIVATE MESSAGES  /////////////////////////////*/
+.userInfo {
+  align-items: center;
+  // background-color: $darkBG;
+  display: flex;
+  gap: 1%;
+  justify-content: center;
+  margin: 0;
+  margin-top: 1px;
+}
+.ircCmdInput {
+  align-items: center;
+  background-color: $darkBG;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+  padding: 1%;
+}
+.ircCommands {
+  background: none;
+  border: none;
+  color: $gold !important;
+  font-size: 14pt;
+  font-weight: bolder;
+  outline: none;
+  width: 100%;
+}
+.ircCommands:focus {
+  border: none;
+  outline: none;
+}
+/*/////////////////////////////// POSITIONING  /////////////////////////////*/
+.inlineBoxLeft {
+  align-items: center;
+  display: flex;
+  gap: 2%;
+  justify-content: start;
+}

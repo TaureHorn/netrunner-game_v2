@@ -23,7 +23,7 @@ function Bootup(props) {
   const bootup = (user) => { // commits user data to local storage and loads into main UI
     const username = (user + "@" + ueid).toString();
     window.localStorage.setItem("username", username);
-    props.alert("welcome " + username + ". loading virtual environment");
+    props.alert("welcome " + username + ". loading virtual environment. please wait...");
     return setTimeout(() => {
       window.location.reload();
     }, 3000);
@@ -37,9 +37,9 @@ function Bootup(props) {
         </p>
         <p>Virtual Machine Environment is booting for the first time</p>
         <p>hostname: {ueid}</p>
-        <p>please enter a username</p>
+        <p>please enter a username below</p>
         <form onSubmit={(e) => userHandler(e)}>
-          <input className="commands" type="text" autoFocus name="username" />
+          <input id="usernameInput" className="bg commands padding" type="text" autoFocus name="username" placeholder="username..."/>
         </form>
       </div>
     </div>

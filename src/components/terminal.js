@@ -206,17 +206,14 @@ function Terminal(props) {
       >
         <div className="terminalText" style={{ lineHeight: "0.5" }}>
           <p>
-            {" "}
-            <strong>PARENT DIRECTORY:</strong>{" "}
+            <strong>PARENT DIRECTORY: </strong>
             {currentDirectory._linkedParentDir._dirName}
           </p>
           <p>
-            {" "}
-            <strong>CURRENT DIRECTORY:</strong> {currentDirectory._dirName}
+            <strong>CURRENT DIRECTORY: </strong> {currentDirectory._dirName}
           </p>
           <span>
-            {" "}
-            <strong>CHILD DIRECTORIES:</strong>{" "}
+            <strong>CHILD DIRECTORIES: </strong>
           </span>
           {childDirs?.map((dir) => {
             return <span key={crypto.randomUUID()}>{dir[0]} </span>;

@@ -118,65 +118,60 @@ function UserPrivateMessage(props) {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
-          gap: "20px",
-          outline: "1px solid rgb(255,0,85)",
-          backgroundColor: "rgba(255,0,85,0.15)",
+          justifyContent: "space-evenly",
         }}
       >
-        <img
-          src={targetUser._pfp}
-          width="256"
-          title={targetUser._alias + "'s profile picture"}
-          alt="users profile"
-        />
-        <div style={{ lineHeight: "2", fontSize: "16pt" }}>
-          <p>
-            <strong>NAME:</strong> <em>{targetUser._name}</em>
+        <div className="userInfo">
+          <img
+            src={targetUser._pfp}
+            width="256"
+            title={targetUser._alias + "'s profile picture"}
+            alt="users profile"
+          />
+          <div style={{ lineHeight: "2", fontSize: "16pt" }}>
+            <p className="ircText">
+              <strong>NAME:</strong> <em>{targetUser._name}</em>
+            </p>
+            <p className="ircText">
+              <strong>ALIAS:</strong> <em>{targetUser._alias}</em>
+            </p>
+            <p className="ircText">
+              <strong>ID:</strong> <em>{targetUser._userID}</em>
+            </p>
+            <p className="ircText">
+              <strong>CONNECTION STATUS:</strong>{" "}
+              <em>{targetUser._connectionStatus}</em>
+            </p>
+          </div>
+        </div>
+        {/* //////////////////// CONVO OPTIONS  //////////////////////////////*/}
+        <div>
+          <p className="ircText ircHighlightText">
+            what would you like to message {targetUser._alias} about?
           </p>
-          <p>
-            <strong>ALIAS:</strong> <em>{targetUser._alias}</em>
-          </p>
-          <p>
-            <strong>ID:</strong> <em>{targetUser._userID}</em>
-          </p>
-          <p>
-            <strong>CONNECTION STATUS:</strong>{" "}
-            <em>{targetUser._connectionStatus}</em>
-          </p>
+          {convoOptions.map((option, index) => {
+            return (
+              <div key={crypto.randomUUID()}>
+                <p className="ircText item">
+                  {index + 1}: {option}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
-      {/* //////////////////// CONVO HISTORY //////////////////////////////*/}
-      <CommandHistory arr={cmdHistory} />
-      {/* //////////////////// CONVO OPTIONS  //////////////////////////////*/}
-      <div
-        style={{
-          outline: "1px solid rgb(255,0,85)",
-          backgroundColor: "rgba(255,0,85,0.25)",
-        }}
-      >
-        <p className="headerText" style={{ fontSize: "18pt" }}>
-          Options:
-        </p>
-        {convoOptions.map((option, index) => {
-          return (
-            <div key={crypto.randomUUID()}>
-              <span>
-                {index + 1}: {option}
-              </span>
-            </div>
-          );
-        })}
-      </div>
       {/* //////////////////// COMMAND LINE INPUT //////////////////////////////*/}
-      <div id="cmdInput" className="inlineBoxLeft terminalText inputRed">
-        <span>{currentUser._name}</span>
-        <span style={{ fontSize: "32pt" }}>➔</span>
-        <span>{targetUser._alias} $:</span>
-        <form onSubmit={(e) => inputHandler(e)}>
+      <div id="cmdInput" className="ircCmdInput">
+        <span className="ircText">{currentUser._name}</span>
+        <span className="ircText" style={{ fontSize: "22pt" }}>
+          ➔
+        </span>
+        <span className="ircText">{targetUser._alias} $:</span>
+        <form className="form" onSubmit={(e) => inputHandler(e)}>
           <input
             id="pmInput"
+            className="ircCommands"
             autoFocus
             placeholder="Enter the number of the conversation option you want here"
             name="cmd"
@@ -184,6 +179,8 @@ function UserPrivateMessage(props) {
           />
         </form>
       </div>
+      {/* //////////////////// CONVO HISTORY //////////////////////////////*/}
+      <CommandHistory arr={cmdHistory} />
     </>
   );
 }

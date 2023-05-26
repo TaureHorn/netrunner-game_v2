@@ -1,6 +1,7 @@
 import "./App.scss";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import Favicon from "react-favicon";
 
 // component imports
 import Alert from "./components/alert";
@@ -82,6 +83,7 @@ function App() {
       }, 10000);
     }
   }, [winState]);
+
   return !username ? (
     <>
       <div className="page welcome">
