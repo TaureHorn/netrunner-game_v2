@@ -68,10 +68,10 @@ function IrcTerminal(props) {
           let findUser = "";
           if (command.arg1 === currentUser._name) {
             result = "Cannot start a private message with yourself!";
-          } else {
+          }else {
             findUser = currentIRC.findUser(command.arg1);
           }
-          if (findUser === " ~~ no such user. a-Z only") {
+          if (findUser === " ~~ no such user") {
             result = findUser;
           } else if (typeof findUser === "object") {
             result = "Starting private message with user: " + findUser._name;

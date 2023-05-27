@@ -39,7 +39,7 @@ function UserPrivateMessage(props) {
     e.preventDefault();
     const input = parseInt(e.target.cmd.value);
     document.getElementById("pmInput").value = "";
-    if (typeof input !== "number" || input > convoOptions.length) {
+    if (typeof input !== "number" || input > convoOptions.length || isNaN(input) === true) {
       return inputFlasher(
         "please enter a number between 1 and " + convoOptions.length
       );
