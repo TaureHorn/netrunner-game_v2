@@ -175,7 +175,7 @@ function SoftwareSidebar(props) {
             </p>
             <textarea
               id="notes"
-              className="bgStatic border highlightText "
+              className="bgStatic border highlightText notes"
               defaultValue={notesTemp}
               placeholder="write your notes here"
               onChange={(e) =>
@@ -184,6 +184,7 @@ function SoftwareSidebar(props) {
                 }, 4999)
               }
               style={{ width: "97%" }}
+              rows="20"
             ></textarea>
           </div>
           {/*}///////////////////////////////////////////////////////////////////////////*/}
